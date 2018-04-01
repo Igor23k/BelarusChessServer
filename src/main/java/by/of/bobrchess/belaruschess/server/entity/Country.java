@@ -1,11 +1,12 @@
 package by.of.bobrchess.belaruschess.server.entity;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 
 @Entity
-
+@Proxy(lazy = false)
 @Table(name = "country")
 public class Country {
 
