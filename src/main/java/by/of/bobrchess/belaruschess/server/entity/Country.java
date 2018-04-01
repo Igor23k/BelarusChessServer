@@ -6,18 +6,19 @@ import javax.persistence.*;
 
 @Entity
 
-@Table(name = "remind")
+@Table(name = "country")
 public class Country {
 
     @Id
+    @Column(columnDefinition = "INT(10) unsigned")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
 
-    @Column(name = "c_name", nullable = false, length = 50)
+    @Column(name = "c_name", nullable = false, length = 50, unique = true)
     private String name;
 
-    @Column(name = "c_abbreviation", nullable = false, length = 3)
+    @Column(name = "c_abbreviation", nullable = false, length = 3, unique = true)
     private String abbreviation;
 
     public Country() {
