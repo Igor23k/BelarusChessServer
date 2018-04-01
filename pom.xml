@@ -17,6 +17,7 @@
         <mysql-connector-java>6.0.6</mysql-connector-java>
         <commons-dbcp2>2.2.0</commons-dbcp2>
         <jta>1.1</jta>
+        <jackson-databind>2.9.5</jackson-databind>
     </properties>
     <dependencies>
         <dependency>
@@ -30,6 +31,12 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${spring}</version>
         </dependency>
+        <!--JSON converter -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind}</version>
+        </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -42,13 +49,11 @@
             <artifactId>spring-data-jpa</artifactId>
             <version>${spring-data-jpa}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
         <dependency>
             <groupId>javax.transaction</groupId>
             <artifactId>jta</artifactId>
             <version>${jta}</version>
         </dependency>
-
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
