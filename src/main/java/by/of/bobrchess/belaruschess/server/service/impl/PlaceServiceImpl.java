@@ -1,0 +1,32 @@
+package by.of.bobrchess.belaruschess.server.service.impl;
+
+import by.of.bobrchess.belaruschess.server.entity.Place;
+import by.of.bobrchess.belaruschess.server.repository.PlaceRepository;
+import by.of.bobrchess.belaruschess.server.service.PlaceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class PlaceServiceImpl implements PlaceService {
+
+    @Autowired
+    private PlaceRepository repository;
+
+    public List<Place> getAll() {
+        return repository.findAll();
+    }
+
+    public Place getById(int id) {
+        return repository.getOne(id);
+    }
+
+    public Place save(Place place) {
+        return repository.saveAndFlush(place);
+    }
+
+    public void remove(int id) {
+        repository.deleteById(id);
+    }
+}
