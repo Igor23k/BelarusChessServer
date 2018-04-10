@@ -35,7 +35,7 @@ public class Tournament {
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "tr_referee_id", nullable = false)
-    private Person referee;
+    private User referee;
 
     public Integer getId() {
         return id;
@@ -85,15 +85,15 @@ public class Tournament {
         this.place = place;
     }
 
-    public Person getReferee() {
+    public User getReferee() {
         return referee;
     }
 
-    public void setReferee(Person referee) {
+    public void setReferee(User referee) {
         this.referee = referee;
     }
 
-    public Tournament(String name, Date startDate, Date finishDate, Integer countPlayersInTeam, Place place, Person referee) {
+    public Tournament(String name, Date startDate, Date finishDate, Integer countPlayersInTeam, Place place, User referee) {
         this.name = name;
         this.startDate = startDate;
         this.finishDate = finishDate;

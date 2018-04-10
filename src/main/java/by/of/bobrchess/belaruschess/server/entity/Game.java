@@ -30,11 +30,11 @@ public class Game {
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "g_first_chess_player_id", nullable = false)
-    private ChessPlayer firstChessPlayer;
+    private User firstChessPlayer;
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "g_second_chess_player_id", nullable = false)
-    private ChessPlayer secondChessPlayer;
+    private User secondChessPlayer;
 
     public Integer getId() {
         return id;
@@ -76,23 +76,23 @@ public class Game {
         this.match = match;
     }
 
-    public ChessPlayer getFirstChessPlayer() {
+    public User getFirstChessPlayer() {
         return firstChessPlayer;
     }
 
-    public void setFirstChessPlayer(ChessPlayer firstChessPlayer) {
+    public void setFirstChessPlayer(User firstChessPlayer) {
         this.firstChessPlayer = firstChessPlayer;
     }
 
-    public ChessPlayer getSecondChessPlayer() {
+    public User getSecondChessPlayer() {
         return secondChessPlayer;
     }
 
-    public void setSecondChessPlayer(ChessPlayer secondChessPlayer) {
+    public void setSecondChessPlayer(User secondChessPlayer) {
         this.secondChessPlayer = secondChessPlayer;
     }
 
-    public Game(String name, Double countPointsFirstPlayer, Double countPointsSecondPlayer, Match match, ChessPlayer firstChessPlayer, ChessPlayer secondChessPlayer) {
+    public Game(String name, Double countPointsFirstPlayer, Double countPointsSecondPlayer, Match match, User firstChessPlayer, User secondChessPlayer) {
         this.name = name;
         this.countPointsFirstPlayer = countPointsFirstPlayer;
         this.countPointsSecondPlayer = countPointsSecondPlayer;
