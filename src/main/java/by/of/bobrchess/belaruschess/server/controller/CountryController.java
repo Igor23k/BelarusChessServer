@@ -19,7 +19,7 @@ public class CountryController {
         return service.getAll();
     }
 
-    @RequestMapping(value = "/countries/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/country/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Country getCountry(@PathVariable int id) {
       //  return service.getAll().get(id);
