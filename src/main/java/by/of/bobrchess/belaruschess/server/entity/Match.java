@@ -34,12 +34,17 @@ public class Match {
     @JoinColumn(name = "m_first_team_id", nullable = false)
     private TournamentTeam firstTeam;
 
-    public Match(Double countPointsFirstTeam, Double countPointsSecondTeam, Date date, Tournament tournament, TournamentTeam firstTeam) {
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "m_second_team_id", nullable = false)
+    private TournamentTeam secondTeam;
+
+    public Match(Double countPointsFirstTeam, Double countPointsSecondTeam, Date date, Tournament tournament, TournamentTeam firstTeam, TournamentTeam secondTeam) {
         this.countPointsFirstTeam = countPointsFirstTeam;
         this.countPointsSecondTeam = countPointsSecondTeam;
         this.date = date;
         this.tournament = tournament;
         this.firstTeam = firstTeam;
+        this.secondTeam = secondTeam;
     }
 
     public Match() {
@@ -91,5 +96,13 @@ public class Match {
 
     public void setFirstTeam(TournamentTeam firstTeam) {
         this.firstTeam = firstTeam;
+    }
+
+    public TournamentTeam getSecondTeam() {
+        return secondTeam;
+    }
+
+    public void setSecondTeam(TournamentTeam secondTeam) {
+        this.secondTeam = secondTeam;
     }
 }

@@ -13,7 +13,7 @@ public class UserController {
     @Autowired
     UserService service;
 
-    @RequestMapping(value = "/usersl", method = RequestMethod.GET)
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getAllUsers() {
         return service.getAll();
