@@ -22,7 +22,6 @@ public class GameController {
     @RequestMapping(value = "/game/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Game getGame(@PathVariable int id) {
-        //  return service.getAll().get(id);
         return service.getById(id);
     }
 
@@ -32,7 +31,7 @@ public class GameController {
         return service.save(game);
     }
 
-    @RequestMapping(value = "/games/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/game/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteGame(@PathVariable int id) {
         service.remove(id);

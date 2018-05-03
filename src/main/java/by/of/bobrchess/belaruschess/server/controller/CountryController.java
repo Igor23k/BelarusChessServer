@@ -22,17 +22,17 @@ public class CountryController {
     @RequestMapping(value = "/country/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Country getCountry(@PathVariable int id) {
-      //  return service.getAll().get(id);
         return service.getById(id);
     }
 
-    @RequestMapping(value = "/countries", method = RequestMethod.POST)
+    @RequestMapping(value = "/country", method = RequestMethod.POST)
     @ResponseBody
     public Country addCountry(@RequestBody Country country) {
-        return service.save(country);
+         return service.save(country);
     }
 
-    @RequestMapping(value = "/countries/{id}", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/country/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteCountry(@PathVariable int id) {
         service.remove(id);

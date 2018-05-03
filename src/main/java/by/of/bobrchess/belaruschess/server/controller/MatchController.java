@@ -33,7 +33,7 @@ public class MatchController {
         return service.save(match);
     }
 
-    @RequestMapping(value = "/matches/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/match/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteMatch(@PathVariable int id) {
         service.remove(id);

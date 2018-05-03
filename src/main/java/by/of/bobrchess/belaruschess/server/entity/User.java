@@ -26,21 +26,21 @@ public class User {
     @Column(name = "u_patronymic", nullable = false, length = 100)
     private String patronymic;
 
-    @Column(name = "u_birthday", nullable = false)//check type
-    private Date birthday;
+    /*@Column(name = "u_birthday", nullable = false)//check type
+    private Date birthday;*/
 
-    @Column(name = "u_email", nullable = false, length = 100)
+    @Column(name = "u_email", nullable = false, length = 100, unique = true)
     private String email;
 
     @Column(name = "u_password", nullable = false, length = 45)
     private String password;
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "u_rank_id", nullable = false)
+    @JoinColumn(name = "u_rank_id", nullable = true)
     private Rank rank;
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "u_country_id", nullable = false)
+    @JoinColumn(name = "u_country_id", nullable = true)
     private Country country;
 
     @Column(name = "u_rating")
@@ -51,11 +51,11 @@ public class User {
     @JoinColumn(name = "u_coach_id")
     private User coach;
 
-    public User(String name, String surname, String patronymic, Date birthday, String email, String password, Rank rank, Country country) {
+    public User(String name, String surname, String patronymic,/* Date birthday,*/ String email, String password, Rank rank, Country country) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
-        this.birthday = birthday;
+       // this.birthday = birthday;
         this.email = email;
         this.password = password;
         this.rank = rank;
@@ -97,13 +97,13 @@ public class User {
         this.patronymic = patronymic;
     }
 
-    public Date getBirthday() {
+    /*public Date getBirthday() {
         return birthday;
     }
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
-    }
+    }*/
 
     public String getEmail() {
         return email;

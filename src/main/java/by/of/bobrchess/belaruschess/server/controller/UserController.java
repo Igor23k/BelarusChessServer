@@ -3,9 +3,12 @@ package by.of.bobrchess.belaruschess.server.controller;
 import by.of.bobrchess.belaruschess.server.entity.User;
 import by.of.bobrchess.belaruschess.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class UserController {
@@ -25,20 +28,29 @@ public class UserController {
         return service.getById(id);
     }
 
-    @RequestMapping(value = "/user?email={email}&password={password}", method = RequestMethod.GET)
-    @ResponseBody
-    public User authorizateUser(@PathVariable String email, @PathVariable String password) {
-        //  return service.getAll().get(id);
-        return service.authorizateUser(email,password);
-    }
-
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     @ResponseBody
-    public User addUser(@RequestBody User user) {
-        return service.save(user);
+    public User authorizateUser(@RequestBody User user, HttpServletResponse response) {
+        user = service.authorizate(user.getEmail(), user.getPassword());
+        if (Objects.isNull(user)) {
+            response.setStatus(HttpStatus.NO_CONTENT.value());
+            response.setHeader("Error message", "Authorizate is failed!");
+        }
+        return user;
     }
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    @ResponseBody
+    public User addUser(@RequestBody User user, HttpServletResponse response) {
+        user = service.save(user);
+        if (Objects.isNull(user)) {
+            response.setStatus(HttpStatus.NO_CONTENT.value());
+            response.setHeader("Error message", "User with this email already exists!");
+        }
+        return user;
+    }
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteUser(@PathVariable Long id) {
         service.remove(id);

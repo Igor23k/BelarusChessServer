@@ -32,7 +32,7 @@ public class RankController {
         return service.save(rank);
     }
 
-    @RequestMapping(value = "/ranks/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/rank/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteRank(@PathVariable int id) {
         service.remove(id);

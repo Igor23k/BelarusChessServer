@@ -33,7 +33,7 @@ public class PlaceController {
         return service.save(place);
     }
 
-    @RequestMapping(value = "/places/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/place/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void deletePlace(@PathVariable int id) {
         service.remove(id);

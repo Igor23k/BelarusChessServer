@@ -31,7 +31,7 @@ public class TournamentController {
         return service.save(tournament);
     }
 
-    @RequestMapping(value = "/tournaments/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/tournament/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteTournament(@PathVariable int id) {
         service.remove(id);

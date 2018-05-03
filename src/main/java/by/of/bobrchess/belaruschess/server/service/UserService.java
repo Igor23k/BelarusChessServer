@@ -11,7 +11,7 @@ public interface UserService {
 
     User getById(Long id);
 
-    User authorizateUser(String email, String password);
+    User authorizate(String email, String password);
 
     User save(User u);
 
