@@ -16,10 +16,22 @@ public class UserController {
     @Autowired
     UserService service;
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(value = "/allUsers", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getAllUsers() {
         return service.getAll();
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> getUsers(@RequestParam Integer count) {
+        return service.getUsers(count);
+    }
+
+    @RequestMapping(value = "/searchUsers", method = RequestMethod.GET)
+    @ResponseBody
+    public  List<User> searchUsers(@RequestParam String text) {
+        return service.searchUsers(text);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
@@ -34,7 +46,7 @@ public class UserController {
         user = service.authorizate(user.getEmail(), user.getPassword());
         if (Objects.isNull(user)) {
             response.setStatus(HttpStatus.NO_CONTENT.value());
-            response.setHeader("Error message", "Authorizate is failed!");
+            response.setHeader("Error", "Authorizate is failed!");
         }
         return user;
     }
@@ -45,7 +57,7 @@ public class UserController {
         user = service.save(user);
         if (Objects.isNull(user)) {
             response.setStatus(HttpStatus.NO_CONTENT.value());
-            response.setHeader("Error message", "User with this email already exists!");
+            response.setHeader("Error", "User with this email already exists!");
         }
         return user;
     }

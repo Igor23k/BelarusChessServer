@@ -22,6 +22,17 @@ public class UserServiceImpl implements UserService {
         return repository.findAll();
     }
 
+    @Override
+    public List<User> getUsers(Integer count) {
+        return repository.getUsers(count);
+    }
+
+    @Override
+    public List<User> searchUsers(String text) {
+        List<User> users = repository.searchUsers(text);
+        return users;
+    }
+
     public User getByEmail(String email) {
         return repository.findByEmail(email);
     }
