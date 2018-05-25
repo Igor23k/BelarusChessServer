@@ -29,8 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> searchUsers(String text) {
-        List<User> users = repository.searchUsers(text);
-        return users;
+        return repository.searchUsers(text);
     }
 
     public User getByEmail(String email) {
@@ -70,6 +69,7 @@ public class UserServiceImpl implements UserService {
         rankDTO.setAbbreviation("kek");
         rankDTO.setName("KEKER");
         userDTO.setEmail("ww@dd.ek");
+        userDTO.setStatus("I love myself!");
         userDTO.setCountry(countryDTO);
         userDTO.setRank(rankDTO);
         userDTO.setName("Ihar");

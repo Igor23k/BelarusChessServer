@@ -20,10 +20,16 @@ public class Tournament {
     @Column(name = "tr_name", nullable = false, length = 50)
     private String name;
 
-    @Column(name = "tr_start", nullable = false)
+    @Column(name = "tr_short_description", nullable = false, length = 100)
+    private String shortDescription;
+
+    @Column(name = "tr_full_description", nullable = false, length = 2000)
+    private String fullDescription;
+
+    @Column(name = "tr_start", nullable = true)
     private Date startDate;
 
-    @Column(name = "tr_finish", nullable = false)
+    @Column(name = "tr_finish", nullable = true)
     private Date finishDate;
 
     @Column(name = "tr_count_players_in_team", nullable = false)
@@ -93,8 +99,26 @@ public class Tournament {
         this.referee = referee;
     }
 
-    public Tournament(String name, Date startDate, Date finishDate, Integer countPlayersInTeam, Place place, User referee) {
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getFullDescription() {
+        return fullDescription;
+    }
+
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
+    }
+
+    public Tournament(String name, String shortDescription, String fullDescription, Date startDate, Date finishDate, Integer countPlayersInTeam, Place place, User referee) {
         this.name = name;
+        this.shortDescription = shortDescription;
+        this.fullDescription = fullDescription;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.countPlayersInTeam = countPlayersInTeam;

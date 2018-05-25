@@ -4,7 +4,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
 @Proxy(lazy = false)
@@ -29,17 +28,20 @@ public class User {
     /*@Column(name = "u_birthday", nullable = false)//check type
     private Date birthday;*/
 
+    @Column(name = "u_status", length = 50)
+    private String status;
+
     @Column(name = "u_email", nullable = false, length = 100, unique = true)
     private String email;
 
     @Column(name = "u_password", nullable = false, length = 45)
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "u_rank_id", nullable = true)
     private Rank rank;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "u_country_id", nullable = true)
     private Country country;
 
@@ -47,16 +49,17 @@ public class User {
     private Integer rating;
 
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "u_coach_id")
     private User coach;
 
-    public User(String name, String surname, String patronymic,/* Date birthday,*/ String email, String password, Rank rank, Country country) {
+    public User(String name, String surname, String patronymic,/* Date birthday,*/ String email, String status, String password, Rank rank, Country country) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
-       // this.birthday = birthday;
+        // this.birthday = birthday;
         this.email = email;
+        this.status = status;
         this.password = password;
         this.rank = rank;
         this.country = country;
@@ -111,6 +114,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getPassword() {

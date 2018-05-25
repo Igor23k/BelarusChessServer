@@ -18,6 +18,11 @@ public class TournamentServiceImpl implements TournamentService {
         return repository.findAll();
     }
 
+    @Override
+    public List<Tournament> searchTournaments(String text) {
+        return repository.searchTournaments(text);
+    }
+
     public Tournament getById(int id) {
         return repository.getOne(id);
     }

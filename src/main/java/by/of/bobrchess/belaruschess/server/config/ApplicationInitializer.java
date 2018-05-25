@@ -1,4 +1,4 @@
-package by.of.bobrchess.belaruschess.server;
+package by.of.bobrchess.belaruschess.server.config;
 
 import by.of.bobrchess.belaruschess.server.config.WebConfig;
 import org.springframework.web.WebApplicationInitializer;

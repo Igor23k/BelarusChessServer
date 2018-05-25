@@ -19,6 +19,12 @@ public class TournamentController {
         return service.getAll();
     }
 
+    @RequestMapping(value = "/searchTournaments", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Tournament> searchTournaments(@RequestParam String text) {
+        return service.searchTournaments(text);
+    }
+
     @RequestMapping(value = "/tournament/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Tournament getTournament(@PathVariable int id) {
