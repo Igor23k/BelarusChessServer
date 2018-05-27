@@ -15,11 +15,17 @@ public class GameServiceImpl implements GameService {
     private GameRepository repository;
 
     public List<Game> getAll() {
-        return repository.findAll();
+        List<Game> games = repository.findAll();
+        for (int i = 0; i < games.size(); i++) {
+            games.get(i).getMatch().setDate(null);
+        }
+        return games;
     }
 
     public Game getById(int id) {
-        return repository.getOne(id);
+        Game game = repository.getOne(id);
+        game.getMatch().setDate(null);
+        return game;
     }
 
     public Game save(Game game) {
