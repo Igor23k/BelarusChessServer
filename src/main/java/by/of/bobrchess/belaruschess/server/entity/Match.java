@@ -4,7 +4,9 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
+
+import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Proxy(lazy = false)
@@ -24,21 +26,21 @@ public class Match {
     private Double countPointsSecondTeam;
 
     @Column(name = "m_date", nullable = false)
-    private Date date;
+    private LocalDateTime date;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "m_tournament_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = ALL)
+    @JoinColumn(name = "m_tournament_id")
     private Tournament tournament;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "m_first_team_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = ALL)
+    @JoinColumn(name = "m_first_team_id")
     private TournamentTeam firstTeam;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "m_second_team_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = ALL)
+    @JoinColumn(name = "m_second_team_id")
     private TournamentTeam secondTeam;
 
-    public Match(Double countPointsFirstTeam, Double countPointsSecondTeam, Date date, Tournament tournament, TournamentTeam firstTeam, TournamentTeam secondTeam) {
+    public Match(Double countPointsFirstTeam, Double countPointsSecondTeam, LocalDateTime date, Tournament tournament, TournamentTeam firstTeam, TournamentTeam secondTeam) {
         this.countPointsFirstTeam = countPointsFirstTeam;
         this.countPointsSecondTeam = countPointsSecondTeam;
         this.date = date;
@@ -74,11 +76,11 @@ public class Match {
         this.countPointsSecondTeam = countPointsSecondTeam;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

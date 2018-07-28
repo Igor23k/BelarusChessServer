@@ -5,6 +5,8 @@ import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 
+import static javax.persistence.CascadeType.ALL;
+
 @Entity
 @Proxy(lazy = false)
 @Table(name = "place")
@@ -31,7 +33,7 @@ public class Place {
     @Column(name = "pl_capacity", length = 50)
     private Integer capacity;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = ALL)
     @JoinColumn(name = "pl_country_id", nullable = false)
     private Country country;
 

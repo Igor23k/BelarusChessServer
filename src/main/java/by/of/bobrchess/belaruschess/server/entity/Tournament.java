@@ -6,6 +6,8 @@ import org.hibernate.annotations.Proxy;
 import javax.persistence.*;
 import java.sql.Date;
 
+import static javax.persistence.CascadeType.ALL;
+
 @Entity
 @Proxy(lazy = false)
 @Table(name = "tournament")
@@ -23,7 +25,7 @@ public class Tournament {
     @Column(name = "tr_short_description", nullable = false, length = 100)
     private String shortDescription;
 
-    @Column(name = "tr_full_description", nullable = false, length = 2000)
+    @Column(name = "tr_full_description", nullable = false, length = 20000)
     private String fullDescription;
 
     @Column(name = "tr_start", nullable = true)
@@ -35,12 +37,12 @@ public class Tournament {
     @Column(name = "tr_count_players_in_team", nullable = false)
     private Integer countPlayersInTeam;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "tr_place_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = ALL)
+    @JoinColumn(name = "tr_place_id", nullable = true)
     private Place place;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "tr_referee_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = ALL)
+    @JoinColumn(name = "tr_referee_id", nullable = true)
     private User referee;
 
     public Integer getId() {

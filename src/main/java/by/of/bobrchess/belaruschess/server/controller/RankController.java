@@ -22,7 +22,6 @@ public class RankController {
     @RequestMapping(value = "/rank/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Rank getRank(@PathVariable int id) {
-        //  return service.getAll().get(id);
         return service.getById(id);
     }
 

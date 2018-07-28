@@ -4,6 +4,10 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Proxy(lazy = false)
@@ -25,8 +29,8 @@ public class User {
     @Column(name = "u_patronymic", nullable = false, length = 100)
     private String patronymic;
 
-    /*@Column(name = "u_birthday", nullable = false)//check type
-    private Date birthday;*/
+    @Column(name = "u_birthday", nullable = false)
+    private LocalDateTime birthday;
 
     @Column(name = "u_status", length = 50)
     private String status;
@@ -37,32 +41,40 @@ public class User {
     @Column(name = "u_password", nullable = false, length = 45)
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "u_rank_id", nullable = true)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = ALL)
+    @JoinColumn(name = "u_rank_id")
     private Rank rank;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "u_country_id", nullable = true)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = ALL)
+    @JoinColumn(name = "u_country_id")
     private Country country;
 
     @Column(name = "u_rating")
     private Integer rating;
 
+    @OneToMany(cascade = ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_place", joinColumns = {
+            @JoinColumn(name = "u_id", referencedColumnName = "u_id")},
+            inverseJoinColumns =
+                    {@JoinColumn(name = "pl_id", referencedColumnName = "pl_id")
+                    })
+    private List<Place> places;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "u_coach_id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = true, cascade = ALL)
+    @JoinColumn(name = "u_coach_id", referencedColumnName = "u_id")
     private User coach;
 
-    public User(String name, String surname, String patronymic,/* Date birthday,*/ String email, String status, String password, Rank rank, Country country) {
+    public User(String name, String surname, String patronymic, LocalDateTime birthday, String email, String status, String password, Rank rank, Country country, List<Place> places) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
-        // this.birthday = birthday;
+        this.birthday = birthday;
         this.email = email;
         this.status = status;
         this.password = password;
         this.rank = rank;
         this.country = country;
+        this.places = places;
     }
 
     public User() {
@@ -100,13 +112,13 @@ public class User {
         this.patronymic = patronymic;
     }
 
-    /*public Date getBirthday() {
+    public LocalDateTime getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDateTime birthday) {
         this.birthday = birthday;
-    }*/
+    }
 
     public String getEmail() {
         return email;
@@ -162,5 +174,13 @@ public class User {
 
     public void setCoach(User coach) {
         this.coach = coach;
+    }
+
+    public List<Place> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(List<Place> places) {
+        this.places = places;
     }
 }
