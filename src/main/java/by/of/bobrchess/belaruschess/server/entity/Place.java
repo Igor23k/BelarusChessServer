@@ -4,6 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 import static javax.persistence.CascadeType.ALL;
 
@@ -13,24 +15,30 @@ import static javax.persistence.CascadeType.ALL;
 public class Place {
 
     @Id
+    @Min(1)
     @Column(name = "pl_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
 
-    @Column(name = "pl_name", nullable = false, length = 50)
+    @Size(min = 1, max = 100)
+    @Column(name = "pl_name", nullable = false, length = 100)
     private String name;
 
+    @Size(min = 3, max = 50)
     @Column(name = "pl_city", nullable = false, length = 50)
     private String city;
 
+    @Size(min = 3, max = 50)
     @Column(name = "pl_street", nullable = false, length = 50)
     private String street;
 
-    @Column(name = "pl_building", nullable = false, length = 50)
+    @Size(min = 1, max = 10)
+    @Column(name = "pl_building", nullable = false, length = 10)
     private String building;
 
-    @Column(name = "pl_capacity", length = 50)
+    @Size(min = 1, max = 100)
+    @Column(name = "pl_capacity", nullable = false)
     private Integer capacity;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = ALL)

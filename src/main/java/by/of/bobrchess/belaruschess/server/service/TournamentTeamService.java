@@ -1,15 +1,15 @@
 package by.of.bobrchess.belaruschess.server.service;
 
-import by.of.bobrchess.belaruschess.server.entity.TournamentTeam;
+import by.of.bobrchess.belaruschess.server.entity.Team;
 
 import java.util.List;
 
 public interface TournamentTeamService {
-    List<TournamentTeam> getAll();
+    List<Team> getAll();
 
-    TournamentTeam getById(int id);
+    Team getById(int id);
 
-    TournamentTeam save(TournamentTeam tournamentTeam);
+    Team save(Team team);
 
     void remove(int id);
 }

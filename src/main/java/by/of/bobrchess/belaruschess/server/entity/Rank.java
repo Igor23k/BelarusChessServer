@@ -4,6 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @Entity
 @Proxy(lazy = false)
@@ -11,14 +13,17 @@ import javax.persistence.*;
 public class Rank {
 
     @Id
+    @Min(1)
     @Column(name = "r_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
 
+    @Size(min = 3, max = 50)
     @Column(name = "r_name", nullable = false, length = 50, unique = true)
     private String name;
 
+    @Size(min = 3, max = 3)
     @Column(name = "r_abbreviation", nullable = false, length = 3, unique = true)
     private String abbreviation;
 

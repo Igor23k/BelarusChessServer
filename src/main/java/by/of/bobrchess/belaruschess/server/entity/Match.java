@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 
 import static javax.persistence.CascadeType.ALL;
@@ -14,14 +15,17 @@ import static javax.persistence.CascadeType.ALL;
 public class Match {
 
     @Id
+    @Min(1)
     @Column(name = "m_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
-    private Integer id;
+    private Long id;
 
+    @Min(1)
     @Column(name = "m_count_points_first_team", nullable = false)
     private Double countPointsFirstTeam;
 
+    @Min(1)
     @Column(name = "m_count_points_second_team", nullable = false)
     private Double countPointsSecondTeam;
 
@@ -34,13 +38,13 @@ public class Match {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = ALL)
     @JoinColumn(name = "m_first_team_id")
-    private TournamentTeam firstTeam;
+    private Team firstTeam;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = ALL)
     @JoinColumn(name = "m_second_team_id")
-    private TournamentTeam secondTeam;
+    private Team secondTeam;
 
-    public Match(Double countPointsFirstTeam, Double countPointsSecondTeam, LocalDateTime date, Tournament tournament, TournamentTeam firstTeam, TournamentTeam secondTeam) {
+    public Match(Double countPointsFirstTeam, Double countPointsSecondTeam, LocalDateTime date, Tournament tournament, Team firstTeam, Team secondTeam) {
         this.countPointsFirstTeam = countPointsFirstTeam;
         this.countPointsSecondTeam = countPointsSecondTeam;
         this.date = date;
@@ -52,11 +56,11 @@ public class Match {
     public Match() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -92,19 +96,19 @@ public class Match {
         this.tournament = tournament;
     }
 
-    public TournamentTeam getFirstTeam() {
+    public Team getFirstTeam() {
         return firstTeam;
     }
 
-    public void setFirstTeam(TournamentTeam firstTeam) {
+    public void setFirstTeam(Team firstTeam) {
         this.firstTeam = firstTeam;
     }
 
-    public TournamentTeam getSecondTeam() {
+    public Team getSecondTeam() {
         return secondTeam;
     }
 
-    public void setSecondTeam(TournamentTeam secondTeam) {
+    public void setSecondTeam(Team secondTeam) {
         this.secondTeam = secondTeam;
     }
 }

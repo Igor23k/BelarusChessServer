@@ -4,6 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 
 import static javax.persistence.CascadeType.ALL;
@@ -14,17 +16,21 @@ import static javax.persistence.CascadeType.ALL;
 public class Tournament {
 
     @Id
+    @Min(1)
     @Column(name = "tr_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
-    private Integer id;
+    private Long id;
 
+    @Size(min = 8, max = 50)
     @Column(name = "tr_name", nullable = false, length = 50)
     private String name;
 
+    @Size(min = 20, max = 100)
     @Column(name = "tr_short_description", nullable = false, length = 100)
     private String shortDescription;
 
+    @Size(min = 100, max = 20000)
     @Column(name = "tr_full_description", nullable = false, length = 20000)
     private String fullDescription;
 
@@ -34,22 +40,23 @@ public class Tournament {
     @Column(name = "tr_finish", nullable = true)
     private Date finishDate;
 
+    @Size(max = 1)
     @Column(name = "tr_count_players_in_team", nullable = false)
     private Integer countPlayersInTeam;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = ALL)
     @JoinColumn(name = "tr_place_id", nullable = true)
     private Place place;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = ALL)
     @JoinColumn(name = "tr_referee_id", nullable = true)
     private User referee;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

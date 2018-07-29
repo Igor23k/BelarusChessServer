@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
 @Proxy(lazy = false)
@@ -16,17 +17,19 @@ public class TournamentTeamRanking {
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
 
+    @Min(1)
     @Column(name = "ttr_position", nullable = false)
     private Integer position;
 
+    @Min(0)
     @Column(name = "ttr_points", nullable = false)
     private Double points;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ttr_team_id", nullable = false)
-    private TournamentTeam team;
+    private Team team;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ttr_tournament_id", nullable = false)
     private Tournament tournament;
 
@@ -46,11 +49,11 @@ public class TournamentTeamRanking {
         this.points = points;
     }
 
-    public TournamentTeam getTeam() {
+    public Team getTeam() {
         return team;
     }
 
-    public void setTeam(TournamentTeam team) {
+    public void setTeam(Team team) {
         this.team = team;
     }
 
@@ -62,7 +65,7 @@ public class TournamentTeamRanking {
         this.tournament = tournament;
     }
 
-    public TournamentTeamRanking(Integer position, Double points, TournamentTeam team, Tournament tournament) {
+    public TournamentTeamRanking(Integer position, Double points, Team team, Tournament tournament) {
         this.position = position;
         this.points = points;
         this.team = team;

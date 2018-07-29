@@ -4,6 +4,11 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
+import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_COUNTRY_ID;
+import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_USER_ID;
 
 @Entity
 @Proxy(lazy = false)
@@ -11,14 +16,17 @@ import javax.persistence.*;
 public class Country {
 
     @Id
+    @Min(value = 1, message = INCORRECT_COUNTRY_ID)
     @Column(name = "c_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
 
+    @Size(min = 3, max = 50)
     @Column(name = "c_name", nullable = false, length = 50, unique = true)
     private String name;
 
+    @Size(min = 3, max = 3)
     @Column(name = "c_abbreviation", nullable = false, length = 3, unique = true)
     private String abbreviation;
 

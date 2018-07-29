@@ -4,52 +4,60 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @Entity
 @Proxy(lazy = false)
 @Table(name = "game")
 public class Game {
+
     @Id
+    @Min(1)
     @Column(name = "g_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
-    private Integer id;
+    private Long id;
 
-    @Column(name = "g_game_record",length = 10000)
-    private String name;
+    @Size(min = 2, max = 10000)
+    @Column(name = "g_game_record", length = 10000)
+    private String gameRecord;
 
+    @Min(0) @Max(1)
     @Column(name = "g_count_points_first_player", nullable = false)
     private Double countPointsFirstPlayer;
 
+    @Min(0) @Max(1)
     @Column(name = "g_count_points_second_player", nullable = false)
     private Double countPointsSecondPlayer;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "g_match_id", nullable = false)
     private Match match;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "g_first_chess_player_id", nullable = false)
     private User firstChessPlayer;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "g_second_chess_player_id", nullable = false)
     private User secondChessPlayer;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getGameRecord() {
+        return gameRecord;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGameRecord(String gameRecord) {
+        this.gameRecord = gameRecord;
     }
 
     public Double getCountPointsFirstPlayer() {
@@ -72,7 +80,7 @@ public class Game {
         return match;
     }
 
-    public void setMatch(Match  match) {
+    public void setMatch(Match match) {
         this.match = match;
     }
 
@@ -92,8 +100,8 @@ public class Game {
         this.secondChessPlayer = secondChessPlayer;
     }
 
-    public Game(String name, Double countPointsFirstPlayer, Double countPointsSecondPlayer, Match match, User firstChessPlayer, User secondChessPlayer) {
-        this.name = name;
+    public Game(String gameRecord, Double countPointsFirstPlayer, Double countPointsSecondPlayer, Match match, User firstChessPlayer, User secondChessPlayer) {
+        this.gameRecord = gameRecord;
         this.countPointsFirstPlayer = countPointsFirstPlayer;
         this.countPointsSecondPlayer = countPointsSecondPlayer;
         this.match = match;
@@ -103,4 +111,5 @@ public class Game {
 
     public Game() {
 
-}}
+    }
+}

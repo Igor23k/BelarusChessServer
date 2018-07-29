@@ -4,6 +4,9 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,30 +18,41 @@ import static javax.persistence.CascadeType.ALL;
 public class User {
 
     @Id
+    @Min(1)
     @Column(name = "u_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
-    @Column(name = "u_name", nullable = false, length = 100)
+    @Size(min = 3, max = 30)
+    @Column(name = "u_name", nullable = false, length = 30)
     private String name;
 
-    @Column(name = "u_surname", nullable = false, length = 100)
+    @Size(min = 3, max = 30)
+    @Column(name = "u_surname", nullable = false, length = 30)
     private String surname;
 
-    @Column(name = "u_patronymic", nullable = false, length = 100)
+    @Size(min = 3, max = 30)
+    @Column(name = "u_patronymic", nullable = false, length = 30)
     private String patronymic;
 
     @Column(name = "u_birthday", nullable = false)
     private LocalDateTime birthday;
 
+    @Size(min = 1, max = 50)
     @Column(name = "u_status", length = 50)
     private String status;
 
+    @Size(min = 3, max = 100)
     @Column(name = "u_email", nullable = false, length = 100, unique = true)
     private String email;
 
-    @Column(name = "u_password", nullable = false, length = 45)
+    @Size(min = 5, max = 20)
+    @Column(name = "u_phone_number", nullable = false, length = 20)
+    private String phoneNumber;
+
+    @Size(min = 32, max = 32)
+    @Column(name = "u_password", nullable = false, length = 32)
     private String password;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = ALL)
@@ -49,6 +63,8 @@ public class User {
     @JoinColumn(name = "u_country_id")
     private Country country;
 
+    @Min(30)
+    @Max(30)
     @Column(name = "u_rating")
     private Integer rating;
 
@@ -64,12 +80,13 @@ public class User {
     @JoinColumn(name = "u_coach_id", referencedColumnName = "u_id")
     private User coach;
 
-    public User(String name, String surname, String patronymic, LocalDateTime birthday, String email, String status, String password, Rank rank, Country country, List<Place> places) {
+    public User(String name, String surname, String patronymic, LocalDateTime birthday, String email, String phoneNumber, String status, String password, Rank rank, Country country, List<Place> places) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
         this.birthday = birthday;
         this.email = email;
+        this.phoneNumber = phoneNumber;
         this.status = status;
         this.password = password;
         this.rank = rank;
@@ -182,5 +199,13 @@ public class User {
 
     public void setPlaces(List<Place> places) {
         this.places = places;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
