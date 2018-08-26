@@ -15,7 +15,7 @@ public class RankController {
 
     @RequestMapping(value = "/ranks", method = RequestMethod.GET)
     @ResponseBody
-    public List<Rank> getAllCountries() {
+    public List<Rank> getAllRanks() {
         return service.getAll();
     }
 
@@ -25,7 +25,7 @@ public class RankController {
         return service.getById(id);
     }
 
-    @RequestMapping(value = "/ranks", method = RequestMethod.POST)
+    @RequestMapping(value = "/rank", method = RequestMethod.POST)
     @ResponseBody
     public Rank addRank(@RequestBody Rank rank) {
         return service.save(rank);

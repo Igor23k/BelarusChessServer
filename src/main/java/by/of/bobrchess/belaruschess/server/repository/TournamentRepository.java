@@ -1,11 +1,9 @@
 package by.of.bobrchess.belaruschess.server.repository;
 
-import by.of.bobrchess.belaruschess.server.entity.Country;
 import by.of.bobrchess.belaruschess.server.entity.Tournament;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.sql.Blob;
 import java.util.List;
 
 public interface TournamentRepository extends JpaRepository<Tournament, Integer> {

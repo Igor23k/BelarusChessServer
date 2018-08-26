@@ -1,9 +1,7 @@
 package by.of.bobrchess.belaruschess.server.controller;
 
 import by.of.bobrchess.belaruschess.server.entity.Place;
-import by.of.bobrchess.belaruschess.server.entity.Rank;
 import by.of.bobrchess.belaruschess.server.service.PlaceService;
-import by.of.bobrchess.belaruschess.server.service.RankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

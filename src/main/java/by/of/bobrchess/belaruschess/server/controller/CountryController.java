@@ -28,7 +28,7 @@ public class CountryController {
     @RequestMapping(value = "/country", method = RequestMethod.POST)
     @ResponseBody
     public Country addCountry(@RequestBody Country country) {
-         return service.save(country);
+        return service.save(country);
     }
 
 

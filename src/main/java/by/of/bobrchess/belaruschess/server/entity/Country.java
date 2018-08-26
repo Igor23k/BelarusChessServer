@@ -8,7 +8,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_COUNTRY_ID;
-import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_USER_ID;
 
 @Entity
 @Proxy(lazy = false)

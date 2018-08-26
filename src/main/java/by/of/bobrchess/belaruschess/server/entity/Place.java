@@ -4,10 +4,11 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
-import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.MERGE;
 
 @Entity
 @Proxy(lazy = false)
@@ -37,11 +38,15 @@ public class Place {
     @Column(name = "pl_building", nullable = false, length = 10)
     private String building;
 
-    @Size(min = 1, max = 100)
+    @Column(name = "pl_approved", nullable = false)
+    private Boolean approved;
+
+    @Min(1)
+    @Max(100)
     @Column(name = "pl_capacity", nullable = false)
     private Integer capacity;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = MERGE)
     @JoinColumn(name = "pl_country_id", nullable = false)
     private Country country;
 
@@ -101,13 +106,22 @@ public class Place {
         this.country = country;
     }
 
-    public Place(String name, String city, String street, String building, Integer capacity, Country country) {
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
+
+    public Place(String name, String city, String street, String building, Integer capacity, Country country, Boolean approved) {
         this.name = name;
         this.city = city;
         this.street = street;
         this.building = building;
         this.capacity = capacity;
         this.country = country;
+        this.approved = approved;
     }
 
     public Place() {

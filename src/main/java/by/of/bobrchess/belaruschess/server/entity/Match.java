@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 
-import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.MERGE;
 
 @Entity
 @Proxy(lazy = false)
@@ -32,15 +32,15 @@ public class Match {
     @Column(name = "m_date", nullable = false)
     private LocalDateTime date;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = ALL)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = MERGE)
     @JoinColumn(name = "m_tournament_id")
     private Tournament tournament;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = ALL)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = MERGE)
     @JoinColumn(name = "m_first_team_id")
     private Team firstTeam;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = ALL)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = MERGE)
     @JoinColumn(name = "m_second_team_id")
     private Team secondTeam;
 

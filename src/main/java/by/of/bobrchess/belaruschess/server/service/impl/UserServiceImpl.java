@@ -1,6 +1,7 @@
 package by.of.bobrchess.belaruschess.server.service.impl;
 
 import by.of.bobrchess.belaruschess.server.entity.Country;
+import by.of.bobrchess.belaruschess.server.entity.Place;
 import by.of.bobrchess.belaruschess.server.entity.Rank;
 import by.of.bobrchess.belaruschess.server.entity.User;
 import by.of.bobrchess.belaruschess.server.repository.UserRepository;
@@ -8,7 +9,6 @@ import by.of.bobrchess.belaruschess.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,23 +44,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public User authorizate(String email, String password) {
         User user = getByEmail(email);
-        if(Objects.nonNull(user) && user.getPassword().equals(password)){
+        if (Objects.nonNull(user) && user.getPassword().equals(password)) {
             return user;
         }
         return null;
     }
 
     public User save(User user) {
-        if(Objects.isNull(getByEmail(user.getEmail()))){
-           /* if(Objects.isNull(user.getBirthday())){
-                user.setBirthday(new Date(System.currentTimeMillis()));
-            }*/
+        if (Objects.isNull(getByEmail(user.getEmail()))) {
             return repository.saveAndFlush(user);
         }
         return null;
     }
 
-    User getTestUser(){
+    User getTestUser() {
         User userDTO = new User();
         Country countryDTO = new Country();
         countryDTO.setName("BELAR");
@@ -77,7 +74,7 @@ public class UserServiceImpl implements UserService {
         userDTO.setPatronymic("Sergeevich");
         userDTO.setPassword("qwerty");
         userDTO.setRating(2000);
-        //userDTO.setBirthday(new Date(System.currentTimeMillis()));
+        userDTO.setBirthday("23-09-1997");
         return userDTO;
     }
 

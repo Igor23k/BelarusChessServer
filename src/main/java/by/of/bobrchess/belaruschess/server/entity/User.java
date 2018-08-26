@@ -7,10 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 import java.util.List;
 
-import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.MERGE;
 
 @Entity
 @Proxy(lazy = false)
@@ -37,7 +36,7 @@ public class User {
     private String patronymic;
 
     @Column(name = "u_birthday", nullable = false)
-    private LocalDateTime birthday;
+    private String birthday;
 
     @Size(min = 1, max = 50)
     @Column(name = "u_status", length = 50)
@@ -55,20 +54,26 @@ public class User {
     @Column(name = "u_password", nullable = false, length = 32)
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = ALL)
-    @JoinColumn(name = "u_rank_id")
+    @Column(name = "u_is_coach", nullable = false)
+    private Boolean beCoach;
+
+    @Column(name = "u_organizer", nullable = false)
+    private Boolean beOrganizer;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = MERGE)
+    @JoinColumn(name = "u_rank_id", nullable = false)
     private Rank rank;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = ALL)
-    @JoinColumn(name = "u_country_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = MERGE)
+    @JoinColumn(name = "u_country_id", nullable = false)
     private Country country;
 
-    @Min(30)
-    @Max(30)
+    @Min(1)
+    @Max(5000)
     @Column(name = "u_rating")
     private Integer rating;
 
-    @OneToMany(cascade = ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "user_place", joinColumns = {
             @JoinColumn(name = "u_id", referencedColumnName = "u_id")},
             inverseJoinColumns =
@@ -76,11 +81,11 @@ public class User {
                     })
     private List<Place> places;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = true, cascade = ALL)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true, cascade = MERGE)
     @JoinColumn(name = "u_coach_id", referencedColumnName = "u_id")
     private User coach;
 
-    public User(String name, String surname, String patronymic, LocalDateTime birthday, String email, String phoneNumber, String status, String password, Rank rank, Country country, List<Place> places) {
+    public User(String name, String surname, String patronymic, String birthday, String email, String phoneNumber, String status, String password, Boolean beCoach, Boolean beOrganizer, Rank rank, Country country, List<Place> places) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -92,6 +97,8 @@ public class User {
         this.rank = rank;
         this.country = country;
         this.places = places;
+        this.beCoach = beCoach;
+        this.beOrganizer = beOrganizer;
     }
 
     public User() {
@@ -129,11 +136,11 @@ public class User {
         this.patronymic = patronymic;
     }
 
-    public LocalDateTime getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDateTime birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -207,5 +214,21 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Boolean getBeCoach() {
+        return beCoach;
+    }
+
+    public void setBeCoach(Boolean beCoach) {
+        this.beCoach = beCoach;
+    }
+
+    public Boolean getBeOrganizer() {
+        return beOrganizer;
+    }
+
+    public void setBeOrganizer(Boolean beOrganizer) {
+        this.beOrganizer = beOrganizer;
     }
 }

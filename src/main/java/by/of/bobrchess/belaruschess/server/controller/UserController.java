@@ -30,7 +30,7 @@ public class UserController {
 
     @RequestMapping(value = "/searchUsers", method = RequestMethod.GET)
     @ResponseBody
-    public  List<User> searchUsers(@RequestParam String text) {
+    public List<User> searchUsers(@RequestParam String text) {
         return service.searchUsers(text);
     }
 

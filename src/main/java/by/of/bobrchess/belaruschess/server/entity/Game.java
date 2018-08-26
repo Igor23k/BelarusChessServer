@@ -24,11 +24,13 @@ public class Game {
     @Column(name = "g_game_record", length = 10000)
     private String gameRecord;
 
-    @Min(0) @Max(1)
+    @Min(0)
+    @Max(1)
     @Column(name = "g_count_points_first_player", nullable = false)
     private Double countPointsFirstPlayer;
 
-    @Min(0) @Max(1)
+    @Min(0)
+    @Max(1)
     @Column(name = "g_count_points_second_player", nullable = false)
     private Double countPointsSecondPlayer;
 
