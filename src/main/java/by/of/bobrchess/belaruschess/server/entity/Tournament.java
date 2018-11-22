@@ -8,6 +8,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+import static by.of.bobrchess.belaruschess.server.util.Util.*;
 import static javax.persistence.CascadeType.MERGE;
 
 @Entity
@@ -16,21 +17,21 @@ import static javax.persistence.CascadeType.MERGE;
 public class Tournament {
 
     @Id
-    @Min(1)
+    @Min(value = 1, message = INCORRECT_TOURNAMENT_ID)
     @Column(name = "tr_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
-    @Size(min = 8, max = 50)
+    @Size(min = 8, max = 50, message = INCORRECT_TOURNAMENT_NAME)
     @Column(name = "tr_name", nullable = false, length = 50)
     private String name;
 
-    @Size(min = 10, max = 100)// bug поменять на 20 потом
+    @Size(min = 10, max = 100, message = INCORRECT_TOURNAMENT_SHORT_DESCRIPTION)// bug поменять на 20 потом
     @Column(name = "tr_short_description", nullable = false, length = 100)
     private String shortDescription;
 
-    @Size(min = 10, max = 20000)// bug поменять на 100 потом
+    @Size(min = 10, max = 20000, message = INCORRECT_TOURNAMENT_FULL_DESCRIPTION)// bug поменять на 100 потом
     @Column(name = "tr_full_description", nullable = false, length = 20000)
     private String fullDescription;
 
@@ -40,7 +41,7 @@ public class Tournament {
     @Column(name = "tr_finish", nullable = false)
     private String finishDate;
 
-    @Max(30)
+    @Max(value = 30, message = INCORRECT_TOURNAMENT_COUNT_PLAYERS_IN_TEAM)
     @Column(name = "tr_count_players_in_team", nullable = false)
     private Integer countPlayersInTeam;
 

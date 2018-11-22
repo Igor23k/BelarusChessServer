@@ -7,7 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_COUNTRY_ABBREVIATION;
 import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_COUNTRY_ID;
+import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_COUNTRY_NAME;
 
 @Entity
 @Proxy(lazy = false)
@@ -21,11 +23,11 @@ public class Country {
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
 
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 50, message = INCORRECT_COUNTRY_NAME)
     @Column(name = "c_name", nullable = false, length = 50, unique = true)
     private String name;
 
-    @Size(min = 3, max = 3)
+    @Size(min = 3, max = 3, message = INCORRECT_COUNTRY_ABBREVIATION)
     @Column(name = "c_abbreviation", nullable = false, length = 3, unique = true)
     private String abbreviation;
 

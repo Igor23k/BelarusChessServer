@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+import static by.of.bobrchess.belaruschess.server.util.Util.*;
 import static javax.persistence.CascadeType.MERGE;
 
 @Entity
@@ -17,48 +18,50 @@ import static javax.persistence.CascadeType.MERGE;
 public class User {
 
     @Id
-    @Min(1)
+    @Min(value = 1)
     @Column(name = "u_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
-    @Size(min = 3, max = 30)
+    @Size(min = 3, max = 30, message = INCORRECT_USER_NAME)
     @Column(name = "u_name", nullable = false, length = 30)
     private String name;
 
-    @Size(min = 3, max = 30)
+    @Size(min = 3, max = 30, message = INCORRECT_USER_SURNAME)
     @Column(name = "u_surname", nullable = false, length = 30)
     private String surname;
 
-    @Size(min = 3, max = 30)
+    @Size(min = 3, max = 30, message = INCORRECT_USER_PATRONYMIC)
     @Column(name = "u_patronymic", nullable = false, length = 30)
     private String patronymic;
 
     @Column(name = "u_birthday", nullable = false)
     private String birthday;
 
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 50, message = INCORRECT_USER_STATUS)
     @Column(name = "u_status", length = 50)
     private String status;
 
-    @Size(min = 3, max = 100)
-    @Column(name = "u_email", nullable = false, length = 100, unique = true)
+    @Column(name = "u_email", nullable = false, unique = true)
     private String email;
 
-    @Size(min = 5, max = 20)
+    @Size(min = 5, max = 20, message = INCORRECT_USER_PHONE_NUMBER)
     @Column(name = "u_phone_number", nullable = false, length = 20)
     private String phoneNumber;
 
-    @Size(min = 32, max = 32)
+    @Size(min = 32, max = 32, message = INCORRECT_USER_PASSWORD)
     @Column(name = "u_password", nullable = false, length = 32)
     private String password;
 
     @Column(name = "u_is_coach", nullable = false)
     private Boolean beCoach;
 
-    @Column(name = "u_organizer", nullable = false)
+    @Column(name = "u_us_organizer", nullable = false)
     private Boolean beOrganizer;
+
+    @Column(name = "u_is_Male", nullable = false)
+    private Boolean beMale;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = MERGE)
     @JoinColumn(name = "u_rank_id", nullable = false)
@@ -68,8 +71,8 @@ public class User {
     @JoinColumn(name = "u_country_id", nullable = false)
     private Country country;
 
-    @Min(1)
-    @Max(5000)
+    @Min(value = 1, message = INCORRECT_USER_RATING_SMALL)
+    @Max(value = 5000, message = INCORRECT_USER_RATING_BIG)
     @Column(name = "u_rating")
     private Integer rating;
 
@@ -230,5 +233,13 @@ public class User {
 
     public void setBeOrganizer(Boolean beOrganizer) {
         this.beOrganizer = beOrganizer;
+    }
+
+    public Boolean getBeMale() {
+        return beMale;
+    }
+
+    public void setBeMale(Boolean beMale) {
+        this.beMale = beMale;
     }
 }

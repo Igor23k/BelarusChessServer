@@ -8,29 +8,31 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+import static by.of.bobrchess.belaruschess.server.util.Util.*;
+
 @Entity
 @Proxy(lazy = false)
 @Table(name = "game")
 public class Game {
 
     @Id
-    @Min(1)
+    @Min(value = 1, message = INCORRECT_GAME_ID)
     @Column(name = "g_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
-    @Size(min = 2, max = 10000)
+    @Size(min = 2, max = 10000, message = INCORRECT_GAME_RECORD)
     @Column(name = "g_game_record", length = 10000)
     private String gameRecord;
 
-    @Min(0)
-    @Max(1)
+    @Min(value = 0, message = INCORRECT_COUNT_POINTS_OF_PLAYER_SMALL)
+    @Max(value = 1, message = INCORRECT_COUNT_POINTS_OF_PLAYER_BIG)
     @Column(name = "g_count_points_first_player", nullable = false)
     private Double countPointsFirstPlayer;
 
-    @Min(0)
-    @Max(1)
+    @Min(value = 0, message = INCORRECT_GAME_ID)
+    @Max(value = 1, message = INCORRECT_GAME_ID)
     @Column(name = "g_count_points_second_player", nullable = false)
     private Double countPointsSecondPlayer;
 

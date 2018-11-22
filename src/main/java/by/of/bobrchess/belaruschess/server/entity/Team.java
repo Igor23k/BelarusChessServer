@@ -8,6 +8,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_TEAM_ID;
+import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_TEAM_NAME;
 import static javax.persistence.CascadeType.ALL;
 
 @Entity
@@ -16,13 +18,13 @@ import static javax.persistence.CascadeType.ALL;
 public class Team {
 
     @Id
-    @Min(1)
+    @Min(value = 1, message = INCORRECT_TEAM_ID)
     @Column(name = "tm_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
-    @Size(min = 1, max = 50)
+    @Size(min = 3, max = 50, message = INCORRECT_TEAM_NAME)
     @Column(name = "tm_name", nullable = false, length = 50)
     private String name;
 

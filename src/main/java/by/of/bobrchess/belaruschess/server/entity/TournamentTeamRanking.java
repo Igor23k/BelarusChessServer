@@ -6,22 +6,27 @@ import org.hibernate.annotations.Proxy;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 
+import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_TOURNAMENT_TEAM_COUNT_POINTS;
+import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_TOURNAMENT_TEAM_ID;
+import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_TOURNAMENT_TEAM_POSITION;
+
 @Entity
 @Proxy(lazy = false)
 @Table(name = "tournamentTeamRanking")
 public class TournamentTeamRanking {
 
-    @Id
+    @Id()
+    @Min(value = 1, message = INCORRECT_TOURNAMENT_TEAM_ID)
     @Column(name = "g_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
 
-    @Min(1)
+    @Min(value = 1, message = INCORRECT_TOURNAMENT_TEAM_POSITION)
     @Column(name = "ttr_position", nullable = false)
     private Integer position;
 
-    @Min(0)
+    @Min(value = 0, message = INCORRECT_TOURNAMENT_TEAM_COUNT_POINTS)
     @Column(name = "ttr_points", nullable = false)
     private Double points;
 

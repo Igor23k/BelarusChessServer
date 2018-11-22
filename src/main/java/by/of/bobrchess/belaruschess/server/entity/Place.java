@@ -8,6 +8,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+import static by.of.bobrchess.belaruschess.server.util.Util.*;
 import static javax.persistence.CascadeType.MERGE;
 
 @Entity
@@ -16,33 +17,33 @@ import static javax.persistence.CascadeType.MERGE;
 public class Place {
 
     @Id
-    @Min(1)
+    @Min(value = 1, message = INCORRECT_PLACE_ID)
     @Column(name = "pl_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
 
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 100, message = INCORRECT_PLACE_NAME)
     @Column(name = "pl_name", nullable = false, length = 100)
     private String name;
 
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 50, message = INCORRECT_PLACE_CITY)
     @Column(name = "pl_city", nullable = false, length = 50)
     private String city;
 
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 50, message = INCORRECT_PLACE_STREET)
     @Column(name = "pl_street", nullable = false, length = 50)
     private String street;
 
-    @Size(min = 1, max = 10)
+    @Size(min = 1, max = 10, message = INCORRECT_PLACE_BUILDING)
     @Column(name = "pl_building", nullable = false, length = 10)
     private String building;
 
     @Column(name = "pl_approved", nullable = false)
     private Boolean approved;
 
-    @Min(1)
-    @Max(100)
+    @Min(value = 1, message = INCORRECT_PLACE_CAPACITY_SMALL)
+    @Max(value = 10000, message = INCORRECT_PLACE_CAPACITY_BIG)
     @Column(name = "pl_capacity", nullable = false)
     private Integer capacity;
 

@@ -7,6 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 
+import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_COUNT_POINTS_OF_TEAM;
+import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_GAME_ID;
+import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_MATCH_ID;
 import static javax.persistence.CascadeType.MERGE;
 
 @Entity
@@ -15,17 +18,17 @@ import static javax.persistence.CascadeType.MERGE;
 public class Match {
 
     @Id
-    @Min(1)
+    @Min(value = 1, message = INCORRECT_MATCH_ID)
     @Column(name = "m_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
-    @Min(1)
+    @Min(value = 0, message = INCORRECT_COUNT_POINTS_OF_TEAM)
     @Column(name = "m_count_points_first_team", nullable = false)
     private Double countPointsFirstTeam;
 
-    @Min(1)
+    @Min(value = 0, message = INCORRECT_COUNT_POINTS_OF_TEAM)
     @Column(name = "m_count_points_second_team", nullable = false)
     private Double countPointsSecondTeam;
 
