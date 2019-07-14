@@ -6,9 +6,8 @@ import org.hibernate.annotations.Proxy;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 
-import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_TOURNAMENT_TEAM_COUNT_POINTS;
-import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_TOURNAMENT_TEAM_ID;
-import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_TOURNAMENT_TEAM_POSITION;
+import static by.of.bobrchess.belaruschess.server.util.Constants.*;
+
 
 @Entity
 @Proxy(lazy = false)

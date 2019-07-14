@@ -7,9 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 
-import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_COUNT_POINTS_OF_TEAM;
-import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_GAME_ID;
-import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_MATCH_ID;
+import static by.of.bobrchess.belaruschess.server.util.Constants.INCORRECT_COUNT_POINTS_OF_TEAM;
+import static by.of.bobrchess.belaruschess.server.util.Constants.INCORRECT_MATCH_ID;
 import static javax.persistence.CascadeType.MERGE;
 
 @Entity

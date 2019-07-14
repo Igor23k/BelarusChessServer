@@ -7,13 +7,11 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
-import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_RANK_ABBREVIATION;
-import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_RANK_ID;
-import static by.of.bobrchess.belaruschess.server.util.Util.INCORRECT_RANK_NAME;
+import static by.of.bobrchess.belaruschess.server.util.Constants.*;
 
 @Entity
 @Proxy(lazy = false)
-@Table(name = "rank")
+@Table(name = "rank1")
 public class Rank {
 
     @Id

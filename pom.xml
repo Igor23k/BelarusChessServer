@@ -10,82 +10,108 @@
     <packaging>war</packaging>
 
     <properties>
-        <spring>5.0.4.RELEASE</spring>
-        <javax.servlet-api>3.1.0</javax.servlet-api>
-        <spring-data-jpa>2.0.5.RELEASE</spring-data-jpa>
-        <hibernate-entitymanager>5.2.13.Final</hibernate-entitymanager>
-        <hibernate>RELEASE</hibernate>
-        <mysql-connector-java>6.0.6</mysql-connector-java>
-        <commons-dbcp2>2.2.0</commons-dbcp2>
-        <jta>1.1</jta>
-        <jackson-databind>2.9.5</jackson-databind>
-        <kotlin.version>1.2.31</kotlin.version>
+        <spring-boot.version>2.0.5.RELEASE</spring-boot.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <spring-data-jpa.version>2.0.5.RELEASE</spring-data-jpa.version>
+        <hibernate.version>5.2.13.Final</hibernate.version>
+        <hibernate-validator.version>6.0.17.Final</hibernate-validator.version>
+        <mysql-connector-java.version>8.0.15</mysql-connector-java.version>
+        <commons-dbcp2.version>2.2.0</commons-dbcp2.version>
+        <jta.version>1.1</jta.version>
+        <jackson-databind.version>2.9.5</jackson-databind.version>
+        <jsonwebtoken.version>0.9.1</jsonwebtoken.version>
+        <kotlin.version>1.3.21</kotlin.version>
+        <apache-commons.version>3.3.2</apache-commons.version>
     </properties>
     <dependencies>
+
+        <!--Kotlin -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring}</version>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-reflect</artifactId>
+            <version>${kotlin.version}</version>
         </dependency>
-        <!--WEB -->
+
+        <!--Spring Boot -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${spring-boot.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
         <!--JSON converter -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson-databind}</version>
+            <version>${jackson-databind.version}</version>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${javax.servlet-api}</version>
-            <scope>provided</scope>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-databind.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-databind.version}</version>
+        </dependency>
+
         <!--Database -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
-            <version>${spring-data-jpa}</version>
+            <version>${spring-data-jpa.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.transaction</groupId>
             <artifactId>jta</artifactId>
-            <version>${jta}</version>
+            <version>${jta.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate-entitymanager}</version>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector-java}</version>
+            <version>${mysql-connector-java.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>
-            <version>${commons-dbcp2}</version>
+            <version>${commons-dbcp2.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jre8</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
-        </dependency>
+
+        <!--Hibernate validator -->
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate}</version>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
+
+        <!--JWT -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jsonwebtoken.version}</version>
+        </dependency>
+
+        <!--Commons -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache-commons.version}</version>
         </dependency>
     </dependencies>
 

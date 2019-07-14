@@ -1,0 +1,10 @@
+server.port: 8080
+spring.profiles: default
+security.jwt:
+  tokenExpirationTime: 15 # Number of minutes
+  refreshTokenExpTime: 60 # Minutes
+  tokenIssuer: http://bobrchess.of.by
+  tokenSigningKey: aaaa
+spring.jpa:
+  database-platform: org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled: true

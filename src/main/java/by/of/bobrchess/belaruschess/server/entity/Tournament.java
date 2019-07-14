@@ -8,7 +8,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
-import static by.of.bobrchess.belaruschess.server.util.Util.*;
+import static by.of.bobrchess.belaruschess.server.util.Constants.*;
 import static javax.persistence.CascadeType.MERGE;
 
 @Entity
@@ -27,12 +27,12 @@ public class Tournament {
     @Column(name = "tr_name", nullable = false, length = 50)
     private String name;
 
-    @Size(min = 10, max = 100, message = INCORRECT_TOURNAMENT_SHORT_DESCRIPTION)// bug поменять на 20 потом
+    @Size(min = 10, max = 100, message = INCORRECT_TOURNAMENT_SHORT_DESCRIPTION)//todo bug поменять на 20 потом
     @Column(name = "tr_short_description", nullable = false, length = 100)
     private String shortDescription;
 
-    @Size(min = 10, max = 20000, message = INCORRECT_TOURNAMENT_FULL_DESCRIPTION)// bug поменять на 100 потом
-    @Column(name = "tr_full_description", nullable = false, length = 20000)
+    @Size(min = 10, max = 2000, message = INCORRECT_TOURNAMENT_FULL_DESCRIPTION)//todo bug поменять на 100 потом
+    @Column(name = "tr_full_description", nullable = false, length = 2000)
     private String fullDescription;
 
     @Column(name = "tr_start", nullable = false)

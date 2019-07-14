@@ -1,5 +1,7 @@
 package by.of.bobrchess.belaruschess.server.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
@@ -9,7 +11,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-import static by.of.bobrchess.belaruschess.server.util.Util.*;
+import static by.of.bobrchess.belaruschess.server.util.Constants.*;
 import static javax.persistence.CascadeType.MERGE;
 
 @Entity
@@ -50,8 +52,8 @@ public class User {
     @Column(name = "u_phone_number", nullable = false, length = 20)
     private String phoneNumber;
 
-    @Size(min = 32, max = 32, message = INCORRECT_USER_PASSWORD)
-    @Column(name = "u_password", nullable = false, length = 32)
+    @Size(min = 60, max = 60, message = INCORRECT_USER_PASSWORD)
+    @Column(name = "u_password", nullable = false, length = 60)
     private String password;
 
     @Column(name = "u_is_coach", nullable = false)
@@ -88,7 +90,14 @@ public class User {
     @JoinColumn(name = "u_coach_id", referencedColumnName = "u_id")
     private User coach;
 
-    public User(String name, String surname, String patronymic, String birthday, String email, String phoneNumber, String status, String password, Boolean beCoach, Boolean beOrganizer, Rank rank, Country country, List<Place> places) {
+    @OneToMany(cascade = MERGE, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JoinColumn(name = "u_role", referencedColumnName = "u_id")
+    private List<UserRole> roles;
+
+    public User(String name, String surname, String patronymic, String birthday, String email,
+                String phoneNumber, String status, String password, Boolean beCoach,
+                Boolean beOrganizer, Rank rank, Country country, List<Place> places, List<UserRole> roles) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -102,6 +111,7 @@ public class User {
         this.places = places;
         this.beCoach = beCoach;
         this.beOrganizer = beOrganizer;
+        this.roles = roles;
     }
 
     public User() {
@@ -241,5 +251,13 @@ public class User {
 
     public void setBeMale(Boolean beMale) {
         this.beMale = beMale;
+    }
+
+    public List<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<UserRole> roles) {
+        this.roles = roles;
     }
 }

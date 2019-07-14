@@ -11,29 +11,37 @@ import static by.of.bobrchess.belaruschess.server.util.Constants.*;
 
 @Entity
 @Proxy(lazy = false)
-@Table(name = "country")
-public class Country {
+@Table(name = "role")
+public class Role {
 
     @Id
-    @Min(value = 1, message = INCORRECT_COUNTRY_ID)
-    @Column(name = "c_id")
+    @Min(value = 1, message = INCORRECT_RANK_ID)
+    @Column(name = "role_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
 
-    @Size(min = 3, max = 50, message = INCORRECT_COUNTRY_NAME)
-    @Column(name = "c_name", nullable = false, length = 50, unique = true)
+    @Size(min = 3, max = 50, message = INCORRECT_RANK_NAME)
+    @Column(name = "role_name", nullable = false, length = 50, unique = true)
     private String name;
 
-    @Size(min = 3, max = 3, message = INCORRECT_COUNTRY_ABBREVIATION)
-    @Column(name = "c_abbreviation", nullable = false, length = 3, unique = true)
+    @Size(min = 3, max = 3, message = INCORRECT_RANK_ABBREVIATION)
+    @Column(name = "role_abbreviation", nullable = false, length = 3, unique = true)
     private String abbreviation;
 
-    public Country() {
+    public Role() {
     }
 
-    public Country(String name, String abbreviation) {
+    public Role(String name, String abbreviation) {
         this.name = name;
+        this.abbreviation = abbreviation;
+    }
+
+    public String getAbbreviation() {
+        return abbreviation;
+    }
+
+    public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
     }
 
@@ -51,13 +59,5 @@ public class Country {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getAbbreviation() {
-        return abbreviation;
-    }
-
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
     }
 }

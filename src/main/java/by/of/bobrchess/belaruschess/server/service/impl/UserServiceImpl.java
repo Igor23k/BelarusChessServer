@@ -1,7 +1,6 @@
 package by.of.bobrchess.belaruschess.server.service.impl;
 
 import by.of.bobrchess.belaruschess.server.entity.Country;
-import by.of.bobrchess.belaruschess.server.entity.Place;
 import by.of.bobrchess.belaruschess.server.entity.Rank;
 import by.of.bobrchess.belaruschess.server.entity.User;
 import by.of.bobrchess.belaruschess.server.repository.UserRepository;
@@ -41,16 +40,7 @@ public class UserServiceImpl implements UserService {
         return repository.getOne(id);
     }
 
-    @Override
-    public User authorizate(String email, String password) {
-        User user = getByEmail(email);
-        if (Objects.nonNull(user) && user.getPassword().equals(password)) {
-            return user;
-        }
-        return null;
-    }
-
-    public User save(User user) {
+    public User register(User user) {
         if (Objects.isNull(getByEmail(user.getEmail()))) {
             return repository.saveAndFlush(user);
         }

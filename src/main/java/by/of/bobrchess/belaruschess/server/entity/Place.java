@@ -8,7 +8,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
-import static by.of.bobrchess.belaruschess.server.util.Util.*;
+import static by.of.bobrchess.belaruschess.server.util.Constants.*;
 import static javax.persistence.CascadeType.MERGE;
 
 @Entity

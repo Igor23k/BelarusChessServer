@@ -1,25 +1,41 @@
 package by.of.bobrchess.belaruschess.server.controller;
 
 import by.of.bobrchess.belaruschess.server.entity.User;
+import by.of.bobrchess.belaruschess.server.entity.UserContext;
+import by.of.bobrchess.belaruschess.server.exception.InvalidTokenException;
+import by.of.bobrchess.belaruschess.server.exception.NoSufficientRightsException;
+import by.of.bobrchess.belaruschess.server.exception.UserAlreadyExistsException;
+import by.of.bobrchess.belaruschess.server.security.auth.JwtAuthenticationToken;
+import by.of.bobrchess.belaruschess.server.security.model.token.JwtToken;
+import by.of.bobrchess.belaruschess.server.security.model.token.JwtTokenFactory;
 import by.of.bobrchess.belaruschess.server.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
+
+import static by.of.bobrchess.belaruschess.server.util.Constants.ROLE_ADMIN;
+import static by.of.bobrchess.belaruschess.server.util.Util.*;
 
 @RestController
 public class UserController {
 
-    @Autowired
-    UserService service;
+    private final JwtTokenFactory tokenFactory;
+    private final UserService service;
 
-    @RequestMapping(value = "/allUsers", method = RequestMethod.GET)
+    public UserController(JwtTokenFactory tokenFactory, UserService service) {
+        this.tokenFactory = tokenFactory;
+        this.service = service;
+    }
+
+    @RequestMapping(value = "/api/allUsers", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getAllUsers() {
-        return service.getAll();
+    public List<User> getAllUsers(HttpServletRequest request) {
+        if (hasSufficientRights(request, ROLE_ADMIN)) {
+            return service.getAll();
+        }
+        throw new NoSufficientRightsException();
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
@@ -40,26 +56,20 @@ public class UserController {
         return service.getById(id);
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public User authorizateUser(@RequestBody User user, HttpServletResponse response) {
-        user = service.authorizate(user.getEmail(), user.getPassword());
-        if (Objects.isNull(user)) {
-            response.setStatus(HttpStatus.NO_CONTENT.value());
-            response.setHeader("Error", "Authorizate is failed!");
-        }
-        return user;
+    public UserContext addUser(@RequestBody User user) {
+        user = Optional.ofNullable(service.register(user)).orElseThrow(UserAlreadyExistsException::new);//todo ответ вроде не показывается в приложении если нашел с таким мылом пользователя
+        JwtToken accessToken = tokenFactory.createAccessJwtToken(user, buildAuthorities(user));
+        JwtToken refreshToken = tokenFactory.createRefreshToken(user);
+        return new UserContext(user, buildTokenMap(accessToken, refreshToken));
     }
 
-    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/me", method = RequestMethod.GET)
     @ResponseBody
-    public User addUser(@RequestBody User user, HttpServletResponse response) {
-        user = service.save(user);
-        if (Objects.isNull(user)) {
-            response.setStatus(HttpStatus.NO_CONTENT.value());
-            response.setHeader("Error", "User with this email already exists!");
-        }
-        return user;
+    public User get(JwtAuthenticationToken token) {
+        String email = Optional.ofNullable((String) token.getPrincipal()).orElseThrow(InvalidTokenException::new);
+        return Optional.ofNullable(service.getByEmail(email)).orElseThrow(InvalidTokenException::new);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
