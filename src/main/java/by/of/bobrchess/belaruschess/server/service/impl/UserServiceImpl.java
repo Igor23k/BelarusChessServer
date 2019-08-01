@@ -1,18 +1,20 @@
 package by.of.bobrchess.belaruschess.server.service.impl;
 
-import by.of.bobrchess.belaruschess.server.entity.Country;
-import by.of.bobrchess.belaruschess.server.entity.Rank;
-import by.of.bobrchess.belaruschess.server.entity.User;
+import by.of.bobrchess.belaruschess.server.entity.*;
 import by.of.bobrchess.belaruschess.server.repository.UserRepository;
 import by.of.bobrchess.belaruschess.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static final String USER = "USER";
+    private static final String USER_ABBREVIATION = "USER";
 
     @Autowired
     private UserRepository repository;
@@ -31,8 +33,14 @@ public class UserServiceImpl implements UserService {
         return repository.searchUsers(text);
     }
 
+    @Override
     public User getByEmail(String email) {
         return repository.findByEmail(email);
+    }
+
+    @Override
+    public List<User> getCoaches() {
+        return repository.getCoaches();
     }
 
     @Override
@@ -42,9 +50,22 @@ public class UserServiceImpl implements UserService {
 
     public User register(User user) {
         if (Objects.isNull(getByEmail(user.getEmail()))) {
+            user.setRoles(Collections.singletonList(getStandardUserRole()));
             return repository.saveAndFlush(user);
         }
         return null;
+    }
+
+    private UserRole getStandardUserRole() {
+        UserRole userRole = new UserRole();
+        userRole.setRole(getStandardRole());
+        return userRole;
+    }
+
+    private Role getStandardRole() {
+        Role role = new Role(USER, USER_ABBREVIATION);
+        role.setId(3);
+        return role;
     }
 
     User getTestUser() {

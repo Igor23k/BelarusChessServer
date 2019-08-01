@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 import static by.of.bobrchess.belaruschess.server.util.Constants.*;
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.CascadeType.MERGE;
 
 @Entity
@@ -45,15 +46,16 @@ public class User {
     @Column(name = "u_status", length = 50)
     private String status;
 
-    @Column(name = "u_email", nullable = false, unique = true)
+    @Size(min = 1, max = 250, message = INCORRECT_USER_EMAIL)
+    @Column(name = "u_email", nullable = false, unique = true, length = 250)
     private String email;
 
     @Size(min = 5, max = 20, message = INCORRECT_USER_PHONE_NUMBER)
     @Column(name = "u_phone_number", nullable = false, length = 20)
     private String phoneNumber;
 
-    @Size(min = 60, max = 60, message = INCORRECT_USER_PASSWORD)
-    @Column(name = "u_password", nullable = false, length = 60)
+    @Size(min = 32, max = 32, message = INCORRECT_USER_PASSWORD)
+    @Column(name = "u_password", nullable = false, length = 32)
     private String password;
 
     @Column(name = "u_is_coach", nullable = false)
@@ -65,8 +67,8 @@ public class User {
     @Column(name = "u_is_Male", nullable = false)
     private Boolean beMale;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = MERGE)
-    @JoinColumn(name = "u_rank_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true, cascade = MERGE)
+    @JoinColumn(name = "u_rank_id", referencedColumnName = "r_id")
     private Rank rank;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = MERGE)
@@ -90,7 +92,7 @@ public class User {
     @JoinColumn(name = "u_coach_id", referencedColumnName = "u_id")
     private User coach;
 
-    @OneToMany(cascade = MERGE, fetch = FetchType.EAGER)
+    @OneToMany(cascade = ALL, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @JoinColumn(name = "u_role", referencedColumnName = "u_id")
     private List<UserRole> roles;

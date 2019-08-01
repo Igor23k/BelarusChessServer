@@ -41,20 +41,21 @@ public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingF
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException {
-        if (!HttpMethod.POST.name().equals(request.getMethod()) || !SecurityUtil.isAjax(request)) {
+        String a = request.getMethod();//todo
+       /* if (!HttpMethod.POST.name().equals(request.getMethod()) || !SecurityUtil.isAjax(request)) {
             if (logger.isDebugEnabled()) {
                 logger.debug("Authentication method not supported. Request method: " + request.getMethod());
             }
             throw new AuthMethodNotSupportedException("Authentication method not supported");
-        }
+        }*/
 
         LoginRequest loginRequest = objectMapper.readValue(request.getReader(), LoginRequest.class);
 
-        if (StringUtils.isBlank(loginRequest.getUsername()) || StringUtils.isBlank(loginRequest.getPassword())) {
+        if (StringUtils.isBlank(loginRequest.getEmail()) || StringUtils.isBlank(loginRequest.getPassword())) {
             throw new AuthenticationServiceException("Username or Password not provided");
         }
 
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), "12345678901234567890123456789012345678901234567890");
 
         return this.getAuthenticationManager().authenticate(token);
     }

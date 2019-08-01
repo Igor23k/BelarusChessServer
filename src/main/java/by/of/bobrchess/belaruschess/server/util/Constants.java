@@ -12,6 +12,7 @@ public class Constants {
     public static final String INCORRECT_USER_NAME = "";
     public static final String INCORRECT_USER_SURNAME = "";
     public static final String INCORRECT_USER_PATRONYMIC = "";
+    public static final String INCORRECT_USER_EMAIL = "";
     public static final String INCORRECT_USER_STATUS = "";
     public static final String INCORRECT_USER_PHONE_NUMBER = "";
     public static final String INCORRECT_USER_PASSWORD = "";

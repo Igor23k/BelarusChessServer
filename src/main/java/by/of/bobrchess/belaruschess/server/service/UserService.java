@@ -7,6 +7,7 @@ import java.util.List;
 public interface UserService {
     List<User> getAll();
     List<User> getUsers(Integer count);
+    List<User> getCoaches();
     List<User> searchUsers(String text);
     User getByEmail(String email);
     User getById(Long id);

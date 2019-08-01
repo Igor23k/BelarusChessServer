@@ -2,6 +2,7 @@ package by.of.bobrchess.belaruschess.server.controller;
 
 import by.of.bobrchess.belaruschess.server.entity.User;
 import by.of.bobrchess.belaruschess.server.entity.UserContext;
+import by.of.bobrchess.belaruschess.server.exception.ExpiredTokenException;
 import by.of.bobrchess.belaruschess.server.exception.InvalidTokenException;
 import by.of.bobrchess.belaruschess.server.exception.NoSufficientRightsException;
 import by.of.bobrchess.belaruschess.server.exception.UserAlreadyExistsException;
@@ -38,6 +39,12 @@ public class UserController {
         throw new NoSufficientRightsException();
     }
 
+    @RequestMapping(value = "/coaches", method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> getCoaches() {
+        return service.getCoaches();
+    }
+
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getUsers(@RequestParam Integer count) {
@@ -68,8 +75,9 @@ public class UserController {
     @RequestMapping(value = "/api/me", method = RequestMethod.GET)
     @ResponseBody
     public User get(JwtAuthenticationToken token) {
-        String email = Optional.ofNullable((String) token.getPrincipal()).orElseThrow(InvalidTokenException::new);
-        return Optional.ofNullable(service.getByEmail(email)).orElseThrow(InvalidTokenException::new);
+        throw new ExpiredTokenException();
+     //   String email = Optional.ofNullable((String) token.getPrincipal()).orElseThrow(InvalidTokenException::new);
+       // return Optional.ofNullable(service.getByEmail(email)).orElseThrow(InvalidTokenException::new);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
