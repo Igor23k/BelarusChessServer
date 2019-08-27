@@ -29,12 +29,16 @@ public class Country {
     @Column(name = "c_abbreviation", nullable = false, length = 3, unique = true)
     private String abbreviation;
 
+    @Column(name = "c_image", nullable = true)
+    private String image;
+
     public Country() {
     }
 
-    public Country(String name, String abbreviation) {
+    public Country(String name, String abbreviation, String image) {
         this.name = name;
         this.abbreviation = abbreviation;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -59,5 +63,13 @@ public class Country {
 
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -51,6 +51,9 @@ public class Place {
     @JoinColumn(name = "pl_country_id", nullable = false)
     private Country country;
 
+    @Column(name = "pl_image", nullable = true)
+    private String image;
+
     public Integer getId() {
         return id;
     }
@@ -115,7 +118,15 @@ public class Place {
         this.approved = approved;
     }
 
-    public Place(String name, String city, String street, String building, Integer capacity, Country country, Boolean approved) {
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Place(String name, String city, String street, String building, Integer capacity, Country country, Boolean approved, String image) {
         this.name = name;
         this.city = city;
         this.street = street;
@@ -123,6 +134,7 @@ public class Place {
         this.capacity = capacity;
         this.country = country;
         this.approved = approved;
+        this.image = image;
     }
 
     public Place() {

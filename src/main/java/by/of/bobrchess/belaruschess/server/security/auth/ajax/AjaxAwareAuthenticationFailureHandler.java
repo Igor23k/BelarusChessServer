@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -37,7 +38,7 @@ public class AjaxAwareAuthenticationFailureHandler implements AuthenticationFail
             mapper.writeValue(response.getWriter(), ErrorResponse.of("Invalid email or password", ErrorCode.AUTHENTICATION, HttpStatus.UNAUTHORIZED));
         } else if (e instanceof JwtExpiredTokenException) {
             mapper.writeValue(response.getWriter(), ErrorResponse.of("Token has expired", ErrorCode.JWT_TOKEN_EXPIRED, HttpStatus.UNAUTHORIZED));
-        } else if (e instanceof AuthMethodNotSupportedException) {
+        } else if (e instanceof AuthMethodNotSupportedException || e instanceof InsufficientAuthenticationException) {
             mapper.writeValue(response.getWriter(), ErrorResponse.of(e.getMessage(), ErrorCode.AUTHENTICATION, HttpStatus.UNAUTHORIZED));
         }
 

@@ -97,9 +97,14 @@ public class User {
     @JoinColumn(name = "u_role", referencedColumnName = "u_id")
     private List<UserRole> roles;
 
+    @Column(name = "u_image", nullable = true)
+    private String image;
+
     public User(String name, String surname, String patronymic, String birthday, String email,
                 String phoneNumber, String status, String password, Boolean beCoach,
-                Boolean beOrganizer, Rank rank, Country country, List<Place> places, List<UserRole> roles) {
+                Boolean beOrganizer, Rank rank, Country country, List<Place> places, List<UserRole> roles,
+                String image
+    ) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -114,6 +119,7 @@ public class User {
         this.beCoach = beCoach;
         this.beOrganizer = beOrganizer;
         this.roles = roles;
+        this.image = image;
     }
 
     public User() {
@@ -261,5 +267,13 @@ public class User {
 
     public void setRoles(List<UserRole> roles) {
         this.roles = roles;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

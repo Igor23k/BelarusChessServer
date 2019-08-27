@@ -2,6 +2,7 @@ package by.of.bobrchess.belaruschess.server.security.auth.ajax;
 
 import by.of.bobrchess.belaruschess.server.entity.User;
 import by.of.bobrchess.belaruschess.server.service.UserService;
+import io.jsonwebtoken.lang.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -39,12 +40,12 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
             throw new UsernameNotFoundException("User not found: " + email);
         }
 
-      /*  if (!encoder.matches(password, user.getPassword())) {
+       /* if (!encoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("Authentication Failed. Username or Password not valid.");
-        }*/
+        }*///todo
 
-        if (user.getRoles() == null) throw new InsufficientAuthenticationException("User has no roles assigned");
-
+        if (Collections.isEmpty(user.getRoles())) throw new InsufficientAuthenticationException("User has no roles assigned");
+        
         return new UsernamePasswordAuthenticationToken(user, null, buildAuthorities(user));
     }
 

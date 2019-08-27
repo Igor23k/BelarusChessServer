@@ -53,6 +53,9 @@ public class Tournament {
     @JoinColumn(name = "tr_referee_id", nullable = false)
     private User referee;
 
+    @Column(name = "tr_image", nullable = true)
+    private String image;
+
     public Long getId() {
         return id;
     }
@@ -125,7 +128,15 @@ public class Tournament {
         this.referee = referee;
     }
 
-    public Tournament(@Size(min = 8, max = 50) String name, @Size(min = 20, max = 100) String shortDescription, @Size(min = 10, max = 100) String fullDescription, String startDate, String finishDate, @Max(30) Integer countPlayersInTeam, Place place, User referee) {
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Tournament(@Size(min = 8, max = 50) String name, @Size(min = 20, max = 100) String shortDescription, @Size(min = 10, max = 100) String fullDescription, String startDate, String finishDate, @Max(30) Integer countPlayersInTeam, Place place, User referee, String image) {
         this.name = name;
         this.shortDescription = shortDescription;
         this.fullDescription = fullDescription;
@@ -134,6 +145,7 @@ public class Tournament {
         this.countPlayersInTeam = countPlayersInTeam;
         this.place = place;
         this.referee = referee;
+        this.image = image;
     }
 
     public Tournament() {
