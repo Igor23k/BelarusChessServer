@@ -27,11 +27,11 @@ public class Tournament {
     @Column(name = "tr_name", nullable = false, length = 50)
     private String name;
 
-    @Size(min = 10, max = 100, message = INCORRECT_TOURNAMENT_SHORT_DESCRIPTION)//todo bug поменять на 20 потом
+    @Size(min = 10, max = 100, message = INCORRECT_TOURNAMENT_SHORT_DESCRIPTION)//todo bug поменять на 20 потом. почему???
     @Column(name = "tr_short_description", nullable = false, length = 100)
     private String shortDescription;
 
-    @Size(min = 10, max = 2000, message = INCORRECT_TOURNAMENT_FULL_DESCRIPTION)//todo bug поменять на 100 потом
+    @Size(min = 10, max = 2000, message = INCORRECT_TOURNAMENT_FULL_DESCRIPTION)//todo bug поменять на 100 потом. почему???
     @Column(name = "tr_full_description", nullable = false, length = 2000)
     private String fullDescription;
 
@@ -41,15 +41,15 @@ public class Tournament {
     @Column(name = "tr_finish", nullable = false)
     private String finishDate;
 
-    @Max(value = 30, message = INCORRECT_TOURNAMENT_COUNT_PLAYERS_IN_TEAM)
+    @Max(value = 30, message = INCORRECT_TOURNAMENT_COUNT_PLAYERS_IN_TEAM)//todo сделать 20
     @Column(name = "tr_count_players_in_team", nullable = false)
     private Integer countPlayersInTeam;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = MERGE)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tr_place_id", nullable = false)
     private Place place;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = MERGE)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tr_referee_id", nullable = false)
     private User referee;
 

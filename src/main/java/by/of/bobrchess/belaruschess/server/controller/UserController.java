@@ -3,7 +3,6 @@ package by.of.bobrchess.belaruschess.server.controller;
 import by.of.bobrchess.belaruschess.server.entity.User;
 import by.of.bobrchess.belaruschess.server.entity.UserContext;
 import by.of.bobrchess.belaruschess.server.exception.ExpiredTokenException;
-import by.of.bobrchess.belaruschess.server.exception.InvalidTokenException;
 import by.of.bobrchess.belaruschess.server.exception.NoSufficientRightsException;
 import by.of.bobrchess.belaruschess.server.exception.UserAlreadyExistsException;
 import by.of.bobrchess.belaruschess.server.security.auth.JwtAuthenticationToken;
@@ -76,8 +75,8 @@ public class UserController {
     @ResponseBody
     public User get(JwtAuthenticationToken token) {
         throw new ExpiredTokenException();
-     //   String email = Optional.ofNullable((String) token.getPrincipal()).orElseThrow(InvalidTokenException::new);
-       // return Optional.ofNullable(service.getByEmail(email)).orElseThrow(InvalidTokenException::new);
+        //   String email = Optional.ofNullable((String) token.getPrincipal()).orElseThrow(InvalidTokenException::new);
+    //     return Optional.ofNullable(service.getByEmail(email)).orElseThrow(InvalidTokenException::new);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)

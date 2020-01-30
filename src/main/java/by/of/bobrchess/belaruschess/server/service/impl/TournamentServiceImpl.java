@@ -23,15 +23,23 @@ public class TournamentServiceImpl implements TournamentService {
         return repository.searchTournaments(text);
     }
 
-    public Tournament getById(int id) {
-        return repository.getOne(id);
+    public Tournament getById(long id) {
+        return repository.getById(id);
     }
 
     public Tournament save(Tournament tournament) {
-        return repository.saveAndFlush(tournament);
+        if(tournament.getId() != null) {
+            repository.updateById(tournament.getId(), tournament.getCountPlayersInTeam(), tournament.getFinishDate(),
+                    tournament.getFullDescription(), tournament.getImage(), tournament.getName(),
+                    tournament.getShortDescription(), tournament.getStartDate(), tournament.getPlace().getId(),
+                    tournament.getReferee().getId());
+            return getById(tournament.getId());
+        }else {
+            return repository.saveAndFlush(tournament);
+        }
     }
 
-    public void remove(int id) {
-        repository.deleteById(id);
+    public void remove(long id) {
+        repository.removeById(id);
     }
 }

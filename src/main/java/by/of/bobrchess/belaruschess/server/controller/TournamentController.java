@@ -27,7 +27,7 @@ public class TournamentController {
 
     @RequestMapping(value = "/tournament/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Tournament getTournament(@PathVariable int id) {
+    public Tournament getTournament(@PathVariable long id) {
         return service.getById(id);
     }
 
@@ -39,7 +39,8 @@ public class TournamentController {
 
     @RequestMapping(value = "/tournament/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public void deleteTournament(@PathVariable int id) {
+    public long deleteTournament(@PathVariable long id) {
         service.remove(id);
+        return id;
     }
 }

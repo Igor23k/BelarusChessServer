@@ -9,9 +9,9 @@ public interface TournamentService {
 
     List<Tournament> searchTournaments(String text);
 
-    Tournament getById(int id);
+    Tournament getById(long id);
 
     Tournament save(Tournament tournament);
 
-    void remove(int id);
+    void remove(long id);
 }
