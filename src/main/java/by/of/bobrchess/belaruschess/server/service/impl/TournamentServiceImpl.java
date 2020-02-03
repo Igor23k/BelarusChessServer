@@ -28,7 +28,7 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     public Tournament save(Tournament tournament) {
-        if(tournament.getId() != null) {
+        if(tournament.getId() != null && tournament.getId() != -1) {
             repository.updateById(tournament.getId(), tournament.getCountPlayersInTeam(), tournament.getFinishDate(),
                     tournament.getFullDescription(), tournament.getImage(), tournament.getName(),
                     tournament.getShortDescription(), tournament.getStartDate(), tournament.getPlace().getId(),
