@@ -16,7 +16,7 @@ public class TournamentTeamRanking {
 
     @Id()
     @Min(value = 1, message = INCORRECT_TOURNAMENT_TEAM_ID)
-    @Column(name = "g_id")
+    @Column(name = "ttr_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;

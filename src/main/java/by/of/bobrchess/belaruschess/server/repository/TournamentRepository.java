@@ -1,6 +1,7 @@
 package by.of.bobrchess.belaruschess.server.repository;
 
 import by.of.bobrchess.belaruschess.server.entity.Tournament;
+import by.of.bobrchess.belaruschess.server.entity.UserTournamentResult;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +27,20 @@ public interface TournamentRepository extends JpaRepository<Tournament, Integer>
 
     @Query(value = "SELECT * FROM tournament WHERE tr_id = ?1", nativeQuery = true)
     Tournament getById(Long id);
+
+    @Query(value = "SELECT team.tm_name, tournamentteamranking.ttr_points, tournamentteamranking.ttr_position,\n" +
+            "tournament.tr_start, tournament.tr_image\n" +
+            "FROM team_players join team ON team_players.tm_id = team.tm_id\n" +
+            "join tournamentteamranking ON team_players.tm_id = tournamentteamranking.ttr_team_id\n" +
+            "join tournament ON tr_id = tournamentteamranking.ttr_tournament_id\n" +
+            "WHERE u_id = ?1 LIMIT ?2", nativeQuery = true)
+    List<Object[]> getUserTournamentsResult(Long userId, Long limit);
+
+    @Query(value = "SELECT team.tm_name, tournamentteamranking.ttr_points, tournamentteamranking.ttr_position,\n" +
+            "tournament.tr_start, tournament.tr_image\n" +
+            "FROM team_players join team ON team_players.tm_id = team.tm_id\n" +
+            "join tournamentteamranking ON team_players.tm_id = tournamentteamranking.ttr_team_id\n" +
+            "join tournament ON tr_id = tournamentteamranking.ttr_tournament_id\n" +
+            "WHERE u_id = ?1", nativeQuery = true)
+    List<Object[]> getUserTournamentsResult(Long userId);
 }

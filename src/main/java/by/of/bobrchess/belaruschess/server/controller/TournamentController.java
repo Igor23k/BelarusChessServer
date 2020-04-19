@@ -1,6 +1,7 @@
 package by.of.bobrchess.belaruschess.server.controller;
 
 import by.of.bobrchess.belaruschess.server.entity.Tournament;
+import by.of.bobrchess.belaruschess.server.entity.UserTournamentResult;
 import by.of.bobrchess.belaruschess.server.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,5 +43,17 @@ public class TournamentController {
     public long deleteTournament(@PathVariable long id) {
         service.remove(id);
         return id;
+    }
+
+    @RequestMapping(value = "/tournamentsResultByUser/{userId}/{limit}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<UserTournamentResult> getUserTournamentsResult(@PathVariable long userId, @PathVariable  long limit) {
+        return service.getUserTournamentsResult(userId, limit);
+    }
+
+    @RequestMapping(value = "/tournamentsResultByUser/{userId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<UserTournamentResult> getUserTournamentsResult(@PathVariable long userId) {
+        return service.getUserTournamentsResult(userId);
     }
 }
