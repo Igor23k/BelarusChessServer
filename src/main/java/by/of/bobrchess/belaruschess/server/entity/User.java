@@ -48,7 +48,7 @@ public class User {
 
     @Size(min = 1, max = 250, message = INCORRECT_USER_EMAIL)
     @Column(name = "u_email", nullable = false, unique = true, length = 250)
-    private String email;
+    private String email;//todo проперти добавить и одну переименовать тут is
 
     @Size(min = 5, max = 20, message = INCORRECT_USER_PHONE_NUMBER)
     @Column(name = "u_phone_number", nullable = false, length = 20)
@@ -61,7 +61,7 @@ public class User {
     @Column(name = "u_is_coach", nullable = false)
     private Boolean beCoach;
 
-    @Column(name = "u_us_organizer", nullable = false)
+    @Column(name = "u_us_organizer", nullable = false)//todo IS
     private Boolean beOrganizer;
 
     @Column(name = "u_is_Male", nullable = false)

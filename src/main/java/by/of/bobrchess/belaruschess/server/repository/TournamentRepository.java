@@ -11,6 +11,13 @@ import java.util.List;
 
 public interface TournamentRepository extends JpaRepository<Tournament, Integer> {
 
+    String GET_USER_TOURNAMENT_RESULT = "SELECT tournament.tr_name, tournamentteamranking.ttr_points, tournamentteamranking.ttr_position,\n" +
+            "tournament.tr_start, tournament.tr_image\n" +
+            "FROM team_players join team ON team_players.tm_id = team.tm_id\n" +
+            "join tournamentteamranking ON team_players.tm_id = tournamentteamranking.ttr_team_id\n" +
+            "join tournament ON tr_id = tournamentteamranking.ttr_tournament_id\n" +
+            "WHERE u_id = ?1";
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE tournament SET tr_count_players_in_team = ?2, tr_finish = ?3, tr_full_description = ?4, tr_image = ?5, tr_name = ?6, tr_short_description = ?7, tr_start = ?8, tr_place_id = ?9, tr_referee_id = ?10 WHERE (tr_id = ?1)", nativeQuery = true)
@@ -28,19 +35,9 @@ public interface TournamentRepository extends JpaRepository<Tournament, Integer>
     @Query(value = "SELECT * FROM tournament WHERE tr_id = ?1", nativeQuery = true)
     Tournament getById(Long id);
 
-    @Query(value = "SELECT team.tm_name, tournamentteamranking.ttr_points, tournamentteamranking.ttr_position,\n" +
-            "tournament.tr_start, tournament.tr_image\n" +
-            "FROM team_players join team ON team_players.tm_id = team.tm_id\n" +
-            "join tournamentteamranking ON team_players.tm_id = tournamentteamranking.ttr_team_id\n" +
-            "join tournament ON tr_id = tournamentteamranking.ttr_tournament_id\n" +
-            "WHERE u_id = ?1 LIMIT ?2", nativeQuery = true)
+    @Query(value = GET_USER_TOURNAMENT_RESULT + " LIMIT ?2", nativeQuery = true)
     List<Object[]> getUserTournamentsResult(Long userId, Long limit);
 
-    @Query(value = "SELECT team.tm_name, tournamentteamranking.ttr_points, tournamentteamranking.ttr_position,\n" +
-            "tournament.tr_start, tournament.tr_image\n" +
-            "FROM team_players join team ON team_players.tm_id = team.tm_id\n" +
-            "join tournamentteamranking ON team_players.tm_id = tournamentteamranking.ttr_team_id\n" +
-            "join tournament ON tr_id = tournamentteamranking.ttr_tournament_id\n" +
-            "WHERE u_id = ?1", nativeQuery = true)
+    @Query(value = GET_USER_TOURNAMENT_RESULT, nativeQuery = true)
     List<Object[]> getUserTournamentsResult(Long userId);
 }

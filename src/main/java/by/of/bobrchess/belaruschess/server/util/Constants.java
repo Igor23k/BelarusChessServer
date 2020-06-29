@@ -1,10 +1,11 @@
 package by.of.bobrchess.belaruschess.server.util;
 
 public class Constants {
-    public static final String INCORRECT_TOURNAMENT_TEAM_COUNT_POINTS = "";
+    public static final String INCORRECT_TOURNAMENT_TEAM_COUNT_POINTS = "";// todo
     public static final String INCORRECT_TOURNAMENT_TEAM_ID = "";
     public static final String INCORRECT_TOURNAMENT_TEAM_POSITION = "";
     public static final String INCORRECT_TOURNAMENT_ID = "";
+    public static final String INCORRECT_TOURNAMENT_TOURS_COUNT = "";
     public static final String INCORRECT_TOURNAMENT_NAME = "";
     public static final String INCORRECT_TOURNAMENT_SHORT_DESCRIPTION = "";
     public static final String INCORRECT_TOURNAMENT_FULL_DESCRIPTION = "";

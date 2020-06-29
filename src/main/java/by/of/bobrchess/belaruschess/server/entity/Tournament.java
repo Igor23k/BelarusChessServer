@@ -23,6 +23,10 @@ public class Tournament {
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
+    @Min(value = 1, message = INCORRECT_TOURNAMENT_TOURS_COUNT)
+    @Column(name = "tr_tours_count", nullable = false)
+    private Integer toursCount;
+
     @Size(min = 8, max = 50, message = INCORRECT_TOURNAMENT_NAME)
     @Column(name = "tr_name", nullable = false, length = 50)
     private String name;
@@ -70,6 +74,14 @@ public class Tournament {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getToursCount() {
+        return toursCount;
+    }
+
+    public void setToursCount(Integer toursCount) {
+        this.toursCount = toursCount;
     }
 
     public String getStartDate() {
@@ -136,7 +148,8 @@ public class Tournament {
         this.image = image;
     }
 
-    public Tournament(@Size(min = 8, max = 50) String name, @Size(min = 20, max = 100) String shortDescription, @Size(min = 10, max = 100) String fullDescription, String startDate, String finishDate, @Max(30) Integer countPlayersInTeam, Place place, User referee, String image) {
+    public Tournament(@Min(1) Integer toursCount, @Size(min = 8, max = 50) String name, @Size(min = 20, max = 100) String shortDescription, @Size(min = 10, max = 100) String fullDescription, String startDate, String finishDate, @Max(30) Integer countPlayersInTeam, Place place, User referee, String image) {
+        this.toursCount = toursCount;
         this.name = name;
         this.shortDescription = shortDescription;
         this.fullDescription = fullDescription;

@@ -28,7 +28,7 @@ public class Team {
     @Column(name = "tm_name", nullable = false, length = 50)
     private String name;
 
-    @OneToMany(cascade = ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "team_players", joinColumns = {
             @JoinColumn(name = "tm_id", referencedColumnName = "tm_id")},
             inverseJoinColumns =
