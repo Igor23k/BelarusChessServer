@@ -29,6 +29,7 @@ public class Country {
     @Column(name = "c_abbreviation", nullable = false, length = 3, unique = true)
     private String abbreviation;
 
+    @Lob
     @Column(name = "c_image", nullable = true)
     private String image;
 

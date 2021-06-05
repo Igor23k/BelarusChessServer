@@ -3,6 +3,7 @@ package by.of.bobrchess.belaruschess.server.controller;
 import by.of.bobrchess.belaruschess.server.entity.User;
 import by.of.bobrchess.belaruschess.server.entity.UserContext;
 import by.of.bobrchess.belaruschess.server.exception.ExpiredTokenException;
+import by.of.bobrchess.belaruschess.server.exception.InvalidTokenException;
 import by.of.bobrchess.belaruschess.server.exception.NoSufficientRightsException;
 import by.of.bobrchess.belaruschess.server.exception.UserAlreadyExistsException;
 import by.of.bobrchess.belaruschess.server.security.auth.JwtAuthenticationToken;
@@ -64,19 +65,25 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public UserContext addUser(@RequestBody User user) {
+    public UserContext register(@RequestBody User user) {
         user = Optional.ofNullable(service.register(user)).orElseThrow(UserAlreadyExistsException::new);//todo ответ вроде не показывается в приложении если нашел с таким мылом пользователя
         JwtToken accessToken = tokenFactory.createAccessJwtToken(user, buildAuthorities(user));
         JwtToken refreshToken = tokenFactory.createRefreshToken(user);
         return new UserContext(user, buildTokenMap(accessToken, refreshToken));
     }
 
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    @ResponseBody
+    public User updateUser(@RequestBody User user) {
+        return Optional.ofNullable(service.updateUser(user)).orElseThrow(UserAlreadyExistsException::new);//todo ответ вроде не показывается в приложении если нашел с таким мылом пользователя
+    }
+
     @RequestMapping(value = "/api/me", method = RequestMethod.GET)
     @ResponseBody
     public User get(JwtAuthenticationToken token) {
-        throw new ExpiredTokenException();
-        //   String email = Optional.ofNullable((String) token.getPrincipal()).orElseThrow(InvalidTokenException::new);
-    //     return Optional.ofNullable(service.getByEmail(email)).orElseThrow(InvalidTokenException::new);
+        //throw new ExpiredTokenException();
+        String email = Optional.ofNullable((String) token.getPrincipal()).orElseThrow(InvalidTokenException::new);
+        return Optional.ofNullable(service.getByEmail(email)).orElseThrow(InvalidTokenException::new);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)

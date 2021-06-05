@@ -51,6 +51,7 @@ public class Place {
     @JoinColumn(name = "pl_country_id", nullable = false)
     private Country country;
 
+    @Lob
     @Column(name = "pl_image", nullable = true)
     private String image;
 

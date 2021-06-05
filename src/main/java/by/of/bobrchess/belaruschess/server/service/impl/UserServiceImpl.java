@@ -1,6 +1,8 @@
 package by.of.bobrchess.belaruschess.server.service.impl;
 
-import by.of.bobrchess.belaruschess.server.entity.*;
+import by.of.bobrchess.belaruschess.server.entity.Role;
+import by.of.bobrchess.belaruschess.server.entity.User;
+import by.of.bobrchess.belaruschess.server.entity.UserRole;
 import by.of.bobrchess.belaruschess.server.repository.UserRepository;
 import by.of.bobrchess.belaruschess.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,26 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    public User updateUser(User user) {
+        user.setRoles(Collections.singletonList(getStandardUserRole()));
+
+        repository.updateById(user.getId(), user.getName(), user.getSurname(),
+                user.getPatronymic(), user.getBirthday(), user.getEmail(),
+                user.getPhoneNumber(), user.getPassword(), user.getBeCoach(),
+                user.getBeAdmin(), user.getBeOrganizer(), user.getBeMale(),
+                user.getRank().getId(), user.getCountry().getId(),
+                user.getRating(), getCoachId(user.getCoach()), user.getImage());
+        return getById(user.getId());
+    }
+
+    private Long getCoachId(User coach) {
+        Long coachId = null;
+        if (coach != null) {
+            coachId = coach.getId();
+        }
+        return coachId;
+    }
+
     private UserRole getStandardUserRole() {
         UserRole userRole = new UserRole();
         userRole.setRole(getStandardRole());
@@ -66,27 +88,6 @@ public class UserServiceImpl implements UserService {
         Role role = new Role(USER, USER_ABBREVIATION);
         role.setId(3);
         return role;
-    }
-
-    User getTestUser() {
-        User userDTO = new User();
-        Country countryDTO = new Country();
-        countryDTO.setName("BELAR");
-        countryDTO.setAbbreviation("blr");
-        Rank rankDTO = new Rank();
-        rankDTO.setAbbreviation("kek");
-        rankDTO.setName("KEKER");
-        userDTO.setEmail("ww@dd.ek");
-        userDTO.setStatus("I love myself!");
-        userDTO.setCountry(countryDTO);
-        userDTO.setRank(rankDTO);
-        userDTO.setName("Ihar");
-        userDTO.setSurname("Kazlou");
-        userDTO.setPatronymic("Sergeevich");
-        userDTO.setPassword("qwerty");
-        userDTO.setRating(2000);
-        userDTO.setBirthday("23-09-1997");
-        return userDTO;
     }
 
     public void remove(Long id) {

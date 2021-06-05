@@ -42,13 +42,9 @@ public class User {
     @Column(name = "u_birthday", nullable = false)
     private String birthday;
 
-    @Size(min = 1, max = 50, message = INCORRECT_USER_STATUS)
-    @Column(name = "u_status", length = 50)
-    private String status;
-
     @Size(min = 1, max = 250, message = INCORRECT_USER_EMAIL)
     @Column(name = "u_email", nullable = false, unique = true, length = 250)
-    private String email;//todo проперти добавить и одну переименовать тут is
+    private String email;
 
     @Size(min = 5, max = 20, message = INCORRECT_USER_PHONE_NUMBER)
     @Column(name = "u_phone_number", nullable = false, length = 20)
@@ -61,7 +57,10 @@ public class User {
     @Column(name = "u_is_coach", nullable = false)
     private Boolean beCoach;
 
-    @Column(name = "u_us_organizer", nullable = false)//todo IS
+    @Column(name = "u_is_admin", nullable = false)
+    private Boolean beAdmin;
+
+    @Column(name = "u_is_organizer", nullable = false)
     private Boolean beOrganizer;
 
     @Column(name = "u_is_Male", nullable = false)
@@ -80,6 +79,10 @@ public class User {
     @Column(name = "u_rating")
     private Integer rating;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = true, cascade = MERGE)
+    @JoinColumn(name = "u_coach_id", referencedColumnName = "u_id")
+    private User coach;
+
     @OneToMany(cascade = MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "user_place", joinColumns = {
             @JoinColumn(name = "u_id", referencedColumnName = "u_id")},
@@ -88,20 +91,17 @@ public class User {
                     })
     private List<Place> places;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = true, cascade = MERGE)
-    @JoinColumn(name = "u_coach_id", referencedColumnName = "u_id")
-    private User coach;
-
     @OneToMany(cascade = ALL, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @JoinColumn(name = "u_role", referencedColumnName = "u_id")
     private List<UserRole> roles;
 
+    @Lob
     @Column(name = "u_image", nullable = true)
     private String image;
 
     public User(String name, String surname, String patronymic, String birthday, String email,
-                String phoneNumber, String status, String password, Boolean beCoach,
+                String phoneNumber, String password, Boolean beCoach, Boolean beAdmin,
                 Boolean beOrganizer, Rank rank, Country country, List<Place> places, List<UserRole> roles,
                 String image
     ) {
@@ -111,12 +111,12 @@ public class User {
         this.birthday = birthday;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.status = status;
         this.password = password;
         this.rank = rank;
         this.country = country;
         this.places = places;
         this.beCoach = beCoach;
+        this.beAdmin = beAdmin;
         this.beOrganizer = beOrganizer;
         this.roles = roles;
         this.image = image;
@@ -173,12 +173,12 @@ public class User {
         this.email = email;
     }
 
-    public String getStatus() {
-        return status;
+    public Boolean getBeAdmin() {
+        return beAdmin;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setBeAdmin(Boolean beAdmin) {
+        this.beAdmin = beAdmin;
     }
 
     public String getPassword() {
