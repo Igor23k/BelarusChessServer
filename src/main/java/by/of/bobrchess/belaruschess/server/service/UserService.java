@@ -8,6 +8,7 @@ public interface UserService {
     List<User> getAll();
     List<User> getUsers(Integer count);
     List<User> getCoaches();
+    List<User> getReferees();
     List<User> searchUsers(String text);
     User getByEmail(String email);
     User getById(Long id);

@@ -39,10 +39,22 @@ public class UserController {
         throw new NoSufficientRightsException();
     }
 
-    @RequestMapping(value = "/coaches", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/coaches", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getCoaches() {
-        return service.getCoaches();
+    public List<User> getCoaches(HttpServletRequest request) {
+        if (hasSufficientRights(request, ROLE_ADMIN)) {
+            return service.getCoaches();
+        }
+        throw new NoSufficientRightsException();
+    }
+
+    @RequestMapping(value = "/api/referees", method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> getReferees(HttpServletRequest request) {
+        if (hasSufficientRights(request, ROLE_ADMIN)) {
+            return service.getReferees();
+        }
+        throw new NoSufficientRightsException();
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)

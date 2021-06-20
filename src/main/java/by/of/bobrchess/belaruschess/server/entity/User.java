@@ -27,15 +27,15 @@ public class User {
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
-    @Size(min = 3, max = 30, message = INCORRECT_USER_NAME)
+    @Size(min = 1, max = 30, message = INCORRECT_USER_NAME)
     @Column(name = "u_name", nullable = false, length = 30)
     private String name;
 
-    @Size(min = 3, max = 30, message = INCORRECT_USER_SURNAME)
+    @Size(min = 1, max = 30, message = INCORRECT_USER_SURNAME)
     @Column(name = "u_surname", nullable = false, length = 30)
     private String surname;
 
-    @Size(min = 3, max = 30, message = INCORRECT_USER_PATRONYMIC)
+    @Size(min = 1, max = 30, message = INCORRECT_USER_PATRONYMIC)
     @Column(name = "u_patronymic", nullable = false, length = 30)
     private String patronymic;
 
@@ -79,9 +79,9 @@ public class User {
     @Column(name = "u_rating")
     private Integer rating;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = true, cascade = MERGE)
-    @JoinColumn(name = "u_coach_id", referencedColumnName = "u_id")
-    private User coach;
+    @Size(min = 3, max = 61, message = INCORRECT_USER_COACH)
+    @Column(name = "u_coach", nullable = true, length = 61)
+    private String coach;
 
     @OneToMany(cascade = MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "user_place", joinColumns = {
@@ -213,11 +213,11 @@ public class User {
         this.rating = rating;
     }
 
-    public User getCoach() {
+    public String getCoach() {
         return coach;
     }
 
-    public void setCoach(User coach) {
+    public void setCoach(String coach) {
         this.coach = coach;
     }
 

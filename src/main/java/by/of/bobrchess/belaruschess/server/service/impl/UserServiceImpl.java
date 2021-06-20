@@ -46,6 +46,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getReferees() {
+        return repository.getReferees();
+    }
+
+    @Override
     public User getById(Long id) {
         return repository.getOne(id);
     }
@@ -66,7 +71,7 @@ public class UserServiceImpl implements UserService {
                 user.getPhoneNumber(), user.getPassword(), user.getBeCoach(),
                 user.getBeAdmin(), user.getBeOrganizer(), user.getBeMale(),
                 user.getRank().getId(), user.getCountry().getId(),
-                user.getRating(), getCoachId(user.getCoach()), user.getImage());
+                user.getRating(), user.getCoach(), user.getImage());
         return getById(user.getId());
     }
 
