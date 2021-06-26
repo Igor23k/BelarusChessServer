@@ -46,7 +46,7 @@ public class AjaxAwareAuthenticationSuccessHandler implements AuthenticationSucc
         UserContext userReturn = new UserContext(user, tokenMap);
 
         response.setStatus(HttpStatus.OK.value());
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
 
         mapper.writeValue(response.getWriter(), userReturn);
 
