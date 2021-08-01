@@ -2,10 +2,7 @@ package by.of.bobrchess.belaruschess.server.controller;
 
 import by.of.bobrchess.belaruschess.server.entity.User;
 import by.of.bobrchess.belaruschess.server.entity.UserContext;
-import by.of.bobrchess.belaruschess.server.exception.ExpiredTokenException;
-import by.of.bobrchess.belaruschess.server.exception.InvalidTokenException;
-import by.of.bobrchess.belaruschess.server.exception.NoSufficientRightsException;
-import by.of.bobrchess.belaruschess.server.exception.UserAlreadyExistsException;
+import by.of.bobrchess.belaruschess.server.exception.*;
 import by.of.bobrchess.belaruschess.server.security.auth.JwtAuthenticationToken;
 import by.of.bobrchess.belaruschess.server.security.model.token.JwtToken;
 import by.of.bobrchess.belaruschess.server.security.model.token.JwtTokenFactory;
@@ -78,7 +75,7 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public UserContext register(@RequestBody User user) {
-        user = Optional.ofNullable(service.register(user)).orElseThrow(UserAlreadyExistsException::new);//todo ответ вроде не показывается в приложении если нашел с таким мылом пользователя
+        user = Optional.ofNullable(service.register(user)).orElseThrow(UserAlreadyExistsException::new);
         JwtToken accessToken = tokenFactory.createAccessJwtToken(user, buildAuthorities(user));
         JwtToken refreshToken = tokenFactory.createRefreshToken(user);
         return new UserContext(user, buildTokenMap(accessToken, refreshToken));
@@ -87,7 +84,7 @@ public class UserController {
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     @ResponseBody
     public User updateUser(@RequestBody User user) {
-        return Optional.ofNullable(service.updateUser(user)).orElseThrow(UserAlreadyExistsException::new);//todo ответ вроде не показывается в приложении если нашел с таким мылом пользователя
+        return Optional.ofNullable(service.updateUser(user)).orElseThrow(UserAlreadyExistsException::new);
     }
 
     @RequestMapping(value = "/api/me", method = RequestMethod.GET)

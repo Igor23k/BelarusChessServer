@@ -29,7 +29,7 @@ public class Util {
         throw new NoAssignedRolesException();
     }
 
-    private static String buildRoleName(String name) {//todo убрать когда запросы будут норм работать
+    private static String buildRoleName(String name) {
         return "ROLE_" + name;
     }
 

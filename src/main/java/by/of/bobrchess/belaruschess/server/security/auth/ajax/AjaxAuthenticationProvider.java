@@ -40,12 +40,14 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
             throw new UsernameNotFoundException("User not found: " + email);
         }
 
-       /* if (!encoder.matches(password, user.getPassword())) {
-            throw new BadCredentialsException("Authentication Failed. Username or Password not valid.");
-        }*///todo
+        //if (!encoder.matches(password, user.getPassword())) {
+        if (!password.equals(user.getPassword())) {
+            throw new BadCredentialsException("Authentication Failed. Email or Password not valid.");
+        }
 
-        if (Collections.isEmpty(user.getRoles())) throw new InsufficientAuthenticationException("User has no roles assigned");
-        
+        if (Collections.isEmpty(user.getRoles()))
+            throw new InsufficientAuthenticationException("User has no roles assigned");
+
         return new UsernamePasswordAuthenticationToken(user, null, buildAuthorities(user));
     }
 

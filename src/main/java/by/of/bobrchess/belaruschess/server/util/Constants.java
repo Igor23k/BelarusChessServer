@@ -16,7 +16,7 @@ public class Constants {
     public static final String INCORRECT_USER_EMAIL = "";
     public static final String INCORRECT_USER_STATUS = "";
     public static final String INCORRECT_USER_PHONE_NUMBER = "";
-    public static final String INCORRECT_USER_COACH = "";//todo
+    public static final String INCORRECT_USER_COACH = "";
     public static final String INCORRECT_USER_PASSWORD = "";
     public static final String INCORRECT_USER_RATING_SMALL = "";
     public static final String INCORRECT_USER_RATING_BIG = "";
