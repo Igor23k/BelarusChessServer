@@ -57,6 +57,10 @@ public class Tournament {
     @JoinColumn(name = "tr_referee_id", nullable = false)
     private User referee;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tr_created_by", nullable = false)
+    private User createdBy;
+
     @Lob
     @Column(name = "tr_image", nullable = true)
     private String image;
@@ -149,7 +153,15 @@ public class Tournament {
         this.image = image;
     }
 
-    public Tournament(@Min(1) Integer toursCount, @Size(min = 8, max = 50) String name, @Size(min = 20, max = 100) String shortDescription, @Size(min = 10, max = 100) String fullDescription, String startDate, String finishDate, @Max(30) Integer countPlayersInTeam, Place place, User referee, String image) {
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Tournament(@Min(1) Integer toursCount, @Size(min = 8, max = 50) String name, @Size(min = 20, max = 100) String shortDescription, @Size(min = 10, max = 100) String fullDescription, String startDate, String finishDate, @Max(30) Integer countPlayersInTeam, Place place, User referee, String image, User createdBy) {
         this.toursCount = toursCount;
         this.name = name;
         this.shortDescription = shortDescription;
@@ -159,6 +171,7 @@ public class Tournament {
         this.countPlayersInTeam = countPlayersInTeam;
         this.place = place;
         this.referee = referee;
+        this.createdBy = createdBy;
         this.image = image;
     }
 

@@ -55,6 +55,10 @@ public class Place {
     @Column(name = "pl_image", nullable = true)
     private String image;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pl_created_by", nullable = false)
+    private User createdBy;
+
     public Integer getId() {
         return id;
     }
@@ -127,7 +131,15 @@ public class Place {
         this.image = image;
     }
 
-    public Place(String name, String city, String street, String building, Integer capacity, Country country, Boolean approved, String image) {
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Place(String name, String city, String street, String building, Integer capacity, Country country, Boolean approved, String image, User createdBy) {
         this.name = name;
         this.city = city;
         this.street = street;
@@ -135,6 +147,7 @@ public class Place {
         this.capacity = capacity;
         this.country = country;
         this.approved = approved;
+        this.createdBy = createdBy;
         this.image = image;
     }
 

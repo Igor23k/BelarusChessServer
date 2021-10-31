@@ -27,15 +27,15 @@ public class User {
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
-    @Size(min = 1, max = 30, message = INCORRECT_USER_NAME)
+    @Size(min = 2, max = 30, message = INCORRECT_USER_NAME)
     @Column(name = "u_name", nullable = false, length = 30)
     private String name;
 
-    @Size(min = 1, max = 30, message = INCORRECT_USER_SURNAME)
+    @Size(min = 2, max = 30, message = INCORRECT_USER_SURNAME)
     @Column(name = "u_surname", nullable = false, length = 30)
     private String surname;
 
-    @Size(min = 1, max = 30, message = INCORRECT_USER_PATRONYMIC)
+    @Size(min = 2, max = 30, message = INCORRECT_USER_PATRONYMIC)
     @Column(name = "u_patronymic", nullable = false, length = 30)
     private String patronymic;
 

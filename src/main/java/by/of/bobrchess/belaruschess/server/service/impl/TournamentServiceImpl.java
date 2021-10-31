@@ -34,7 +34,7 @@ public class TournamentServiceImpl implements TournamentService {
             repository.updateById(tournament.getId(), tournament.getCountPlayersInTeam(), tournament.getFinishDate(),
                     tournament.getFullDescription(), tournament.getImage(), tournament.getName(),
                     tournament.getShortDescription(), tournament.getStartDate(), tournament.getPlace().getId(),
-                    tournament.getReferee().getId(), tournament.getToursCount());
+                    tournament.getReferee().getId(), tournament.getToursCount(), tournament.getCreatedBy().getId());
             return getById(tournament.getId());
         } else {
             return repository.saveAndFlush(tournament);
