@@ -8,6 +8,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import static by.of.bobrchess.belaruschess.server.util.Constants.*;
 import static javax.persistence.CascadeType.MERGE;
 
@@ -35,15 +38,15 @@ public class Tournament {
     @Column(name = "tr_short_description", nullable = false, length = 100)
     private String shortDescription;
 
-    @Size(min = 100, max = 2000, message = INCORRECT_TOURNAMENT_FULL_DESCRIPTION)
-    @Column(name = "tr_full_description", nullable = false, length = 2000)
+    @Size(min = 100, max = 10000, message = INCORRECT_TOURNAMENT_FULL_DESCRIPTION)
+    @Column(name = "tr_full_description", nullable = false, length = 10000)
     private String fullDescription;
 
     @Column(name = "tr_start", nullable = false)
-    private String startDate;
+    private Date startDate;
 
     @Column(name = "tr_finish", nullable = false)
-    private String finishDate;
+    private Date finishDate;
 
     @Max(value = 20, message = INCORRECT_TOURNAMENT_COUNT_PLAYERS_IN_TEAM)
     @Column(name = "tr_count_players_in_team", nullable = false)
@@ -89,19 +92,19 @@ public class Tournament {
         this.toursCount = toursCount;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getFinishDate() {
+    public Date getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(String finishDate) {
+    public void setFinishDate(Date finishDate) {
         this.finishDate = finishDate;
     }
 
@@ -161,7 +164,7 @@ public class Tournament {
         this.createdBy = createdBy;
     }
 
-    public Tournament(@Min(1) Integer toursCount, @Size(min = 8, max = 50) String name, @Size(min = 20, max = 100) String shortDescription, @Size(min = 10, max = 100) String fullDescription, String startDate, String finishDate, @Max(30) Integer countPlayersInTeam, Place place, User referee, String image, User createdBy) {
+    public Tournament(@Min(1) Integer toursCount, @Size(min = 8, max = 50) String name, @Size(min = 20, max = 100) String shortDescription, @Size(min = 10, max = 100) String fullDescription, Date startDate, Date finishDate, @Max(30) Integer countPlayersInTeam, Place place, User referee, String image, User createdBy) {
         this.toursCount = toursCount;
         this.name = name;
         this.shortDescription = shortDescription;

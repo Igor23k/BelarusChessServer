@@ -8,6 +8,8 @@ import java.util.List;
 public interface TournamentService {
     List<Tournament> getAll();
 
+    List<Tournament> getUpcoming(Boolean upcomingOnly);
+
     List<Tournament> searchTournaments(String text);
 
     Tournament getById(long id);

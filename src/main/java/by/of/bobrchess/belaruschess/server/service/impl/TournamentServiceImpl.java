@@ -20,6 +20,10 @@ public class TournamentServiceImpl implements TournamentService {
         return repository.findAll();
     }
 
+    public List<Tournament> getUpcoming(Boolean upcomingOnly) {
+        return repository.getUpcomingTournaments(upcomingOnly);
+    }
+
     @Override
     public List<Tournament> searchTournaments(String text) {
         return repository.searchTournaments(text);

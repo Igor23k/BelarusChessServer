@@ -16,8 +16,8 @@ public class TournamentController {
 
     @RequestMapping(value = "/tournaments", method = RequestMethod.GET)
     @ResponseBody
-    public List<Tournament> getAllTournaments() {
-        return service.getAll();
+    public List<Tournament> getAllTournaments(@RequestParam Boolean upcomingOnly) {
+        return service.getUpcoming(upcomingOnly);
     }
 
     @RequestMapping(value = "/searchTournaments", method = RequestMethod.GET)
