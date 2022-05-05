@@ -10,6 +10,7 @@ import by.of.bobrchess.belaruschess.server.security.auth.JwtAuthenticationToken;
 import by.of.bobrchess.belaruschess.server.security.model.token.JwtToken;
 import by.of.bobrchess.belaruschess.server.security.model.token.JwtTokenFactory;
 import by.of.bobrchess.belaruschess.server.service.UserService;
+import by.of.bobrchess.belaruschess.server.service.impl.EmailSenderServiceImpl;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
@@ -98,10 +99,12 @@ public class UserController {
         return Optional.ofNullable(service.updateUser(user)).orElseThrow(UserUpdateException::new);
     }
 
-    @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/resetPassword", method = RequestMethod.POST)
     @ResponseBody
     public Boolean resetPassword(@RequestBody User user) {
         try {
+            EmailSenderServiceImpl emailSender = new EmailSenderServiceImpl("bobrchess@gmail.com", "cbanrmwaavlakudf");
+            emailSender.send("This is Subject", "TLS: This is test!", "support@devcolibri.com", "n1ceonjke@gmail.com");
             service.resetPassword(user);
             return true;
         } catch (UserUpdateException e) {
