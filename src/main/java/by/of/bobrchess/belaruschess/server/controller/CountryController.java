@@ -31,7 +31,6 @@ public class CountryController {
         return service.save(country);
     }
 
-
     @RequestMapping(value = "/country/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteCountry(@PathVariable int id) {

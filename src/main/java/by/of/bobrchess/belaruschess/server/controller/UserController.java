@@ -2,14 +2,21 @@ package by.of.bobrchess.belaruschess.server.controller;
 
 import by.of.bobrchess.belaruschess.server.entity.User;
 import by.of.bobrchess.belaruschess.server.entity.UserContext;
-import by.of.bobrchess.belaruschess.server.exception.*;
+import by.of.bobrchess.belaruschess.server.exception.InvalidTokenException;
+import by.of.bobrchess.belaruschess.server.exception.NoSufficientRightsException;
+import by.of.bobrchess.belaruschess.server.exception.UserAlreadyExistsException;
+import by.of.bobrchess.belaruschess.server.exception.UserUpdateException;
 import by.of.bobrchess.belaruschess.server.security.auth.JwtAuthenticationToken;
 import by.of.bobrchess.belaruschess.server.security.model.token.JwtToken;
 import by.of.bobrchess.belaruschess.server.security.model.token.JwtTokenFactory;
 import by.of.bobrchess.belaruschess.server.service.UserService;
+import org.apache.commons.lang3.ArrayUtils;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,7 +81,10 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public UserContext register(@RequestBody User user) {
+    public UserContext register(@RequestPart User user, @Nullable @RequestPart("file") MultipartFile image) throws IOException {
+        if (image != null) {
+            user.setImage(ArrayUtils.toObject(image.getBytes()));
+        }
         user = Optional.ofNullable(service.register(user)).orElseThrow(UserAlreadyExistsException::new);
         JwtToken accessToken = tokenFactory.createAccessJwtToken(user, buildAuthorities(user));
         JwtToken refreshToken = tokenFactory.createRefreshToken(user);
@@ -83,8 +93,20 @@ public class UserController {
 
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     @ResponseBody
-    public User updateUser(@RequestBody User user) {
-        return Optional.ofNullable(service.updateUser(user)).orElseThrow(UserAlreadyExistsException::new);
+    public User updateUser(@RequestPart User user, @RequestPart("file") MultipartFile image) throws IOException {
+        user.setImage(ArrayUtils.toObject(image.getBytes()));
+        return Optional.ofNullable(service.updateUser(user)).orElseThrow(UserUpdateException::new);
+    }
+
+    @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean resetPassword(@RequestBody User user) {
+        try {
+            service.resetPassword(user);
+            return true;
+        } catch (UserUpdateException e) {
+            return false;
+        }
     }
 
     @RequestMapping(value = "/api/me", method = RequestMethod.GET)

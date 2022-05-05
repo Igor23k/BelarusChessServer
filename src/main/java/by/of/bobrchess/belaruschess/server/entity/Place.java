@@ -52,8 +52,8 @@ public class Place {
     private Country country;
 
     @Lob
-    @Column(name = "pl_image", nullable = true)
-    private String image;
+    @Column(name = "pl_image", columnDefinition = "MEDIUMBLOB", nullable = true)
+    private Byte[] image;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pl_created_by", nullable = false)
@@ -123,11 +123,11 @@ public class Place {
         this.approved = approved;
     }
 
-    public String getImage() {
+    public Byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Byte[] image) {
         this.image = image;
     }
 
@@ -139,7 +139,7 @@ public class Place {
         this.createdBy = createdBy;
     }
 
-    public Place(String name, String city, String street, String building, Integer capacity, Country country, Boolean approved, String image, User createdBy) {
+    public Place(String name, String city, String street, String building, Integer capacity, Country country, Boolean approved, Byte[] image, User createdBy) {
         this.name = name;
         this.city = city;
         this.street = street;

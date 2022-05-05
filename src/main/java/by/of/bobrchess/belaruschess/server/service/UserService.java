@@ -14,5 +14,6 @@ public interface UserService {
     User getById(Long id);
     User register(User u);
     User updateUser(User user);
+    void resetPassword(User user);
     void remove(Long id);
 }

@@ -23,7 +23,7 @@ public interface TournamentRepository extends JpaRepository<Tournament, Integer>
     @Modifying
     @Transactional
     @Query(value = "UPDATE tournament SET tr_count_players_in_team = ?2, tr_finish = ?3, tr_full_description = ?4, tr_image = ?5, tr_name = ?6, tr_short_description = ?7, tr_start = ?8, tr_place_id = ?9, tr_referee_id = ?10, tr_tours_count = ?11, tr_created_by = ?12 WHERE (tr_id = ?1)", nativeQuery = true)
-    void updateById(Long id, Integer count, Date finish, String full, String image, String name, String shortDesc,
+    void updateById(Long id, Integer count, Date finish, String full, Byte[] image, String name, String shortDesc,
                     Date start, Integer placeId, Long refereeId, Integer toursCount, Long createdBy);
 
     @Modifying

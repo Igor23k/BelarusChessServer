@@ -97,13 +97,13 @@ public class User {
     private List<UserRole> roles;
 
     @Lob
-    @Column(name = "u_image", nullable = true)
-    private String image;
+    @Column(name = "u_image", columnDefinition = "MEDIUMBLOB", nullable = true)
+    private Byte[] image;
 
     public User(String name, String surname, String patronymic, String birthday, String email,
                 String phoneNumber, String password, Boolean beCoach, Boolean beAdmin,
                 Boolean beOrganizer, Rank rank, Country country, List<Place> places, List<UserRole> roles,
-                String image
+                Byte[] image
     ) {
         this.name = name;
         this.surname = surname;
@@ -269,11 +269,11 @@ public class User {
         this.roles = roles;
     }
 
-    public String getImage() {
+    public Byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Byte[] image) {
         this.image = image;
     }
 }

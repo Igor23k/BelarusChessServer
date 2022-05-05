@@ -3,7 +3,7 @@ package by.of.bobrchess.belaruschess.server.service.impl;
 import by.of.bobrchess.belaruschess.server.entity.Role;
 import by.of.bobrchess.belaruschess.server.entity.User;
 import by.of.bobrchess.belaruschess.server.entity.UserRole;
-import by.of.bobrchess.belaruschess.server.exception.UserAlreadyExistsException;
+import by.of.bobrchess.belaruschess.server.exception.UserUpdateException;
 import by.of.bobrchess.belaruschess.server.repository.UserRepository;
 import by.of.bobrchess.belaruschess.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
         return repository.getOne(id);
     }
 
+    @Override
     public User register(User user) {
         if (Objects.isNull(getByEmail(user.getEmail()))) {
             user.setRoles(Collections.singletonList(getStandardUserRole()));
@@ -64,25 +65,40 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
     public User updateUser(User user) {
         try {
             User dbUser = repository.getOne(user.getId());
+            user.setRoles(dbUser.getRoles());
 
-            if (dbUser != null) {
-                user.setRoles(dbUser.getRoles());
-
-                repository.updateById(user.getId(), user.getName(), user.getSurname(),
-                        user.getPatronymic(), user.getBirthday(), user.getEmail(),
-                        user.getPhoneNumber(), user.getPassword(), user.getBeCoach(),
-                        user.getBeAdmin(), user.getBeOrganizer(), user.getBeMale(),
-                        user.getRank().getId(), user.getCountry().getId(),
-                        user.getRating(), user.getCoach(), user.getImage());
-                return getById(user.getId());
-            }
+            repository.updateById(user.getId(), user.getName(), user.getSurname(),
+                    user.getPatronymic(), user.getBirthday(), user.getEmail(),
+                    user.getPhoneNumber(), user.getPassword(), user.getBeCoach(),
+                    user.getBeAdmin(), user.getBeOrganizer(), user.getBeMale(),
+                    user.getRank().getId(), user.getCountry().getId(),
+                    user.getRating(), user.getCoach(), user.getImage());
+            return getById(user.getId());
         } catch (Exception e) {
-            throw new UserAlreadyExistsException();
+            throw new UserUpdateException();
         }
-        return null;
+    }
+
+    @Override
+    public void resetPassword(User user) {//todo
+        try {
+            String newPass = "newPass123";
+            User dbUser = repository.getOne(user.getId());
+            user.setRoles(dbUser.getRoles());
+
+            repository.updateById(user.getId(), user.getName(), user.getSurname(),
+                    user.getPatronymic(), user.getBirthday(), user.getEmail(),
+                    user.getPhoneNumber(), newPass, user.getBeCoach(),
+                    user.getBeAdmin(), user.getBeOrganizer(), user.getBeMale(),
+                    user.getRank().getId(), user.getCountry().getId(),
+                    user.getRating(), user.getCoach(), user.getImage());
+        } catch (Exception e) {
+            throw new UserUpdateException();
+        }
     }
 
     private Long getCoachId(User coach) {

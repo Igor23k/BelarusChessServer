@@ -31,6 +31,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "u_rating = ?15, u_coach = ?16, u_image = ?17 WHERE (u_id = ?1)", nativeQuery = true)
     void updateById(Long id, String name, String surname, String patronymic, String birthday, String email, String phoneNumber,
                     String password, Boolean beCoach, Boolean beAdmin, Boolean beOrganizer, Boolean beMale, Integer rankId,
-                    Integer countryId, Integer rating, String coach, String image);
+                    Integer countryId, Integer rating, String coach, Byte[] image);
 
 }

@@ -7,12 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
-
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import static by.of.bobrchess.belaruschess.server.util.Constants.*;
-import static javax.persistence.CascadeType.MERGE;
 
 @Entity
 @Proxy(lazy = false)
@@ -65,8 +62,8 @@ public class Tournament {
     private User createdBy;
 
     @Lob
-    @Column(name = "tr_image", nullable = true)
-    private String image;
+    @Column(name = "tr_image", columnDefinition = "MEDIUMBLOB", nullable = true)
+    private Byte[] image;
 
     public Long getId() {
         return id;
@@ -148,11 +145,11 @@ public class Tournament {
         this.referee = referee;
     }
 
-    public String getImage() {
+    public Byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Byte[] image) {
         this.image = image;
     }
 
@@ -164,7 +161,7 @@ public class Tournament {
         this.createdBy = createdBy;
     }
 
-    public Tournament(@Min(1) Integer toursCount, @Size(min = 8, max = 50) String name, @Size(min = 20, max = 100) String shortDescription, @Size(min = 10, max = 100) String fullDescription, Date startDate, Date finishDate, @Max(30) Integer countPlayersInTeam, Place place, User referee, String image, User createdBy) {
+    public Tournament(@Min(1) Integer toursCount, @Size(min = 8, max = 50) String name, @Size(min = 20, max = 100) String shortDescription, @Size(min = 10, max = 100) String fullDescription, Date startDate, Date finishDate, @Max(30) Integer countPlayersInTeam, Place place, User referee, Byte[] image, User createdBy) {
         this.toursCount = toursCount;
         this.name = name;
         this.shortDescription = shortDescription;

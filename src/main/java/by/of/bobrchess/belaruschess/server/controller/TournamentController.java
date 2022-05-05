@@ -3,9 +3,12 @@ package by.of.bobrchess.belaruschess.server.controller;
 import by.of.bobrchess.belaruschess.server.entity.Tournament;
 import by.of.bobrchess.belaruschess.server.entity.UserTournamentResult;
 import by.of.bobrchess.belaruschess.server.service.TournamentService;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -34,7 +37,8 @@ public class TournamentController {
 
     @RequestMapping(value = "/tournament", method = RequestMethod.POST)
     @ResponseBody
-    public Tournament addTournament(@RequestBody Tournament tournament) {
+    public Tournament addTournament(@RequestPart Tournament tournament, @RequestPart("file") MultipartFile image) throws IOException {
+        tournament.setImage(ArrayUtils.toObject(image.getBytes()));
         return service.save(tournament);
     }
 
@@ -47,7 +51,7 @@ public class TournamentController {
 
     @RequestMapping(value = "/tournamentsResultByUser/{userId}/{limit}", method = RequestMethod.GET)
     @ResponseBody
-    public List<UserTournamentResult> getUserTournamentsResult(@PathVariable long userId, @PathVariable  long limit) {
+    public List<UserTournamentResult> getUserTournamentsResult(@PathVariable long userId, @PathVariable long limit) {
         return service.getUserTournamentsResult(userId, limit);
     }
 
