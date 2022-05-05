@@ -101,11 +101,11 @@ public class UserController {
 
     @RequestMapping(value = "/api/resetPassword", method = RequestMethod.POST)
     @ResponseBody
-    public Boolean resetPassword(@RequestBody User user) {
+    public Boolean resetPassword(@RequestBody String email) {
         try {
             EmailSenderServiceImpl emailSender = new EmailSenderServiceImpl("bobrchess@gmail.com", "cbanrmwaavlakudf");
             emailSender.send("This is Subject", "TLS: This is test!", "support@devcolibri.com", "n1ceonjke@gmail.com");
-            service.resetPassword(user);
+            service.resetPassword(email);
             return true;
         } catch (UserUpdateException e) {
             return false;
