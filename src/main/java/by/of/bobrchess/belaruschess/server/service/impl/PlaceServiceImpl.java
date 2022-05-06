@@ -3,9 +3,12 @@ package by.of.bobrchess.belaruschess.server.service.impl;
 import by.of.bobrchess.belaruschess.server.entity.Place;
 import by.of.bobrchess.belaruschess.server.repository.PlaceRepository;
 import by.of.bobrchess.belaruschess.server.service.PlaceService;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -22,7 +25,10 @@ public class PlaceServiceImpl implements PlaceService {
         return repository.getOne(id);
     }
 
-    public Place save(Place place) {
+    public Place save(Place place, MultipartFile image) throws IOException {
+        if (image != null) {
+            place.setImage(ArrayUtils.toObject(image.getBytes()));
+        }
         return repository.saveAndFlush(place);
     }
 

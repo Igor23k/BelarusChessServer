@@ -3,8 +3,8 @@ package by.of.bobrchess.belaruschess.server.controller;
 import by.of.bobrchess.belaruschess.server.entity.Tournament;
 import by.of.bobrchess.belaruschess.server.entity.UserTournamentResult;
 import by.of.bobrchess.belaruschess.server.service.TournamentService;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,9 +37,8 @@ public class TournamentController {
 
     @RequestMapping(value = "/tournament", method = RequestMethod.POST)
     @ResponseBody
-    public Tournament addTournament(@RequestPart Tournament tournament, @RequestPart("file") MultipartFile image) throws IOException {
-        tournament.setImage(ArrayUtils.toObject(image.getBytes()));
-        return service.save(tournament);
+    public Tournament addTournament(@RequestPart Tournament tournament, @Nullable @RequestPart("file") MultipartFile image) throws IOException {
+        return service.save(tournament, image);
     }
 
     @RequestMapping(value = "/tournament/{id}", method = RequestMethod.DELETE)

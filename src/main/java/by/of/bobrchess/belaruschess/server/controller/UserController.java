@@ -11,7 +11,6 @@ import by.of.bobrchess.belaruschess.server.security.model.token.JwtToken;
 import by.of.bobrchess.belaruschess.server.security.model.token.JwtTokenFactory;
 import by.of.bobrchess.belaruschess.server.service.UserService;
 import by.of.bobrchess.belaruschess.server.service.impl.EmailSenderServiceImpl;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -83,10 +82,7 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public UserContext register(@RequestPart User user, @Nullable @RequestPart("file") MultipartFile image) throws IOException {
-        if (image != null) {
-            user.setImage(ArrayUtils.toObject(image.getBytes()));
-        }
-        user = Optional.ofNullable(service.register(user)).orElseThrow(UserAlreadyExistsException::new);
+        user = Optional.ofNullable(service.register(user, image)).orElseThrow(UserAlreadyExistsException::new);
         JwtToken accessToken = tokenFactory.createAccessJwtToken(user, buildAuthorities(user));
         JwtToken refreshToken = tokenFactory.createRefreshToken(user);
         return new UserContext(user, buildTokenMap(accessToken, refreshToken));
@@ -94,9 +90,8 @@ public class UserController {
 
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     @ResponseBody
-    public User updateUser(@RequestPart User user, @RequestPart("file") MultipartFile image) throws IOException {
-        user.setImage(ArrayUtils.toObject(image.getBytes()));
-        return Optional.ofNullable(service.updateUser(user)).orElseThrow(UserUpdateException::new);
+    public User updateUser(@RequestPart User user, @Nullable @RequestPart("file") MultipartFile image) throws IOException {
+        return Optional.ofNullable(service.updateUser(user, image)).orElseThrow(UserUpdateException::new);
     }
 
     @RequestMapping(value = "/api/resetPassword", method = RequestMethod.POST)

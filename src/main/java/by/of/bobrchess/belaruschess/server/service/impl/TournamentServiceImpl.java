@@ -4,9 +4,12 @@ import by.of.bobrchess.belaruschess.server.entity.Tournament;
 import by.of.bobrchess.belaruschess.server.entity.UserTournamentResult;
 import by.of.bobrchess.belaruschess.server.repository.TournamentRepository;
 import by.of.bobrchess.belaruschess.server.service.TournamentService;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +36,11 @@ public class TournamentServiceImpl implements TournamentService {
         return repository.getById(id);
     }
 
-    public Tournament save(Tournament tournament) {
+    public Tournament save(Tournament tournament, MultipartFile image) throws IOException {
+        if (image != null) {
+            tournament.setImage(ArrayUtils.toObject(image.getBytes()));
+        }
+
         if (tournament.getId() != null && tournament.getId() != -1) {
             repository.updateById(tournament.getId(), tournament.getCountPlayersInTeam(), tournament.getFinishDate(),
                     tournament.getFullDescription(), tournament.getImage(), tournament.getName(),

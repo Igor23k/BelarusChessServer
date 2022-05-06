@@ -32,7 +32,7 @@ public class PlaceController {
     @ResponseBody
     public Place addPlace(@RequestPart Place place, @RequestPart("file") MultipartFile image) throws IOException {
         place.setImage(ArrayUtils.toObject(image.getBytes()));
-        return service.save(place);
+        return service.save(place, image);
     }
 
     @RequestMapping(value = "/place/{id}", method = RequestMethod.DELETE)

@@ -1,7 +1,9 @@
 package by.of.bobrchess.belaruschess.server.service;
 
 import by.of.bobrchess.belaruschess.server.entity.User;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface UserService {
@@ -12,8 +14,8 @@ public interface UserService {
     List<User> searchUsers(String text);
     User getByEmail(String email);
     User getById(Long id);
-    User register(User u);
-    User updateUser(User user);
+    User register(User user, MultipartFile image) throws IOException;
+    User updateUser(User user, MultipartFile image);
     void resetPassword(String email);
     void remove(Long id);
 }

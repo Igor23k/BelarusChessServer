@@ -6,9 +6,12 @@ import by.of.bobrchess.belaruschess.server.entity.UserRole;
 import by.of.bobrchess.belaruschess.server.exception.UserUpdateException;
 import by.of.bobrchess.belaruschess.server.repository.UserRepository;
 import by.of.bobrchess.belaruschess.server.service.UserService;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -57,8 +60,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(User user) {
+    public User register(User user, MultipartFile image) throws IOException {
         if (Objects.isNull(getByEmail(user.getEmail()))) {
+            if (image != null) {
+                user.setImage(ArrayUtils.toObject(image.getBytes()));
+            }
+
             user.setRoles(Collections.singletonList(getStandardUserRole()));
             return repository.saveAndFlush(user);
         }
@@ -66,8 +73,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user) {
+    public User updateUser(User user, MultipartFile image) {
         try {
+            if (image != null) {
+                user.setImage(ArrayUtils.toObject(image.getBytes()));
+            }
+
             User dbUser = repository.getOne(user.getId());
             user.setRoles(dbUser.getRoles());
 
