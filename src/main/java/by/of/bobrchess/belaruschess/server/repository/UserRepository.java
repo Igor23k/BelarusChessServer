@@ -26,10 +26,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE user SET u_name = ?2, u_surname = ?3, u_patronymic = ?4, u_birthday = ?5, u_email = ?6, u_phone_number = ?7, u_password = ?8," +
-            "u_is_coach = ?9, u_is_admin = ?10, u_is_organizer = ?11, u_is_Male = ?12, u_rank_id = ?13, u_country_id = ?14, " +
-            "u_rating = ?15, u_coach = ?16, u_image = ?17 WHERE (u_id = ?1)", nativeQuery = true)
-    void updateById(Long id, String name, String surname, String patronymic, String birthday, String email, String phoneNumber,
+    @Query(value = "UPDATE user SET u_name = ?2, u_surname = ?3, u_patronymic = ?4, u_birthday = ?5, u_email = ?6, u_password = ?7," +
+            "u_is_coach = ?8, u_is_admin = ?9, u_is_organizer = ?10, u_is_Male = ?11, u_rank_id = ?12, u_country_id = ?13, " +
+            "u_rating = ?14, u_coach = ?15, u_image = ?16 WHERE (u_id = ?1)", nativeQuery = true)
+    void updateById(Long id, String name, String surname, String patronymic, String birthday, String email,
                     String password, Boolean beCoach, Boolean beAdmin, Boolean beOrganizer, Boolean beMale, Integer rankId,
                     Integer countryId, Integer rating, String coach, Byte[] image);
 

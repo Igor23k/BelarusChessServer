@@ -14,7 +14,6 @@ public class Constants {
     public static final String INCORRECT_USER_SURNAME = "Incorrect user surname.";
     public static final String INCORRECT_USER_PATRONYMIC = "Incorrect user patronymic.";
     public static final String INCORRECT_USER_EMAIL = "Incorrect user email.";
-    public static final String INCORRECT_USER_PHONE_NUMBER = "Incorrect user phone number.";
     public static final String INCORRECT_USER_COACH = "Incorrect user coach.";
     public static final String INCORRECT_USER_PASSWORD = "Incorrect user password.";
     public static final String INCORRECT_USER_RATING_SMALL = "Incorrect user rating small.";

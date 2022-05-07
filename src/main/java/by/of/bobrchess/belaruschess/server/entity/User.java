@@ -46,10 +46,6 @@ public class User {
     @Column(name = "u_email", nullable = false, unique = true, length = 250)
     private String email;
 
-    @Size(min = 5, max = 20, message = INCORRECT_USER_PHONE_NUMBER)
-    @Column(name = "u_phone_number", nullable = false, length = 20)
-    private String phoneNumber;
-
     @Size(min = 32, max = 32, message = INCORRECT_USER_PASSWORD)
     @Column(name = "u_password", nullable = false, length = 32)
     private String password;
@@ -101,16 +97,13 @@ public class User {
     private Byte[] image;
 
     public User(String name, String surname, String patronymic, String birthday, String email,
-                String phoneNumber, String password, Boolean beCoach, Boolean beAdmin,
-                Boolean beOrganizer, Rank rank, Country country, List<Place> places, List<UserRole> roles,
-                Byte[] image
-    ) {
+                String password, Boolean beCoach, Boolean beAdmin, Boolean beOrganizer, Rank rank,
+                Country country, List<Place> places, List<UserRole> roles, Byte[] image) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
         this.birthday = birthday;
         this.email = email;
-        this.phoneNumber = phoneNumber;
         this.password = password;
         this.rank = rank;
         this.country = country;
@@ -227,14 +220,6 @@ public class User {
 
     public void setPlaces(List<Place> places) {
         this.places = places;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public Boolean getBeCoach() {

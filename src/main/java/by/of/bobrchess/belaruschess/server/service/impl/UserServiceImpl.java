@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
             repository.updateById(user.getId(), user.getName(), user.getSurname(),
                     user.getPatronymic(), user.getBirthday(), user.getEmail(),
-                    user.getPhoneNumber(), user.getPassword(), user.getBeCoach(),
+                    user.getPassword(), user.getBeCoach(),
                     user.getBeAdmin(), user.getBeOrganizer(), user.getBeMale(),
                     user.getRank().getId(), user.getCountry().getId(),
                     user.getRating(), user.getCoach(), user.getImage());
@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
 
             repository.updateById(dbUser.getId(), dbUser.getName(), dbUser.getSurname(),
                     dbUser.getPatronymic(), dbUser.getBirthday(), dbUser.getEmail(),
-                    dbUser.getPhoneNumber(), newPass, dbUser.getBeCoach(),
+                    newPass, dbUser.getBeCoach(),
                     dbUser.getBeAdmin(), dbUser.getBeOrganizer(), dbUser.getBeMale(),
                     dbUser.getRank().getId(), dbUser.getCountry().getId(),
                     dbUser.getRating(), dbUser.getCoach(), dbUser.getImage());
