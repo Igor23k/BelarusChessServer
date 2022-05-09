@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static by.of.bobrchess.belaruschess.server.util.Constants.ROLE_ADMIN;
+import static by.of.bobrchess.belaruschess.server.util.Constants.ROLE_ORGANIZER;
 import static by.of.bobrchess.belaruschess.server.util.Util.*;
 
 @RestController
@@ -43,19 +44,16 @@ public class UserController {
         throw new NoSufficientRightsException();
     }
 
-    @RequestMapping(value = "/api/coaches", method = RequestMethod.GET)
+    @RequestMapping(value = "/coaches", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getCoaches(HttpServletRequest request) {
-        if (hasSufficientRights(request, ROLE_ADMIN)) {
-            return service.getCoaches();
-        }
-        throw new NoSufficientRightsException();
+    public List<User> getCoaches() {
+        return service.getCoaches();
     }
 
     @RequestMapping(value = "/api/referees", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getReferees(HttpServletRequest request) {
-        if (hasSufficientRights(request, ROLE_ADMIN)) {
+        if (hasSufficientRights(request, ROLE_ADMIN) || hasSufficientRights(request, ROLE_ORGANIZER)) {
             return service.getReferees();
         }
         throw new NoSufficientRightsException();
@@ -110,7 +108,6 @@ public class UserController {
     @RequestMapping(value = "/api/me", method = RequestMethod.GET)
     @ResponseBody
     public User get(JwtAuthenticationToken token) {
-        //throw new ExpiredTokenException();
         String email = Optional.ofNullable((String) token.getPrincipal()).orElseThrow(InvalidTokenException::new);
         return Optional.ofNullable(service.getByEmail(email)).orElseThrow(InvalidTokenException::new);
     }

@@ -16,11 +16,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import static by.of.bobrchess.belaruschess.server.util.Constants.ROLE_USER_ID;
+
 @Service
 public class UserServiceImpl implements UserService {
-
-    private static final String USER = "USER";
-    private static final String USER_ABBREVIATION = "USER";
 
     @Autowired
     private UserRepository repository;
@@ -84,8 +83,7 @@ public class UserServiceImpl implements UserService {
 
             repository.updateById(user.getId(), user.getName(), user.getSurname(),
                     user.getPatronymic(), user.getBirthday(), user.getEmail(),
-                    user.getPassword(), user.getBeCoach(),
-                    user.getBeAdmin(), user.getBeOrganizer(), user.getBeMale(),
+                    user.getPassword(), user.getBeMale(),
                     user.getRank().getId(), user.getCountry().getId(),
                     user.getRating(), user.getCoach(), user.getImage());
             return getById(user.getId());
@@ -103,21 +101,12 @@ public class UserServiceImpl implements UserService {
 
             repository.updateById(dbUser.getId(), dbUser.getName(), dbUser.getSurname(),
                     dbUser.getPatronymic(), dbUser.getBirthday(), dbUser.getEmail(),
-                    newPass, dbUser.getBeCoach(),
-                    dbUser.getBeAdmin(), dbUser.getBeOrganizer(), dbUser.getBeMale(),
+                    newPass, dbUser.getBeMale(),
                     dbUser.getRank().getId(), dbUser.getCountry().getId(),
                     dbUser.getRating(), dbUser.getCoach(), dbUser.getImage());
         } catch (Exception e) {
             throw new UserUpdateException();
         }
-    }
-
-    private Long getCoachId(User coach) {
-        Long coachId = null;
-        if (coach != null) {
-            coachId = coach.getId();
-        }
-        return coachId;
     }
 
     private UserRole getStandardUserRole() {
@@ -127,9 +116,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private Role getStandardRole() {
-        Role role = new Role(USER, USER_ABBREVIATION);
-        role.setId(3);
-        return role;
+        return new Role(ROLE_USER_ID);
     }
 
     public void remove(Long id) {

@@ -12,10 +12,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM user WHERE u_email = ?1", nativeQuery = true)
     User findByEmail(String email);
 
-    @Query(value = "SELECT * FROM user WHERE u_is_coach = true", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT * FROM user JOIN user_role ON user.u_id = user_role.u_role WHERE role_id = 2 GROUP BY u_id", nativeQuery = true)
     List<User> getCoaches();
 
-    @Query(value = "SELECT * FROM user WHERE u_is_organizer = true", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT * FROM user JOIN user_role ON user.u_id = user_role.u_role WHERE role_id = 2 OR role_id = 3 OR role_id = 4 GROUP BY u_id", nativeQuery = true)
     List<User> getReferees();
 
     @Query(value = "SELECT * FROM user LIMIT ?1", nativeQuery = true)
@@ -27,10 +27,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Transactional
     @Query(value = "UPDATE user SET u_name = ?2, u_surname = ?3, u_patronymic = ?4, u_birthday = ?5, u_email = ?6, u_password = ?7," +
-            "u_is_coach = ?8, u_is_admin = ?9, u_is_organizer = ?10, u_is_Male = ?11, u_rank_id = ?12, u_country_id = ?13, " +
-            "u_rating = ?14, u_coach = ?15, u_image = ?16 WHERE (u_id = ?1)", nativeQuery = true)
+            "u_is_Male = ?8, u_rank_id = ?9, u_country_id = ?10, " +
+            "u_rating = ?11, u_coach = ?12, u_image = ?13 WHERE (u_id = ?1)", nativeQuery = true)
     void updateById(Long id, String name, String surname, String patronymic, String birthday, String email,
-                    String password, Boolean beCoach, Boolean beAdmin, Boolean beOrganizer, Boolean beMale, Integer rankId,
+                    String password, Boolean beMale, Integer rankId,
                     Integer countryId, Integer rating, String coach, Byte[] image);
 
 }

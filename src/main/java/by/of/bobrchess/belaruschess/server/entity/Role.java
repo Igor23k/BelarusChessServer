@@ -32,9 +32,8 @@ public class Role {
     public Role() {
     }
 
-    public Role(String name, String abbreviation) {
-        this.name = name;
-        this.abbreviation = abbreviation;
+    public Role(Integer id) {
+        this.id = id;
     }
 
     public String getAbbreviation() {
