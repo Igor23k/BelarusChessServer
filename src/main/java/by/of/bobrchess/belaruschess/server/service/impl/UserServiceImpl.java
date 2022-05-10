@@ -7,7 +7,6 @@ import by.of.bobrchess.belaruschess.server.exception.UserUpdateException;
 import by.of.bobrchess.belaruschess.server.repository.UserRepository;
 import by.of.bobrchess.belaruschess.server.service.UserService;
 import by.of.bobrchess.belaruschess.server.util.Util;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +18,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static by.of.bobrchess.belaruschess.server.util.Constants.ROLE_USER_ID;
-
-import static by.of.bobrchess.belaruschess.server.service.impl.PasswordGeneratorServiceImpl.generateRandomPassword;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -104,8 +101,7 @@ public class UserServiceImpl implements UserService {
 
             repository.updateById(dbUser.getId(), dbUser.getName(), dbUser.getSurname(),
                     dbUser.getPatronymic(), dbUser.getBirthday(), dbUser.getEmail(),
-                    Util.getEncodedPassword(newPassword), dbUser.getBeCoach(),
-                    dbUser.getBeAdmin(), dbUser.getBeOrganizer(), dbUser.getBeMale(),
+                    Util.getEncodedPassword(newPassword), dbUser.getBeMale(),
                     dbUser.getRank().getId(), dbUser.getCountry().getId(),
                     dbUser.getRating(), dbUser.getCoach(), dbUser.getImage());
         } catch (Exception e) {
