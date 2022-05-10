@@ -18,13 +18,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import static by.of.bobrchess.belaruschess.server.util.Constants.ROLE_USER_ID;
+
 import static by.of.bobrchess.belaruschess.server.service.impl.PasswordGeneratorServiceImpl.generateRandomPassword;
 
 @Service
 public class UserServiceImpl implements UserService {
-
-    private static final String USER = "USER";
-    private static final String USER_ABBREVIATION = "USER";
 
     @Autowired
     private UserRepository repository;
@@ -88,8 +87,7 @@ public class UserServiceImpl implements UserService {
 
             repository.updateById(user.getId(), user.getName(), user.getSurname(),
                     user.getPatronymic(), user.getBirthday(), user.getEmail(),
-                    user.getPassword(), user.getBeCoach(),
-                    user.getBeAdmin(), user.getBeOrganizer(), user.getBeMale(),
+                    user.getPassword(), user.getBeMale(),
                     user.getRank().getId(), user.getCountry().getId(),
                     user.getRating(), user.getCoach(), user.getImage());
             return getById(user.getId());
@@ -115,14 +113,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private Long getCoachId(User coach) {
-        Long coachId = null;
-        if (coach != null) {
-            coachId = coach.getId();
-        }
-        return coachId;
-    }
-
     private UserRole getStandardUserRole() {
         UserRole userRole = new UserRole();
         userRole.setRole(getStandardRole());
@@ -130,9 +120,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private Role getStandardRole() {
-        Role role = new Role(USER, USER_ABBREVIATION);
-        role.setId(3);
-        return role;
+        return new Role(ROLE_USER_ID);
     }
 
     public void remove(Long id) {

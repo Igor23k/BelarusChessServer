@@ -50,16 +50,7 @@ public class User {
     @Column(name = "u_password", nullable = false, length = 32)
     private String password;
 
-    @Column(name = "u_is_coach", nullable = false)
-    private Boolean beCoach;
-
-    @Column(name = "u_is_admin", nullable = false)
-    private Boolean beAdmin;
-
-    @Column(name = "u_is_organizer", nullable = false)
-    private Boolean beOrganizer;
-
-    @Column(name = "u_is_Male", nullable = false)
+    @Column(name = "u_is_male", nullable = false)
     private Boolean beMale;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true, cascade = MERGE)
@@ -96,9 +87,8 @@ public class User {
     @Column(name = "u_image", columnDefinition = "MEDIUMBLOB", nullable = true)
     private Byte[] image;
 
-    public User(String name, String surname, String patronymic, String birthday, String email,
-                String password, Boolean beCoach, Boolean beAdmin, Boolean beOrganizer, Rank rank,
-                Country country, List<Place> places, List<UserRole> roles, Byte[] image) {
+    public User(String name, String surname, String patronymic, String birthday, String email, String password,
+                Rank rank, Country country, List<Place> places, List<UserRole> roles, Byte[] image) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -108,9 +98,6 @@ public class User {
         this.rank = rank;
         this.country = country;
         this.places = places;
-        this.beCoach = beCoach;
-        this.beAdmin = beAdmin;
-        this.beOrganizer = beOrganizer;
         this.roles = roles;
         this.image = image;
     }
@@ -166,14 +153,6 @@ public class User {
         this.email = email;
     }
 
-    public Boolean getBeAdmin() {
-        return beAdmin;
-    }
-
-    public void setBeAdmin(Boolean beAdmin) {
-        this.beAdmin = beAdmin;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -220,22 +199,6 @@ public class User {
 
     public void setPlaces(List<Place> places) {
         this.places = places;
-    }
-
-    public Boolean getBeCoach() {
-        return beCoach;
-    }
-
-    public void setBeCoach(Boolean beCoach) {
-        this.beCoach = beCoach;
-    }
-
-    public Boolean getBeOrganizer() {
-        return beOrganizer;
-    }
-
-    public void setBeOrganizer(Boolean beOrganizer) {
-        this.beOrganizer = beOrganizer;
     }
 
     public Boolean getBeMale() {

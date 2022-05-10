@@ -22,6 +22,7 @@ import java.util.Optional;
 
 import static by.of.bobrchess.belaruschess.server.service.impl.PasswordGeneratorServiceImpl.generateRandomPassword;
 import static by.of.bobrchess.belaruschess.server.util.Constants.ROLE_ADMIN;
+import static by.of.bobrchess.belaruschess.server.util.Constants.ROLE_ORGANIZER;
 import static by.of.bobrchess.belaruschess.server.util.Util.*;
 
 @RestController
@@ -44,19 +45,16 @@ public class UserController {
         throw new NoSufficientRightsException();
     }
 
-    @RequestMapping(value = "/api/coaches", method = RequestMethod.GET)
+    @RequestMapping(value = "/coaches", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getCoaches(HttpServletRequest request) {
-        if (hasSufficientRights(request, ROLE_ADMIN)) {
-            return service.getCoaches();
-        }
-        throw new NoSufficientRightsException();
+    public List<User> getCoaches() {
+        return service.getCoaches();
     }
 
     @RequestMapping(value = "/api/referees", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getReferees(HttpServletRequest request) {
-        if (hasSufficientRights(request, ROLE_ADMIN)) {
+        if (hasSufficientRights(request, ROLE_ADMIN) || hasSufficientRights(request, ROLE_ORGANIZER)) {
             return service.getReferees();
         }
         throw new NoSufficientRightsException();
@@ -89,7 +87,7 @@ public class UserController {
         return new UserContext(user, buildTokenMap(accessToken, refreshToken));
     }
 
-    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/updateUser", method = RequestMethod.POST)
     @ResponseBody
     public User updateUser(@RequestPart User user, @Nullable @RequestPart("file") MultipartFile image) throws IOException {
         return Optional.ofNullable(service.updateUser(user, image)).orElseThrow(UserUpdateException::new);
@@ -112,7 +110,6 @@ public class UserController {
     @RequestMapping(value = "/api/me", method = RequestMethod.GET)
     @ResponseBody
     public User get(JwtAuthenticationToken token) {
-        //throw new ExpiredTokenException();
         String email = Optional.ofNullable((String) token.getPrincipal()).orElseThrow(InvalidTokenException::new);
         return Optional.ofNullable(service.getByEmail(email)).orElseThrow(InvalidTokenException::new);
     }

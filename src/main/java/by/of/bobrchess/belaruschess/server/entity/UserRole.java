@@ -6,7 +6,7 @@ import org.hibernate.annotations.Proxy;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 
-import static by.of.bobrchess.belaruschess.server.util.Constants.INCORRECT_PLACE_ID;
+import static by.of.bobrchess.belaruschess.server.util.Constants.INCORRECT_USER_ROLE_ID;
 import static javax.persistence.CascadeType.MERGE;
 
 @Entity
@@ -15,7 +15,7 @@ import static javax.persistence.CascadeType.MERGE;
 public class UserRole {
 
     @Id
-    @Min(value = 1, message = INCORRECT_PLACE_ID)
+    @Min(value = 1, message = INCORRECT_USER_ROLE_ID)
     @Column(name = "ur_id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")

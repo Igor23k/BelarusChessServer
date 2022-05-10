@@ -24,6 +24,7 @@ public class Constants {
     public static final String INCORRECT_RANK_NAME = "Incorrect rank name.";
     public static final String INCORRECT_RANK_ABBREVIATION = "Incorrect rank abbreviation.";
     public static final String INCORRECT_PLACE_ID = "Incorrect place id.";
+    public static final String INCORRECT_USER_ROLE_ID = "Incorrect user role id.";
     public static final String INCORRECT_PLACE_NAME = "Incorrect place name.";
     public static final String INCORRECT_PLACE_CITY = "Incorrect place city.";
     public static final String INCORRECT_PLACE_STREET = "Incorrect place street.";
@@ -41,8 +42,14 @@ public class Constants {
     public static final String INCORRECT_COUNTRY_ABBREVIATION = "Incorrect country abbreviation.";
 
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_ORGANIZER = "ROLE_ORGANIZER";
     public static final String SCOPES = "scopes";
     public static final String TOKEN = "token";
     public static final String REFRESH_TOKEN = "refreshToken";
     public static final String AUTHORITIES = "authorities";
+
+    public static final Integer ROLE_USER_ID = 1;
+    public static final Integer ROLE_COACH_ID = 2;
+    public static final Integer ROLE_ORGANIZER_ID = 3;
+    public static final Integer ROLE_ADMIN_ID = 4;
 }
