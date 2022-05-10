@@ -86,7 +86,7 @@ public class UserController {
         return new UserContext(user, buildTokenMap(accessToken, refreshToken));
     }
 
-    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/updateUser", method = RequestMethod.POST)
     @ResponseBody
     public User updateUser(@RequestPart User user, @Nullable @RequestPart("file") MultipartFile image) throws IOException {
         return Optional.ofNullable(service.updateUser(user, image)).orElseThrow(UserUpdateException::new);
