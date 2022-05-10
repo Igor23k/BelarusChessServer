@@ -5,8 +5,10 @@ import by.of.bobrchess.belaruschess.server.entity.UserRole;
 import by.of.bobrchess.belaruschess.server.exception.NoAssignedRolesException;
 import by.of.bobrchess.belaruschess.server.exception.UserScopesAreEmptyException;
 import by.of.bobrchess.belaruschess.server.security.model.token.JwtToken;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.codec.Hex;
 import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,5 +64,10 @@ public class Util {
         tokenMap.put(TOKEN, accessToken.getToken());
         tokenMap.put(REFRESH_TOKEN, refreshToken.getToken());
         return tokenMap;
+    }
+
+    public static String getEncodedPassword(String password) {
+        String md5Hex = DigestUtils.md5Hex(password);
+        return md5Hex;
     }
 }

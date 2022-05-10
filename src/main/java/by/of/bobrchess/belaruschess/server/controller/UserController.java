@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import static by.of.bobrchess.belaruschess.server.service.impl.PasswordGeneratorServiceImpl.generateRandomPassword;
 import static by.of.bobrchess.belaruschess.server.util.Constants.ROLE_ADMIN;
 import static by.of.bobrchess.belaruschess.server.util.Util.*;
 
@@ -94,13 +95,14 @@ public class UserController {
         return Optional.ofNullable(service.updateUser(user, image)).orElseThrow(UserUpdateException::new);
     }
 
-    @RequestMapping(value = "/api/resetPassword", method = RequestMethod.POST)
+    @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
     @ResponseBody
     public Boolean resetPassword(@RequestBody String email) {
         try {
+            String newPass = generateRandomPassword(8);
             EmailSenderServiceImpl emailSender = new EmailSenderServiceImpl("bobrchess@gmail.com", "cbanrmwaavlakudf");
-            emailSender.send("This is Subject", "TLS: This is test!", "support@devcolibri.com", "n1ceonjke@gmail.com");
-            service.resetPassword(email);
+            emailSender.send("Belarus Chess: your new password!", "Hello!\n\n Your new password is: " + newPass, "support@devcolibri.com", email);
+            service.resetPassword(email, newPass);
             return true;
         } catch (UserUpdateException e) {
             return false;

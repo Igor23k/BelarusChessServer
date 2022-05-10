@@ -16,6 +16,10 @@ public interface UserService {
     User getById(Long id);
     User register(User user, MultipartFile image) throws IOException;
     User updateUser(User user, MultipartFile image);
-    void resetPassword(String email);
+    void resetPassword(String email, String newPassword);
     void remove(Long id);
+
+    static String getEncodedPassword(String password) {
+        return null;
+    }
 }
