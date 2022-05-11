@@ -31,10 +31,6 @@ public class Tournament {
     @Column(name = "tr_name", nullable = false, length = 50)
     private String name;
 
-    @Size(min = 20, max = 100, message = INCORRECT_TOURNAMENT_SHORT_DESCRIPTION)
-    @Column(name = "tr_short_description", nullable = false, length = 100)
-    private String shortDescription;
-
     @Size(min = 100, max = 10000, message = INCORRECT_TOURNAMENT_FULL_DESCRIPTION)
     @Column(name = "tr_full_description", nullable = false, length = 10000)
     private String fullDescription;
@@ -105,14 +101,6 @@ public class Tournament {
         this.finishDate = finishDate;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
     public String getFullDescription() {
         return fullDescription;
     }
@@ -161,10 +149,9 @@ public class Tournament {
         this.createdBy = createdBy;
     }
 
-    public Tournament(@Min(1) Integer toursCount, @Size(min = 8, max = 50) String name, @Size(min = 20, max = 100) String shortDescription, @Size(min = 10, max = 100) String fullDescription, Date startDate, Date finishDate, @Max(30) Integer countPlayersInTeam, Place place, User referee, Byte[] image, User createdBy) {
+    public Tournament(@Min(1) Integer toursCount, @Size(min = 8, max = 50) String name, @Size(min = 10, max = 100) String fullDescription, Date startDate, Date finishDate, @Max(30) Integer countPlayersInTeam, Place place, User referee, Byte[] image, User createdBy) {
         this.toursCount = toursCount;
         this.name = name;
-        this.shortDescription = shortDescription;
         this.fullDescription = fullDescription;
         this.startDate = startDate;
         this.finishDate = finishDate;
