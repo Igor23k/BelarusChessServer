@@ -52,7 +52,7 @@ public class Place {
     private Country country;
 
     @Lob
-    @Column(name = "pl_image", columnDefinition = "MEDIUMBLOB")
+    @Column(name = "pl_image", columnDefinition = "MEDIUMBLOB", nullable = true)
     private Byte[] image;
 
     @ManyToOne(fetch = FetchType.EAGER)

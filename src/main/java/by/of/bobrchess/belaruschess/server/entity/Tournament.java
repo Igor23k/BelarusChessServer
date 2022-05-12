@@ -27,8 +27,8 @@ public class Tournament {
     @Column(name = "tr_tours_count", nullable = false)
     private Integer toursCount;
 
-    @Size(min = 8, max = 50, message = INCORRECT_TOURNAMENT_NAME)
-    @Column(name = "tr_name", nullable = false, length = 50)
+    @Size(min = 8, max = 100, message = INCORRECT_TOURNAMENT_NAME)
+    @Column(name = "tr_name", nullable = false, length = 100)
     private String name;
 
     @Size(min = 100, max = 10000, message = INCORRECT_TOURNAMENT_FULL_DESCRIPTION)

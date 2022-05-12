@@ -36,14 +36,16 @@ public class TournamentServiceImpl implements TournamentService {
         return repository.getById(id);
     }
 
-    public Tournament save(Tournament tournament, MultipartFile image) throws IOException {
+    public Tournament save(Tournament tournament, MultipartFile image, Boolean isImageUpdated) throws IOException {
         if (image != null) {
             tournament.setImage(ArrayUtils.toObject(image.getBytes()));
         }
 
         if (tournament.getId() != null && tournament.getId() != -1) {
+            Byte[] imageArr = isImageUpdated ? tournament.getImage() : repository.getById(tournament.getId()).getImage();
+
             repository.updateById(tournament.getId(), tournament.getCountPlayersInTeam(), tournament.getFinishDate(),
-                    tournament.getFullDescription(), tournament.getImage(), tournament.getName(),
+                    tournament.getFullDescription(), imageArr, tournament.getName(),
                     tournament.getStartDate(), tournament.getPlace().getId(),
                     tournament.getReferee().getId(), tournament.getToursCount(), tournament.getCreatedBy().getId());
             return getById(tournament.getId());

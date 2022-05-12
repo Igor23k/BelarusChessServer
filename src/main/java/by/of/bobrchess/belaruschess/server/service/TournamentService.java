@@ -16,7 +16,7 @@ public interface TournamentService {
 
     Tournament getById(long id);
 
-    Tournament save(Tournament tournament, MultipartFile image) throws IOException;
+    Tournament save(Tournament tournament, MultipartFile image, Boolean isImageUpdated) throws IOException;
 
     void remove(long id);
 

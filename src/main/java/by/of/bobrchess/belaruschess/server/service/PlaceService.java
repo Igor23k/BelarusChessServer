@@ -11,7 +11,7 @@ public interface PlaceService {
 
     Place getById(int id);
 
-    Place save(Place place, MultipartFile image) throws IOException;
+    Place save(Place place, MultipartFile image, Boolean isImageUpdated) throws IOException;
 
     void remove(int id);
 }

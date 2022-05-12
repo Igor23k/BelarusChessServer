@@ -37,8 +37,9 @@ public class TournamentController {
 
     @RequestMapping(value = "/tournament", method = RequestMethod.POST)
     @ResponseBody
-    public Tournament addTournament(@RequestPart Tournament tournament, @Nullable @RequestPart("file") MultipartFile image) throws IOException {
-        return service.save(tournament, image);
+    public Tournament addTournament(@RequestPart Tournament tournament, @Nullable @RequestPart("file") MultipartFile image,
+                                    @RequestPart Boolean isImageUpdated) throws IOException {
+        return service.save(tournament, image, isImageUpdated);
     }
 
     @RequestMapping(value = "/tournament/{id}", method = RequestMethod.DELETE)

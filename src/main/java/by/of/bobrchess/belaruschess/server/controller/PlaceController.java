@@ -2,8 +2,8 @@ package by.of.bobrchess.belaruschess.server.controller;
 
 import by.of.bobrchess.belaruschess.server.entity.Place;
 import by.of.bobrchess.belaruschess.server.service.PlaceService;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,9 +30,8 @@ public class PlaceController {
 
     @RequestMapping(value = "/place", method = RequestMethod.POST)
     @ResponseBody
-    public Place addPlace(@RequestPart Place place, @RequestPart("file") MultipartFile image) throws IOException {
-        place.setImage(ArrayUtils.toObject(image.getBytes()));
-        return service.save(place, image);
+    public Place addPlace(@RequestPart Place place, @Nullable @RequestPart("file") MultipartFile image, @RequestPart Boolean isImageUpdated) throws IOException {
+        return service.save(place, image, isImageUpdated);
     }
 
     @RequestMapping(value = "/place/{id}", method = RequestMethod.DELETE)

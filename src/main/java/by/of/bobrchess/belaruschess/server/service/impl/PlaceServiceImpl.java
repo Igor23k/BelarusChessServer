@@ -25,7 +25,7 @@ public class PlaceServiceImpl implements PlaceService {
         return repository.getOne(id);
     }
 
-    public Place save(Place place, MultipartFile image) throws IOException {
+    public Place save(Place place, MultipartFile image, Boolean isImageUpdated) throws IOException {
         if (image != null) {
             place.setImage(ArrayUtils.toObject(image.getBytes()));
         }
