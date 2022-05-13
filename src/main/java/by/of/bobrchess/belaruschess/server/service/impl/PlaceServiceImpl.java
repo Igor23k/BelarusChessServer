@@ -28,6 +28,8 @@ public class PlaceServiceImpl implements PlaceService {
     public Place save(Place place, MultipartFile image, Boolean isImageUpdated) throws IOException {
         if (image != null) {
             place.setImage(ArrayUtils.toObject(image.getBytes()));
+        } else if (!isImageUpdated) {
+            place.setImage(repository.getOne(place.getId()).getImage());
         }
         return repository.saveAndFlush(place);
     }

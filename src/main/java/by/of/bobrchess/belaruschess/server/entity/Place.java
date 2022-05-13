@@ -39,9 +39,6 @@ public class Place {
     @Column(name = "pl_building", nullable = false, length = 10)
     private String building;
 
-    @Column(name = "pl_approved", nullable = false)
-    private Boolean approved;
-
     @Min(value = 1, message = INCORRECT_PLACE_CAPACITY_SMALL)
     @Max(value = 10000, message = INCORRECT_PLACE_CAPACITY_BIG)
     @Column(name = "pl_capacity", nullable = false)
@@ -115,14 +112,6 @@ public class Place {
         this.country = country;
     }
 
-    public Boolean getApproved() {
-        return approved;
-    }
-
-    public void setApproved(Boolean approved) {
-        this.approved = approved;
-    }
-
     public Byte[] getImage() {
         return image;
     }
@@ -139,14 +128,13 @@ public class Place {
         this.createdBy = createdBy;
     }
 
-    public Place(String name, String city, String street, String building, Integer capacity, Country country, Boolean approved, Byte[] image, User createdBy) {
+    public Place(String name, String city, String street, String building, Integer capacity, Country country, Byte[] image, User createdBy) {
         this.name = name;
         this.city = city;
         this.street = street;
         this.building = building;
         this.capacity = capacity;
         this.country = country;
-        this.approved = approved;
         this.createdBy = createdBy;
         this.image = image;
     }
