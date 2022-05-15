@@ -1,7 +1,7 @@
 package by.of.bobrchess.belaruschess.server.controller;
 
 import by.of.bobrchess.belaruschess.server.entity.Tournament;
-import by.of.bobrchess.belaruschess.server.entity.UserTournamentResult;
+import by.of.bobrchess.belaruschess.server.entity.future.UserTournamentResult;
 import by.of.bobrchess.belaruschess.server.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;

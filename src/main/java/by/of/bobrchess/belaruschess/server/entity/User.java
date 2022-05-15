@@ -70,13 +70,13 @@ public class User {
     @Column(name = "u_coach", nullable = true, length = 61)
     private String coach;
 
-    @OneToMany(cascade = MERGE, fetch = FetchType.EAGER)
+/*    @OneToMany(cascade = MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "user_place", joinColumns = {
             @JoinColumn(name = "u_id", referencedColumnName = "u_id")},
             inverseJoinColumns =
                     {@JoinColumn(name = "pl_id", referencedColumnName = "pl_id")
                     })
-    private List<Place> places;
+    private List<Place> places;*/
 
     @OneToMany(cascade = ALL, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
@@ -88,7 +88,7 @@ public class User {
     private Byte[] image;
 
     public User(String name, String surname, String patronymic, String birthday, String email, String password,
-                Rank rank, Country country, List<Place> places, List<UserRole> roles, Byte[] image) {
+                Rank rank, Country country, List<UserRole> roles, Byte[] image) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -97,7 +97,6 @@ public class User {
         this.password = password;
         this.rank = rank;
         this.country = country;
-        this.places = places;
         this.roles = roles;
         this.image = image;
     }
@@ -191,14 +190,6 @@ public class User {
 
     public void setCoach(String coach) {
         this.coach = coach;
-    }
-
-    public List<Place> getPlaces() {
-        return places;
-    }
-
-    public void setPlaces(List<Place> places) {
-        this.places = places;
     }
 
     public Boolean getBeMale() {

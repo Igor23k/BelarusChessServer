@@ -1,7 +1,7 @@
 package by.of.bobrchess.belaruschess.server.service.impl;
 
 import by.of.bobrchess.belaruschess.server.entity.Tournament;
-import by.of.bobrchess.belaruschess.server.entity.UserTournamentResult;
+import by.of.bobrchess.belaruschess.server.entity.future.UserTournamentResult;
 import by.of.bobrchess.belaruschess.server.repository.TournamentRepository;
 import by.of.bobrchess.belaruschess.server.service.TournamentService;
 import org.apache.commons.lang3.ArrayUtils;
@@ -44,7 +44,7 @@ public class TournamentServiceImpl implements TournamentService {
         if (tournament.getId() != null && tournament.getId() != -1) {
             Byte[] imageArr = isImageUpdated ? tournament.getImage() : repository.getById(tournament.getId()).getImage();
 
-            repository.updateById(tournament.getId(), tournament.getCountPlayersInTeam(), tournament.getFinishDate(),
+            repository.updateById(tournament.getId(), tournament.getFinishDate(),
                     tournament.getFullDescription(), imageArr, tournament.getName(),
                     tournament.getStartDate(), tournament.getPlace().getId(),
                     tournament.getReferee().getId(), tournament.getToursCount(), tournament.getCreatedBy().getId());

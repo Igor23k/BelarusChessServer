@@ -9,7 +9,6 @@ public class Constants {
     public static final String INCORRECT_TOURNAMENT_NAME = "Incorrect tournament name.";
     public static final String INCORRECT_TOURNAMENT_SHORT_DESCRIPTION = "Incorrect tournament short description.";
     public static final String INCORRECT_TOURNAMENT_FULL_DESCRIPTION = "Incorrect tournament full description.";
-    public static final String INCORRECT_TOURNAMENT_COUNT_PLAYERS_IN_TEAM = "Incorrect tournament count players in team.";
     public static final String INCORRECT_USER_NAME = "Incorrect use name.";
     public static final String INCORRECT_USER_SURNAME = "Incorrect user surname.";
     public static final String INCORRECT_USER_PATRONYMIC = "Incorrect user patronymic.";

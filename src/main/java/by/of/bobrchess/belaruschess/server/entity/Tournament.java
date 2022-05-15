@@ -4,7 +4,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -40,10 +39,6 @@ public class Tournament {
 
     @Column(name = "tr_finish", nullable = false)
     private Date finishDate;
-
-    @Max(value = 20, message = INCORRECT_TOURNAMENT_COUNT_PLAYERS_IN_TEAM)
-    @Column(name = "tr_count_players_in_team", nullable = false)
-    private Integer countPlayersInTeam;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tr_place_id", nullable = false)
@@ -109,14 +104,6 @@ public class Tournament {
         this.fullDescription = fullDescription;
     }
 
-    public Integer getCountPlayersInTeam() {
-        return countPlayersInTeam;
-    }
-
-    public void setCountPlayersInTeam(Integer countPlayersInTeam) {
-        this.countPlayersInTeam = countPlayersInTeam;
-    }
-
     public Place getPlace() {
         return place;
     }
@@ -149,13 +136,12 @@ public class Tournament {
         this.createdBy = createdBy;
     }
 
-    public Tournament(@Min(1) Integer toursCount, @Size(min = 8, max = 50) String name, @Size(min = 10, max = 100) String fullDescription, Date startDate, Date finishDate, @Max(30) Integer countPlayersInTeam, Place place, User referee, Byte[] image, User createdBy) {
+    public Tournament(@Min(1) Integer toursCount, @Size(min = 8, max = 50) String name, @Size(min = 10, max = 100) String fullDescription, Date startDate, Date finishDate, Place place, User referee, Byte[] image, User createdBy) {
         this.toursCount = toursCount;
         this.name = name;
         this.fullDescription = fullDescription;
         this.startDate = startDate;
         this.finishDate = finishDate;
-        this.countPlayersInTeam = countPlayersInTeam;
         this.place = place;
         this.referee = referee;
         this.createdBy = createdBy;

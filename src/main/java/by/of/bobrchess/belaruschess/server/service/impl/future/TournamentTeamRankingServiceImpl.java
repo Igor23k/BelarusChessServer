@@ -1,8 +1,8 @@
-package by.of.bobrchess.belaruschess.server.service.impl;
+package by.of.bobrchess.belaruschess.server.service.impl.future;
 
-import by.of.bobrchess.belaruschess.server.entity.TournamentTeamRanking;
-import by.of.bobrchess.belaruschess.server.repository.TournamentTeamRankingRepository;
-import by.of.bobrchess.belaruschess.server.service.TournamentTeamRankingService;
+import by.of.bobrchess.belaruschess.server.entity.future.TournamentTeamRanking;
+import by.of.bobrchess.belaruschess.server.repository.future.TournamentTeamRankingRepository;
+import by.of.bobrchess.belaruschess.server.service.future.TournamentTeamRankingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

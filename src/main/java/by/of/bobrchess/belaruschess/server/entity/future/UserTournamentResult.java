@@ -1,4 +1,4 @@
-package by.of.bobrchess.belaruschess.server.entity;
+package by.of.bobrchess.belaruschess.server.entity.future;
 
 public class UserTournamentResult {
 
