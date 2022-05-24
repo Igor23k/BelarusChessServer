@@ -1,5 +1,8 @@
-package by.of.bobrchess.belaruschess.server.entity;
+package by.of.bobrchess.belaruschess.server.entity.lite;
 
+import by.of.bobrchess.belaruschess.server.entity.Country;
+import by.of.bobrchess.belaruschess.server.entity.Rank;
+import by.of.bobrchess.belaruschess.server.entity.UserRole;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,7 +21,7 @@ import static javax.persistence.CascadeType.MERGE;
 @Entity
 @Proxy(lazy = false)
 @Table(name = "user")
-public class User {
+public class UserLite {
 
     @Id
     @Min(value = 1)
@@ -83,12 +86,8 @@ public class User {
     @JoinColumn(name = "u_role", referencedColumnName = "u_id")
     private List<UserRole> roles;
 
-    @Lob
-    @Column(name = "u_image", columnDefinition = "MEDIUMBLOB", nullable = true)
-    private Byte[] image;
-
-    public User(String name, String surname, String patronymic, String birthday, String email, String password,
-                Rank rank, Country country, List<UserRole> roles, Byte[] image) {
+    public UserLite(String name, String surname, String patronymic, String birthday, String email, String password,
+                    Rank rank, Country country, List<UserRole> roles) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -98,10 +97,9 @@ public class User {
         this.rank = rank;
         this.country = country;
         this.roles = roles;
-        this.image = image;
     }
 
-    public User() {
+    public UserLite() {
     }
 
     public Long getId() {
@@ -206,13 +204,5 @@ public class User {
 
     public void setRoles(List<UserRole> roles) {
         this.roles = roles;
-    }
-
-    public Byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(Byte[] image) {
-        this.image = image;
     }
 }

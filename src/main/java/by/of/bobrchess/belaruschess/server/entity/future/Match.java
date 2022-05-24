@@ -1,5 +1,6 @@
-package by.of.bobrchess.belaruschess.server.entity;
+package by.of.bobrchess.belaruschess.server.entity.future;
 
+import by.of.bobrchess.belaruschess.server.entity.Tournament;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 

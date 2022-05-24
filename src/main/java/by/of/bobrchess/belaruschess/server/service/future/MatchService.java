@@ -1,6 +1,6 @@
-package by.of.bobrchess.belaruschess.server.service;
+package by.of.bobrchess.belaruschess.server.service.future;
 
-import by.of.bobrchess.belaruschess.server.entity.Match;
+import by.of.bobrchess.belaruschess.server.entity.future.Match;
 
 import java.util.List;
 

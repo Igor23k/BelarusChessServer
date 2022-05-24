@@ -1,7 +1,9 @@
 package by.of.bobrchess.belaruschess.server.service.impl;
 
 import by.of.bobrchess.belaruschess.server.entity.Tournament;
-import by.of.bobrchess.belaruschess.server.entity.UserTournamentResult;
+import by.of.bobrchess.belaruschess.server.entity.future.UserTournamentResult;
+import by.of.bobrchess.belaruschess.server.entity.lite.TournamentLite;
+import by.of.bobrchess.belaruschess.server.repository.lite.TournamentLiteRepository;
 import by.of.bobrchess.belaruschess.server.repository.TournamentRepository;
 import by.of.bobrchess.belaruschess.server.service.TournamentService;
 import org.apache.commons.lang3.ArrayUtils;
@@ -19,12 +21,19 @@ public class TournamentServiceImpl implements TournamentService {
     @Autowired
     private TournamentRepository repository;
 
+    @Autowired
+    private TournamentLiteRepository repositoryLite;
+
     public List<Tournament> getAll() {
         return repository.findAll();
     }
 
     public List<Tournament> getUpcoming(Boolean upcomingOnly) {
         return repository.getUpcomingTournaments(upcomingOnly);
+    }
+
+    public List<TournamentLite> getUpcomingLite(Boolean upcomingOnly) {
+        return repositoryLite.getUpcomingTournamentsLite(upcomingOnly);
     }
 
     @Override
@@ -36,15 +45,17 @@ public class TournamentServiceImpl implements TournamentService {
         return repository.getById(id);
     }
 
-    public Tournament save(Tournament tournament, MultipartFile image) throws IOException {
+    public Tournament save(Tournament tournament, MultipartFile image, Boolean isImageUpdated) throws IOException {
         if (image != null) {
             tournament.setImage(ArrayUtils.toObject(image.getBytes()));
         }
 
         if (tournament.getId() != null && tournament.getId() != -1) {
-            repository.updateById(tournament.getId(), tournament.getCountPlayersInTeam(), tournament.getFinishDate(),
-                    tournament.getFullDescription(), tournament.getImage(), tournament.getName(),
-                    tournament.getShortDescription(), tournament.getStartDate(), tournament.getPlace().getId(),
+            Byte[] imageArr = isImageUpdated ? tournament.getImage() : repository.getById(tournament.getId()).getImage();
+
+            repository.updateById(tournament.getId(), tournament.getFinishDate(),
+                    tournament.getFullDescription(), imageArr, tournament.getName(),
+                    tournament.getStartDate(), tournament.getPlace().getId(),
                     tournament.getReferee().getId(), tournament.getToursCount(), tournament.getCreatedBy().getId());
             return getById(tournament.getId());
         } else {

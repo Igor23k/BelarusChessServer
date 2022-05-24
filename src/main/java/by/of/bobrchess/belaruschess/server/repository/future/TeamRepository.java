@@ -1,7 +1,6 @@
-package by.of.bobrchess.belaruschess.server.repository;
+package by.of.bobrchess.belaruschess.server.repository.future;
 
-import by.of.bobrchess.belaruschess.server.entity.Team;
-import by.of.bobrchess.belaruschess.server.entity.Tournament;
+import by.of.bobrchess.belaruschess.server.entity.future.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

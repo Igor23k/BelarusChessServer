@@ -1,5 +1,6 @@
-package by.of.bobrchess.belaruschess.server.entity;
+package by.of.bobrchess.belaruschess.server.entity.lite;
 
+import by.of.bobrchess.belaruschess.server.entity.User;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
@@ -13,7 +14,7 @@ import static by.of.bobrchess.belaruschess.server.util.Constants.*;
 @Entity
 @Proxy(lazy = false)
 @Table(name = "tournament")
-public class Tournament {
+public class TournamentLite {
 
     @Id
     @Min(value = 1, message = INCORRECT_TOURNAMENT_ID)
@@ -42,15 +43,15 @@ public class Tournament {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tr_place_id", nullable = false)
-    private Place place;
+    private PlaceLite place;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tr_referee_id", nullable = false)
-    private User referee;
+    private UserLite referee;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tr_created_by", nullable = false)
-    private User createdBy;
+    private UserLite createdBy;
 
     @Lob
     @Column(name = "tr_image", columnDefinition = "MEDIUMBLOB", nullable = true)
@@ -104,20 +105,28 @@ public class Tournament {
         this.fullDescription = fullDescription;
     }
 
-    public Place getPlace() {
+    public PlaceLite getPlace() {
         return place;
     }
 
-    public void setPlace(Place place) {
+    public void setPlace(PlaceLite place) {
         this.place = place;
     }
 
-    public User getReferee() {
+    public UserLite getReferee() {
         return referee;
     }
 
-    public void setReferee(User referee) {
+    public void setReferee(UserLite referee) {
         this.referee = referee;
+    }
+
+    public UserLite getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(UserLite createdBy) {
+        this.createdBy = createdBy;
     }
 
     public Byte[] getImage() {
@@ -128,15 +137,7 @@ public class Tournament {
         this.image = image;
     }
 
-    public User getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Tournament(@Min(1) Integer toursCount, @Size(min = 8, max = 50) String name, @Size(min = 10, max = 100) String fullDescription, Date startDate, Date finishDate, Place place, User referee, Byte[] image, User createdBy) {
+    public TournamentLite(@Min(1) Integer toursCount, @Size(min = 8, max = 50) String name, @Size(min = 10, max = 100) String fullDescription, Date startDate, Date finishDate, PlaceLite place, UserLite referee, Byte[] image, UserLite createdBy) {
         this.toursCount = toursCount;
         this.name = name;
         this.fullDescription = fullDescription;
@@ -146,8 +147,9 @@ public class Tournament {
         this.referee = referee;
         this.createdBy = createdBy;
         this.image = image;
+
     }
 
-    public Tournament() {
+    public TournamentLite() {
     }
 }

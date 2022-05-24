@@ -1,7 +1,7 @@
 package by.of.bobrchess.belaruschess.server.controller;
 
-import by.of.bobrchess.belaruschess.server.entity.Match;
-import by.of.bobrchess.belaruschess.server.service.MatchService;
+import by.of.bobrchess.belaruschess.server.entity.future.Match;
+import by.of.bobrchess.belaruschess.server.service.future.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

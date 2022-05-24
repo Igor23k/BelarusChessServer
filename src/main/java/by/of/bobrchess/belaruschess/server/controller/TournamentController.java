@@ -1,7 +1,8 @@
 package by.of.bobrchess.belaruschess.server.controller;
 
 import by.of.bobrchess.belaruschess.server.entity.Tournament;
-import by.of.bobrchess.belaruschess.server.entity.UserTournamentResult;
+import by.of.bobrchess.belaruschess.server.entity.future.UserTournamentResult;
+import by.of.bobrchess.belaruschess.server.entity.lite.TournamentLite;
 import by.of.bobrchess.belaruschess.server.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -23,6 +24,12 @@ public class TournamentController {
         return service.getUpcoming(upcomingOnly);
     }
 
+    @RequestMapping(value = "/tournaments-lite", method = RequestMethod.GET)
+    @ResponseBody
+    public List<TournamentLite> getAllTournamentsLite(@RequestParam Boolean upcomingOnly) {
+        return service.getUpcomingLite(upcomingOnly);
+    }
+
     @RequestMapping(value = "/searchTournaments", method = RequestMethod.GET)
     @ResponseBody
     public List<Tournament> searchTournaments(@RequestParam String text) {
@@ -37,8 +44,9 @@ public class TournamentController {
 
     @RequestMapping(value = "/tournament", method = RequestMethod.POST)
     @ResponseBody
-    public Tournament addTournament(@RequestPart Tournament tournament, @Nullable @RequestPart("file") MultipartFile image) throws IOException {
-        return service.save(tournament, image);
+    public Tournament addTournament(@RequestPart Tournament tournament, @Nullable @RequestPart("file") MultipartFile image,
+                                    @RequestPart Boolean isImageUpdated) throws IOException {
+        return service.save(tournament, image, isImageUpdated);
     }
 
     @RequestMapping(value = "/tournament/{id}", method = RequestMethod.DELETE)

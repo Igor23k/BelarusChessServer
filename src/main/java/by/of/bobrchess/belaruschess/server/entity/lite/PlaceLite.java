@@ -1,6 +1,6 @@
-package by.of.bobrchess.belaruschess.server.entity;
+package by.of.bobrchess.belaruschess.server.entity.lite;
 
-import by.of.bobrchess.belaruschess.server.entity.lite.UserLite;
+import by.of.bobrchess.belaruschess.server.entity.Country;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
@@ -15,7 +15,7 @@ import static javax.persistence.CascadeType.MERGE;
 @Entity
 @Proxy(lazy = false)
 @Table(name = "place")
-public class Place {
+public class PlaceLite {
 
     @Id
     @Min(value = 1, message = INCORRECT_PLACE_ID)
@@ -48,14 +48,6 @@ public class Place {
     @ManyToOne(fetch = FetchType.EAGER, cascade = MERGE)
     @JoinColumn(name = "pl_country_id", nullable = false)
     private Country country;
-
-    @Lob
-    @Column(name = "pl_image", columnDefinition = "MEDIUMBLOB", nullable = true)
-    private Byte[] image;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "pl_created_by", nullable = false)
-    private UserLite createdBy;
 
     public Integer getId() {
         return id;
@@ -113,33 +105,15 @@ public class Place {
         this.country = country;
     }
 
-    public Byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(Byte[] image) {
-        this.image = image;
-    }
-
-    public UserLite getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UserLite createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Place(String name, String city, String street, String building, Integer capacity, Country country, Byte[] image, UserLite createdBy) {
+    public PlaceLite(String name, String city, String street, String building, Integer capacity, Country country) {
         this.name = name;
         this.city = city;
         this.street = street;
         this.building = building;
         this.capacity = capacity;
         this.country = country;
-        this.createdBy = createdBy;
-        this.image = image;
     }
 
-    public Place() {
+    public PlaceLite() {
     }
 }

@@ -1,8 +1,8 @@
 server.port: 80
 spring.profiles: default
 security.jwt:
-  tokenExpirationTime: 15 # Number of minutes
-  refreshTokenExpTime: 60 # Minutes
+  tokenExpirationTime: 2880 # Number of minutes / 1 week
+  refreshTokenExpTime: 263520 # Minutes / 183 days
   tokenIssuer: http://bobrchess.of.by
   tokenSigningKey: aaaa
 spring.jpa:
