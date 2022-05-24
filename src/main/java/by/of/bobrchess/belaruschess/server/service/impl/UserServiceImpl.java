@@ -3,8 +3,10 @@ package by.of.bobrchess.belaruschess.server.service.impl;
 import by.of.bobrchess.belaruschess.server.entity.Role;
 import by.of.bobrchess.belaruschess.server.entity.User;
 import by.of.bobrchess.belaruschess.server.entity.UserRole;
+import by.of.bobrchess.belaruschess.server.entity.lite.UserLite;
 import by.of.bobrchess.belaruschess.server.exception.UserUpdateException;
 import by.of.bobrchess.belaruschess.server.repository.UserRepository;
+import by.of.bobrchess.belaruschess.server.repository.lite.UserLiteRepository;
 import by.of.bobrchess.belaruschess.server.service.UserService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +26,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private UserLiteRepository repositoryLite;
+
     public List<User> getAll() {
         return repository.findAll();
+    }
+
+    public List<UserLite> getAllLite() {
+        return repositoryLite.findAll();
     }
 
     @Override

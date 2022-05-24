@@ -2,6 +2,7 @@ package by.of.bobrchess.belaruschess.server.controller;
 
 import by.of.bobrchess.belaruschess.server.entity.User;
 import by.of.bobrchess.belaruschess.server.entity.UserContext;
+import by.of.bobrchess.belaruschess.server.entity.lite.UserLite;
 import by.of.bobrchess.belaruschess.server.exception.InvalidTokenException;
 import by.of.bobrchess.belaruschess.server.exception.NoSufficientRightsException;
 import by.of.bobrchess.belaruschess.server.exception.UserAlreadyExistsException;
@@ -40,6 +41,15 @@ public class UserController {
     public List<User> getAllUsers(HttpServletRequest request) {
         if (hasSufficientRights(request, ROLE_ADMIN)) {
             return service.getAll();
+        }
+        throw new NoSufficientRightsException();
+    }
+
+    @RequestMapping(value = "/api/allUsers-lite", method = RequestMethod.GET)
+    @ResponseBody
+    public List<UserLite> getAllUsersLite(HttpServletRequest request) {
+        if (hasSufficientRights(request, ROLE_ADMIN)) {
+            return service.getAllLite();
         }
         throw new NoSufficientRightsException();
     }

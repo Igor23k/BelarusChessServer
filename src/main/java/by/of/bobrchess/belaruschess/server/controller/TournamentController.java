@@ -2,6 +2,7 @@ package by.of.bobrchess.belaruschess.server.controller;
 
 import by.of.bobrchess.belaruschess.server.entity.Tournament;
 import by.of.bobrchess.belaruschess.server.entity.future.UserTournamentResult;
+import by.of.bobrchess.belaruschess.server.entity.lite.TournamentLite;
 import by.of.bobrchess.belaruschess.server.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -21,6 +22,12 @@ public class TournamentController {
     @ResponseBody
     public List<Tournament> getAllTournaments(@RequestParam Boolean upcomingOnly) {
         return service.getUpcoming(upcomingOnly);
+    }
+
+    @RequestMapping(value = "/tournaments-lite", method = RequestMethod.GET)
+    @ResponseBody
+    public List<TournamentLite> getAllTournamentsLite(@RequestParam Boolean upcomingOnly) {
+        return service.getUpcomingLite(upcomingOnly);
     }
 
     @RequestMapping(value = "/searchTournaments", method = RequestMethod.GET)

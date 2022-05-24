@@ -1,6 +1,7 @@
 package by.of.bobrchess.belaruschess.server.controller;
 
 import by.of.bobrchess.belaruschess.server.entity.Place;
+import by.of.bobrchess.belaruschess.server.entity.lite.PlaceLite;
 import by.of.bobrchess.belaruschess.server.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -20,6 +21,12 @@ public class PlaceController {
     @ResponseBody
     public List<Place> getAllPlaces() {
         return service.getAll();
+    }
+
+    @RequestMapping(value = "/places-lite", method = RequestMethod.GET)
+    @ResponseBody
+    public List<PlaceLite> getAllPlacesLite() {
+        return service.getAllLite();
     }
 
     @RequestMapping(value = "/place/{id}", method = RequestMethod.GET)

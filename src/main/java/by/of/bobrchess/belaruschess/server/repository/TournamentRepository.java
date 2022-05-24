@@ -1,6 +1,7 @@
 package by.of.bobrchess.belaruschess.server.repository;
 
 import by.of.bobrchess.belaruschess.server.entity.Tournament;
+import by.of.bobrchess.belaruschess.server.entity.lite.TournamentLite;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -45,4 +46,7 @@ public interface TournamentRepository extends JpaRepository<Tournament, Integer>
 
     @Query(value = GET_UPCOMING_TOURNAMENTS, nativeQuery = true)
     List<Tournament> getUpcomingTournaments(Boolean upcomingOnly);
+
+    @Query(value = GET_UPCOMING_TOURNAMENTS, nativeQuery = true)
+    List<TournamentLite> getUpcomingTournamentsLite(Boolean upcomingOnly);
 }

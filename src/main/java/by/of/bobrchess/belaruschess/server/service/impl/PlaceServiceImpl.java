@@ -1,7 +1,9 @@
 package by.of.bobrchess.belaruschess.server.service.impl;
 
 import by.of.bobrchess.belaruschess.server.entity.Place;
+import by.of.bobrchess.belaruschess.server.entity.lite.PlaceLite;
 import by.of.bobrchess.belaruschess.server.repository.PlaceRepository;
+import by.of.bobrchess.belaruschess.server.repository.lite.PlaceLiteRepository;
 import by.of.bobrchess.belaruschess.server.service.PlaceService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,15 @@ public class PlaceServiceImpl implements PlaceService {
     @Autowired
     private PlaceRepository repository;
 
+    @Autowired
+    private PlaceLiteRepository repositoryLite;
+
     public List<Place> getAll() {
         return repository.findAll();
+    }
+
+    public List<PlaceLite> getAllLite() {
+        return repositoryLite.findAll();
     }
 
     public Place getById(int id) {
