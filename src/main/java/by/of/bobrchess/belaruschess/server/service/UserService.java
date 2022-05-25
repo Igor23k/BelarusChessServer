@@ -20,8 +20,4 @@ public interface UserService {
     User updateUser(User user, MultipartFile image);
     void resetPassword(String email, String newPassword);
     void remove(Long id);
-
-    static String getEncodedPassword(String password) {
-        return null;
-    }
 }

@@ -29,7 +29,7 @@ import static by.of.bobrchess.belaruschess.server.util.Util.*;
 public class UserController {
 
     private static final String EMAIL_SUBJECT = "Belarus Chess: Активация нового пароля";
-    private static final String EMAIL_TEXT_PATTERN = "Здравствуйте!\n\nВы получили это письмо потому, что вы (либо кто-то, выдающий себя за вас) попросили выслать новый пароль к вашей учётной записи. Если вы не просили выслать пароль, то не обращайте внимания на это письмо.\n\nВ настоящий момент вы можете входить в систему, используя следующий пароль:%s";
+    private static final String EMAIL_TEXT_PATTERN = "Здравствуйте, %s!\n\nВы получили это письмо потому, что вы (либо кто-то, выдающий себя за вас) попросили выслать новый пароль к вашей учётной записи. Если вы не просили выслать пароль, то не обращайте внимания на это письмо.\n\nВ настоящий момент вы можете входить в систему, используя следующий пароль:%s";
 
     private final JwtTokenFactory tokenFactory;
     private final UserService service;
@@ -109,10 +109,15 @@ public class UserController {
     @ResponseBody
     public Boolean resetPassword(@RequestBody String email) {
         try {
-            String newPassword = generateRandomPassword();
-            new EmailSenderServiceImpl().send(EMAIL_SUBJECT, String.format(EMAIL_TEXT_PATTERN, newPassword), BELARUS_CHESS_EMAIL, email);
-            service.resetPassword(email, newPassword);
-            return true;
+            User user = service.getByEmail(email);
+
+            if (user != null) {
+                String newPassword = generateRandomPassword();
+                new EmailSenderServiceImpl().send(EMAIL_SUBJECT, String.format(EMAIL_TEXT_PATTERN, user.getName(), newPassword), BELARUS_CHESS_EMAIL, email);
+                service.resetPassword(email, newPassword);
+                return true;
+            }
+            return false;
         } catch (UserUpdateException e) {
             return false;
         }
