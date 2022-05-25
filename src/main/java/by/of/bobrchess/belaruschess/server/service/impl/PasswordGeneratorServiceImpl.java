@@ -1,12 +1,12 @@
 package by.of.bobrchess.belaruschess.server.service.impl;
 
 import by.of.bobrchess.belaruschess.server.service.PasswordGeneratorService;
+import org.apache.commons.lang3.StringUtils;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PasswordGeneratorServiceImpl implements PasswordGeneratorService {
 
@@ -18,27 +18,24 @@ public class PasswordGeneratorServiceImpl implements PasswordGeneratorService {
     private static final String PASSWORD_ALLOW_BASE = CHAR_LOWER + CHAR_UPPER + NUMBER + OTHER_CHAR;
     private static final String PASSWORD_ALLOW_BASE_SHUFFLE = shuffleString(PASSWORD_ALLOW_BASE);
     private static final String PASSWORD_ALLOW = PASSWORD_ALLOW_BASE_SHUFFLE;
+    private static final byte PASSWORD_LENGTH = 8;
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
-    private static SecureRandom random = new SecureRandom();
+    public static String generateRandomPassword() {
+        StringBuilder newPassword = new StringBuilder(PASSWORD_LENGTH);
 
-    public static String generateRandomPassword(int length) {
-        if (length < 1) throw new IllegalArgumentException();
-        StringBuilder newPassword = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            int rndCharAt = random.nextInt(PASSWORD_ALLOW.length());
+        for (int i = 0; i < PASSWORD_LENGTH; i++) {
+            int rndCharAt = SECURE_RANDOM.nextInt(PASSWORD_ALLOW.length());
             char rndChar = PASSWORD_ALLOW.charAt(rndCharAt);
-// отладка
-            System.out.format("%dt:t%c%n", rndCharAt, rndChar);
             newPassword.append(rndChar);
         }
         return newPassword.toString();
     }
 
-    // перемешать
     public static String shuffleString(String string) {
-        List letters = Arrays.asList(string.split(""));
+        List<String> letters = Arrays.asList(string.split(StringUtils.EMPTY));
         Collections.shuffle(letters);
-        return (String) letters.stream().collect(Collectors.joining());
+        return String.join(StringUtils.EMPTY, letters);
     }
 
 }

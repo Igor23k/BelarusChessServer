@@ -51,4 +51,7 @@ public class Constants {
     public static final Integer ROLE_COACH_ID = 2;
     public static final Integer ROLE_ORGANIZER_ID = 3;
     public static final Integer ROLE_ADMIN_ID = 4;
+
+    public static final  String BELARUS_CHESS_EMAIL = "bobrchess@gmail.com";
+
 }

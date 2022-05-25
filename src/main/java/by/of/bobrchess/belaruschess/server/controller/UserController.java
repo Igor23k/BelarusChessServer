@@ -22,12 +22,14 @@ import java.util.List;
 import java.util.Optional;
 
 import static by.of.bobrchess.belaruschess.server.service.impl.PasswordGeneratorServiceImpl.generateRandomPassword;
-import static by.of.bobrchess.belaruschess.server.util.Constants.ROLE_ADMIN;
-import static by.of.bobrchess.belaruschess.server.util.Constants.ROLE_ORGANIZER;
+import static by.of.bobrchess.belaruschess.server.util.Constants.*;
 import static by.of.bobrchess.belaruschess.server.util.Util.*;
 
 @RestController
 public class UserController {
+
+    private static final String EMAIL_SUBJECT = "Belarus Chess: Активация нового пароля";
+    private static final String EMAIL_TEXT_PATTERN = "Здравствуйте!\n\nВы получили это письмо потому, что вы (либо кто-то, выдающий себя за вас) попросили выслать новый пароль к вашей учётной записи. Если вы не просили выслать пароль, то не обращайте внимания на это письмо.\n\nВ настоящий момент вы можете входить в систему, используя следующий пароль:%s";
 
     private final JwtTokenFactory tokenFactory;
     private final UserService service;
@@ -99,7 +101,7 @@ public class UserController {
 
     @RequestMapping(value = "/api/updateUser", method = RequestMethod.POST)
     @ResponseBody
-    public User updateUser(@RequestPart User user, @Nullable @RequestPart("file") MultipartFile image) throws IOException {
+    public User updateUser(@RequestPart User user, @Nullable @RequestPart("file") MultipartFile image) {
         return Optional.ofNullable(service.updateUser(user, image)).orElseThrow(UserUpdateException::new);
     }
 
@@ -107,10 +109,9 @@ public class UserController {
     @ResponseBody
     public Boolean resetPassword(@RequestBody String email) {
         try {
-            String newPass = generateRandomPassword(8);
-            EmailSenderServiceImpl emailSender = new EmailSenderServiceImpl("bobrchess@gmail.com", "cbanrmwaavlakudf");
-            emailSender.send("Belarus Chess: your new password!", "Hello!\n\n Your new password is: " + newPass, "support@devcolibri.com", email);
-            service.resetPassword(email, newPass);
+            String newPassword = generateRandomPassword();
+            new EmailSenderServiceImpl().send(EMAIL_SUBJECT, String.format(EMAIL_TEXT_PATTERN, newPassword), BELARUS_CHESS_EMAIL, email);
+            service.resetPassword(email, newPassword);
             return true;
         } catch (UserUpdateException e) {
             return false;
